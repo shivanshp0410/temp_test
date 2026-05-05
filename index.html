@@ -1,224 +1,654 @@
-// Unit 1 Q&A Data
-const unit1 = [
-  {
-    q: "What is the purpose of semantic elements in HTML5?",
-    marks: 2,
-    a: `<p>Semantic elements in HTML5 clearly describe their meaning to both the browser and the developer. They define the role and structure of the content on a web page.</p>
-<div class="tip">💡 Semantic = meaningful tags that describe content purpose</div>
-<table>
-  <tr><th>Semantic Element</th><th>Purpose</th></tr>
-  <tr><td>&lt;header&gt;</td><td>Top section / site header</td></tr>
-  <tr><td>&lt;nav&gt;</td><td>Navigation links</td></tr>
-  <tr><td>&lt;main&gt;</td><td>Main content area</td></tr>
-  <tr><td>&lt;article&gt;</td><td>Self-contained content</td></tr>
-  <tr><td>&lt;section&gt;</td><td>Thematic grouping</td></tr>
-  <tr><td>&lt;footer&gt;</td><td>Bottom section</td></tr>
-  <tr><td>&lt;aside&gt;</td><td>Side content / sidebar</td></tr>
-  <tr><td>&lt;figure&gt;</td><td>Image with caption</td></tr>
-</table>
-<div class="note">📌 Benefits: Better SEO, Accessibility (screen readers), Readable code, Browser understanding</div>`
-  },
-  {
-    q: "Name two multimedia elements supported by HTML5.",
-    marks: 2,
-    a: `<p>HTML5 introduced native support for multimedia without requiring plugins like Flash.</p>
-<p><strong>1. &lt;audio&gt;</strong> – Embeds audio content</p>
-<pre><code>&lt;audio controls&gt;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web Technology with UI/UX — Answer Bank</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --card: #161620;
+    --border: #252535;
+    --text: #e8e8f0;
+    --muted: #777790;
+    --u1: #00d4ff; --u1-dim: rgba(0,212,255,0.08); --u1-glow: rgba(0,212,255,0.15);
+    --u2: #a855f7; --u2-dim: rgba(168,85,247,0.08); --u2-glow: rgba(168,85,247,0.15);
+    --u3: #f59e0b; --u3-dim: rgba(245,158,11,0.08); --u3-glow: rgba(245,158,11,0.15);
+    --u4: #10b981; --u4-dim: rgba(16,185,129,0.08); --u4-glow: rgba(16,185,129,0.15);
+    --u5: #f43f5e; --u5-dim: rgba(244,63,94,0.08); --u5-glow: rgba(244,63,94,0.15);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #0a0a0f 0%, #0d0d1a 50%, #0a0f0a 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 48px 24px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 300px;
+    background: radial-gradient(ellipse, rgba(0,212,255,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(0,212,255,0.1);
+    border: 1px solid rgba(0,212,255,0.3);
+    color: var(--u1);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(24px, 5vw, 42px);
+    font-weight: 800;
+    line-height: 1.15;
+    background: linear-gradient(135deg, #fff 30%, #aab 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+  .hero-meta {
+    color: var(--muted);
+    font-size: 13px;
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 6px; }
+  /* TABS */
+  .tab-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,15,0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tab-bar::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    padding: 16px 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.u1.active { color: var(--u1); border-color: var(--u1); }
+  .tab-btn.u2.active { color: var(--u2); border-color: var(--u2); }
+  .tab-btn.u3.active { color: var(--u3); border-color: var(--u3); }
+  .tab-btn.u4.active { color: var(--u4); border-color: var(--u4); }
+  .tab-btn.u5.active { color: var(--u5); border-color: var(--u5); }
+  /* CONTENT */
+  .units { max-width: 960px; margin: 0 auto; padding: 32px 24px 80px; }
+  .unit { display: none; }
+  .unit.active { display: block; }
+  .unit-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+    padding: 20px 24px;
+    border-radius: 12px;
+    border-left: 4px solid currentColor;
+  }
+  .u1 .unit-header { background: var(--u1-dim); color: var(--u1); border-color: var(--u1); }
+  .u2 .unit-header { background: var(--u2-dim); color: var(--u2); border-color: var(--u2); }
+  .u3 .unit-header { background: var(--u3-dim); color: var(--u3); border-color: var(--u3); }
+  .u4 .unit-header { background: var(--u4-dim); color: var(--u4); border-color: var(--u4); }
+  .u5 .unit-header { background: var(--u5-dim); color: var(--u5); border-color: var(--u5); }
+  .unit-header .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    opacity: 0.6;
+  }
+  .unit-header h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    flex: 1;
+    color: inherit;
+  }
+  .unit-header .q-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    background: rgba(255,255,255,0.08);
+    padding: 3px 10px;
+    border-radius: 20px;
+    color: inherit;
+  }
+  /* ACCORDION */
+  .qa-list { display: flex; flex-direction: column; gap: 10px; }
+  .qa-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .u1 .qa-item:hover { border-color: var(--u1); }
+  .u2 .qa-item:hover { border-color: var(--u2); }
+  .u3 .qa-item:hover { border-color: var(--u3); }
+  .u4 .qa-item:hover { border-color: var(--u4); }
+  .u5 .qa-item:hover { border-color: var(--u5); }
+  .qa-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 20px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+  .qa-header:hover { background: rgba(255,255,255,0.02); }
+  .qa-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    min-width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-weight: 600;
+    margin-top: 2px;
+  }
+  .u1 .qa-num { background: var(--u1-dim); color: var(--u1); }
+  .u2 .qa-num { background: var(--u2-dim); color: var(--u2); }
+  .u3 .qa-num { background: var(--u3-dim); color: var(--u3); }
+  .u4 .qa-num { background: var(--u4-dim); color: var(--u4); }
+  .u5 .qa-num { background: var(--u5-dim); color: var(--u5); }
+  .qa-q {
+    flex: 1;
+    font-weight: 500;
+    font-size: 14.5px;
+    line-height: 1.5;
+  }
+  .qa-meta {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+  .marks-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 600;
+  }
+  .marks-2 { background: rgba(16,185,129,0.12); color: #10b981; }
+  .marks-3 { background: rgba(59,130,246,0.12); color: #60a5fa; }
+  .marks-4 { background: rgba(245,158,11,0.12); color: #f59e0b; }
+  .marks-5 { background: rgba(168,85,247,0.12); color: #a855f7; }
+  .marks-8 { background: rgba(244,63,94,0.12); color: #f43f5e; }
+  .chevron {
+    width: 20px;
+    height: 20px;
+    color: var(--muted);
+    flex-shrink: 0;
+    margin-top: 4px;
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+  .qa-item.open .chevron { transform: rotate(180deg); }
+  .qa-body {
+    display: none;
+    padding: 0 20px 20px 62px;
+    color: var(--text);
+    font-size: 14.5px;
+    line-height: 1.8;
+    border-top: 1px solid var(--border);
+    margin: 0 20px;
+  }
+  .qa-body.open { display: block; padding-top: 18px; }
+  /* ANSWER CONTENT */
+  .qa-body p { margin-bottom: 12px; }
+  .qa-body ul, .qa-body ol {
+    padding-left: 20px;
+    margin-bottom: 12px;
+  }
+  .qa-body li { margin-bottom: 5px; }
+  .qa-body strong { color: #fff; font-weight: 600; }
+  pre {
+    background: #0d0d16;
+    border: 1px solid #252535;
+    border-radius: 8px;
+    padding: 16px;
+    overflow-x: auto;
+    margin: 14px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    line-height: 1.6;
+  }
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    background: rgba(255,255,255,0.07);
+    padding: 1px 6px;
+    border-radius: 4px;
+    color: #cbd5e1;
+  }
+  pre code { background: none; padding: 0; color: #94d0ff; }
+  pre .kw { color: #c792ea; }
+  pre .str { color: #c3e88d; }
+  pre .cmt { color: #546e7a; font-style: italic; }
+  pre .num { color: #f78c6c; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 13.5px;
+  }
+  th {
+    background: rgba(255,255,255,0.05);
+    padding: 9px 14px;
+    text-align: left;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+  }
+  td {
+    padding: 9px 14px;
+    border: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+  .tip {
+    background: rgba(0,212,255,0.07);
+    border-left: 3px solid var(--u1);
+    border-radius: 0 6px 6px 0;
+    padding: 10px 14px;
+    margin: 12px 0;
+    font-size: 13.5px;
+    color: #94ecff;
+  }
+  .note {
+    background: rgba(59,130,246,0.07);
+    border-left: 3px solid #60a5fa;
+    border-radius: 0 6px 6px 0;
+    padding: 10px 14px;
+    margin: 12px 0;
+    font-size: 13.5px;
+    color: #93c5fd;
+  }
+  .imp {
+    background: rgba(244,63,94,0.08);
+    border-left: 3px solid #f43f5e;
+    border-radius: 0 6px 6px 0;
+    padding: 10px 14px;
+    margin: 12px 0;
+    font-size: 13.5px;
+    color: #fda4af;
+  }
+  h3 { color: #fff; font-size: 14px; margin: 16px 0 8px; font-family: 'Syne', sans-serif; }
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+  /* Search */
+  .search-bar {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px 24px 0;
+  }
+  .search-input {
+    width: 100%;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px 12px 44px;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23777790' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: 14px center;
+  }
+  .search-input:focus { border-color: var(--u1); }
+  .search-input::placeholder { color: var(--muted); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">SILVER OAK UNIVERSITY</div>
+  <h1>Web Technology with UI/UX<br>Complete Answer Bank</h1>
+  <div class="hero-meta">
+    <span>📚 Semester 4 &nbsp;·&nbsp; Academic Year 2025-26</span>
+    <span>🎯 Course Code: 2010043228</span>
+    <span>✅ All 5 Units Covered</span>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn u1 active" onclick="showUnit('u1',this)">Unit 1 — HTML5</button>
+  <button class="tab-btn u2" onclick="showUnit('u2',this)">Unit 2 — CSS3</button>
+  <button class="tab-btn u3" onclick="showUnit('u3',this)">Unit 3 — JavaScript</button>
+  <button class="tab-btn u4" onclick="showUnit('u4',this)">Unit 4 — jQuery &amp; Bootstrap</button>
+  <button class="tab-btn u5" onclick="showUnit('u5',this)">Unit 5 — PHP &amp; MySQL</button>
+</div>
+
+<div class="search-bar">
+  <input class="search-input" type="text" placeholder="Search questions across all units..." id="searchInput" oninput="searchQuestions()">
+</div>
+
+<div class="units">
+
+<!-- ═══════════════════════════════════════ UNIT 1 ═══════════════════════════════════════ -->
+<div class="unit u1 active" id="unit-u1">
+  <div class="unit-header">
+    <div>
+      <div class="num">UNIT 01</div>
+      <h2>Working with HTML5</h2>
+    </div>
+    <div class="q-count">16 Questions</div>
+  </div>
+  <div class="qa-list">
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q1</div>
+        <div class="qa-q">What is the purpose of semantic elements in HTML5?</div>
+        <div class="qa-meta"><span class="marks-badge marks-2">2 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p>Semantic elements in HTML5 clearly describe their meaning to both the browser and the developer. They define the role and structure of content on a web page.</p>
+        <div class="tip">💡 Semantic = meaningful tags that describe content purpose</div>
+        <table>
+          <tr><th>Element</th><th>Purpose</th></tr>
+          <tr><td><code>&lt;header&gt;</code></td><td>Top section / site header</td></tr>
+          <tr><td><code>&lt;nav&gt;</code></td><td>Navigation links</td></tr>
+          <tr><td><code>&lt;main&gt;</code></td><td>Main content area</td></tr>
+          <tr><td><code>&lt;article&gt;</code></td><td>Self-contained content</td></tr>
+          <tr><td><code>&lt;section&gt;</code></td><td>Thematic grouping</td></tr>
+          <tr><td><code>&lt;footer&gt;</code></td><td>Bottom section</td></tr>
+          <tr><td><code>&lt;aside&gt;</code></td><td>Side content / sidebar</td></tr>
+        </table>
+        <div class="note">📌 Benefits: Better SEO, Accessibility (screen readers), Readable code, Browser understanding</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q2</div>
+        <div class="qa-q">Name two multimedia elements supported by HTML5.</div>
+        <div class="qa-meta"><span class="marks-badge marks-2">2 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p>HTML5 introduced native multimedia support without plugins like Flash.</p>
+        <p><strong>1. &lt;audio&gt;</strong> – Embeds audio content directly in page</p>
+        <pre><code>&lt;audio controls&gt;
   &lt;source src="music.mp3" type="audio/mpeg"&gt;
   Your browser does not support audio.
 &lt;/audio&gt;</code></pre>
-<p><strong>2. &lt;video&gt;</strong> – Embeds video content</p>
-<pre><code>&lt;video controls width="400"&gt;
+        <p><strong>2. &lt;video&gt;</strong> – Embeds video content</p>
+        <pre><code>&lt;video controls width="400"&gt;
   &lt;source src="movie.mp4" type="video/mp4"&gt;
   Your browser does not support video.
 &lt;/video&gt;</code></pre>
-<div class="tip">💡 Both support: autoplay, controls, loop, muted attributes</div>`
-  },
-  {
-    q: "How do you define a required field in an HTML form with an example?",
-    marks: 4,
-    a: `<p>The <code>required</code> attribute is used to specify that an input field must be filled before submitting the form. It is a boolean attribute.</p>
-<div class="imp">⚠️ IMP: Browser performs automatic validation when <code>required</code> is set.</div>
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;body&gt;
-  &lt;form action="/submit" method="post"&gt;
-    
-    &lt;label for="name"&gt;Full Name:&lt;/label&gt;
-    &lt;input type="text" id="name" name="name" required&gt;
-    
-    &lt;label for="email"&gt;Email:&lt;/label&gt;
-    &lt;input type="email" id="email" name="email" required&gt;
-    
-    &lt;label for="phone"&gt;Phone:&lt;/label&gt;
-    &lt;input type="tel" id="phone" name="phone"&gt;
-    &lt;!-- Phone is optional - no required attribute --&gt;
-    
-    &lt;button type="submit"&gt;Submit&lt;/button&gt;
-  &lt;/form&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-<div class="note">📌 If user tries to submit without required fields, browser shows error message automatically.</div>
-<table>
-  <tr><th>Attribute</th><th>Description</th></tr>
-  <tr><td>required</td><td>Field must be filled</td></tr>
-  <tr><td>minlength</td><td>Minimum characters</td></tr>
-  <tr><td>maxlength</td><td>Maximum characters</td></tr>
-  <tr><td>pattern</td><td>Regex validation</td></tr>
-</table>`
-  },
-  {
-    q: "List all HTML tags which are new and removed in HTML5.",
-    marks: 4,
-    a: `<p><strong>New Tags in HTML5:</strong></p>
-<table>
-  <tr><th>Category</th><th>Tags</th></tr>
-  <tr><td>Structural / Semantic</td><td>&lt;header&gt;, &lt;footer&gt;, &lt;nav&gt;, &lt;main&gt;, &lt;section&gt;, &lt;article&gt;, &lt;aside&gt;, &lt;figure&gt;, &lt;figcaption&gt;, &lt;details&gt;, &lt;summary&gt;</td></tr>
-  <tr><td>Multimedia</td><td>&lt;audio&gt;, &lt;video&gt;, &lt;source&gt;, &lt;track&gt;, &lt;embed&gt;</td></tr>
-  <tr><td>Graphics</td><td>&lt;canvas&gt;, &lt;svg&gt;</td></tr>
-  <tr><td>Form Input</td><td>&lt;datalist&gt;, &lt;output&gt;, &lt;keygen&gt;, &lt;meter&gt;, &lt;progress&gt;</td></tr>
-  <tr><td>Text</td><td>&lt;mark&gt;, &lt;ruby&gt;, &lt;rt&gt;, &lt;rp&gt;, &lt;bdi&gt;, &lt;wbr&gt;, &lt;time&gt;</td></tr>
-</table>
-<p><strong>Removed/Deprecated Tags in HTML5:</strong></p>
-<table>
-  <tr><th>Removed Tag</th><th>Reason / Replacement</th></tr>
-  <tr><td>&lt;font&gt;</td><td>Use CSS font properties instead</td></tr>
-  <tr><td>&lt;center&gt;</td><td>Use CSS text-align: center</td></tr>
-  <tr><td>&lt;big&gt;</td><td>Use CSS font-size</td></tr>
-  <tr><td>&lt;strike&gt;</td><td>Use &lt;del&gt; or CSS text-decoration</td></tr>
-  <tr><td>&lt;tt&gt;</td><td>Use &lt;code&gt; or CSS</td></tr>
-  <tr><td>&lt;frameset&gt;</td><td>Frames deprecated entirely</td></tr>
-  <tr><td>&lt;frame&gt;</td><td>Frames deprecated entirely</td></tr>
-  <tr><td>&lt;noframes&gt;</td><td>Frames deprecated entirely</td></tr>
-  <tr><td>&lt;applet&gt;</td><td>Use &lt;embed&gt; or &lt;object&gt;</td></tr>
-  <tr><td>&lt;acronym&gt;</td><td>Use &lt;abbr&gt;</td></tr>
-</table>`
-  },
-  {
-    q: "What is the significance of using placeholder attributes in form inputs with example?",
-    marks: 3,
-    a: `<p>The <code>placeholder</code> attribute provides a short hint that describes the expected value of an input field. It appears inside the input field when it is empty.</p>
-<div class="tip">💡 Placeholder text disappears when user starts typing.</div>
-<p><strong>Significance / Benefits:</strong></p>
-<ul>
-  <li>Provides contextual hints to users about expected input format</li>
-  <li>Improves user experience and form usability</li>
-  <li>Reduces need for separate instruction text</li>
-  <li>Works with text, email, password, search, tel, url inputs</li>
-</ul>
-<pre><code>&lt;form&gt;
-  &lt;input type="text" 
-         placeholder="Enter your full name"&gt;
-  
-  &lt;input type="email" 
-         placeholder="example@gmail.com"&gt;
-  
-  &lt;input type="tel" 
-         placeholder="+91 9876543210"&gt;
-  
-  &lt;input type="password" 
-         placeholder="Minimum 8 characters"&gt;
-  
-  &lt;textarea 
-    placeholder="Write your message here..."&gt;
-  &lt;/textarea&gt;
+        <div class="tip">💡 Both support: autoplay, controls, loop, muted, preload attributes</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q3</div>
+        <div class="qa-q">How do you define a required field in an HTML form with an example?</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p>The <code>required</code> attribute is a boolean attribute that specifies an input field must be filled before form submission. Browser performs automatic validation.</p>
+        <div class="imp">⚠️ IMP: Browser shows an error message if a required field is empty on submit.</div>
+        <pre><code>&lt;form action="/submit" method="post"&gt;
+
+  &lt;label for="name"&gt;Full Name:&lt;/label&gt;
+  &lt;input type="text" id="name" name="name" required&gt;
+
+  &lt;label for="email"&gt;Email:&lt;/label&gt;
+  &lt;input type="email" id="email" name="email" required&gt;
+
+  &lt;label for="phone"&gt;Phone (optional):&lt;/label&gt;
+  &lt;input type="tel" id="phone" name="phone"&gt;
+
+  &lt;button type="submit"&gt;Submit&lt;/button&gt;
 &lt;/form&gt;</code></pre>
-<div class="note">📌 Note: Placeholder should NOT replace &lt;label&gt; for accessibility. Always use both.</div>`
-  },
-  {
-    q: "What is the difference between a canvas and SVG element in HTML5?",
-    marks: 4,
-    a: `<table>
-  <tr><th>Feature</th><th>Canvas</th><th>SVG</th></tr>
-  <tr><td>Type</td><td>Raster (pixel-based)</td><td>Vector (shape-based)</td></tr>
-  <tr><td>Rendering</td><td>JavaScript API</td><td>XML markup</td></tr>
-  <tr><td>Scalability</td><td>Loses quality on zoom</td><td>Scales perfectly (vector)</td></tr>
-  <tr><td>DOM</td><td>No DOM for shapes</td><td>Each shape is a DOM element</td></tr>
-  <tr><td>Events</td><td>Must calculate pixel position</td><td>Events on individual elements</td></tr>
-  <tr><td>Performance</td><td>Better for many objects/animation</td><td>Slower with many objects</td></tr>
-  <tr><td>Best Used For</td><td>Games, image editing, charts</td><td>Logos, icons, diagrams</td></tr>
-  <tr><td>Resolution</td><td>Resolution-dependent</td><td>Resolution-independent</td></tr>
-</table>
-<p><strong>Canvas Example:</strong></p>
-<pre><code>&lt;canvas id="myCanvas" width="200" height="100"&gt;&lt;/canvas&gt;
+        <table>
+          <tr><th>Validation Attribute</th><th>Description</th></tr>
+          <tr><td>required</td><td>Field must be filled</td></tr>
+          <tr><td>minlength / maxlength</td><td>Min/max character count</td></tr>
+          <tr><td>pattern</td><td>Regex pattern match</td></tr>
+          <tr><td>min / max</td><td>Numeric range limits</td></tr>
+          <tr><td>type="email"</td><td>Validates email format</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q4</div>
+        <div class="qa-q">List all HTML tags which are new and removed in HTML5.</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p><strong>New Tags added in HTML5:</strong></p>
+        <table>
+          <tr><th>Category</th><th>New Tags</th></tr>
+          <tr><td>Semantic/Structural</td><td>&lt;header&gt;, &lt;footer&gt;, &lt;nav&gt;, &lt;main&gt;, &lt;section&gt;, &lt;article&gt;, &lt;aside&gt;, &lt;figure&gt;, &lt;figcaption&gt;, &lt;details&gt;, &lt;summary&gt;</td></tr>
+          <tr><td>Multimedia</td><td>&lt;audio&gt;, &lt;video&gt;, &lt;source&gt;, &lt;track&gt;</td></tr>
+          <tr><td>Graphics</td><td>&lt;canvas&gt;, &lt;svg&gt;</td></tr>
+          <tr><td>Form Controls</td><td>&lt;datalist&gt;, &lt;output&gt;, &lt;meter&gt;, &lt;progress&gt;</td></tr>
+          <tr><td>Text/Inline</td><td>&lt;mark&gt;, &lt;time&gt;, &lt;wbr&gt;, &lt;bdi&gt;, &lt;ruby&gt;, &lt;rt&gt;, &lt;rp&gt;</td></tr>
+        </table>
+        <p><strong>Removed/Deprecated Tags in HTML5:</strong></p>
+        <table>
+          <tr><th>Removed Tag</th><th>Use Instead</th></tr>
+          <tr><td>&lt;font&gt;</td><td>CSS font properties</td></tr>
+          <tr><td>&lt;center&gt;</td><td>CSS text-align: center</td></tr>
+          <tr><td>&lt;big&gt;</td><td>CSS font-size</td></tr>
+          <tr><td>&lt;strike&gt;</td><td>&lt;del&gt; or CSS</td></tr>
+          <tr><td>&lt;tt&gt;</td><td>&lt;code&gt;</td></tr>
+          <tr><td>&lt;frameset&gt;, &lt;frame&gt;, &lt;noframes&gt;</td><td>Frames removed entirely</td></tr>
+          <tr><td>&lt;applet&gt;</td><td>&lt;embed&gt; or &lt;object&gt;</td></tr>
+          <tr><td>&lt;acronym&gt;</td><td>&lt;abbr&gt;</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q5</div>
+        <div class="qa-q">What is the significance of using placeholder attributes in form inputs with example?</div>
+        <div class="qa-meta"><span class="marks-badge marks-3">3 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p>The <code>placeholder</code> attribute provides a short hint that describes the expected value of an input field. It appears inside the field when it is empty and disappears when the user starts typing.</p>
+        <p><strong>Significance:</strong></p>
+        <ul>
+          <li>Provides contextual hints about expected input format</li>
+          <li>Improves user experience and form usability</li>
+          <li>Reduces need for extra instruction text near inputs</li>
+          <li>Works with text, email, password, search, tel, url, textarea</li>
+        </ul>
+        <pre><code>&lt;form&gt;
+  &lt;input type="text"     placeholder="Enter your full name"&gt;
+  &lt;input type="email"    placeholder="example@gmail.com"&gt;
+  &lt;input type="tel"      placeholder="+91 9876543210"&gt;
+  &lt;input type="password" placeholder="Minimum 8 characters"&gt;
+  &lt;textarea              placeholder="Write your message here..."&gt;&lt;/textarea&gt;
+&lt;/form&gt;</code></pre>
+        <div class="note">📌 Note: Placeholder should NOT replace &lt;label&gt; for accessibility. Always use both for screen reader support.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q6</div>
+        <div class="qa-q">What is the difference between a canvas and SVG element in HTML5?</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <table>
+          <tr><th>Feature</th><th>Canvas</th><th>SVG</th></tr>
+          <tr><td>Type</td><td>Raster (pixel-based)</td><td>Vector (shape-based)</td></tr>
+          <tr><td>Rendered via</td><td>JavaScript API</td><td>XML markup</td></tr>
+          <tr><td>Scalability</td><td>Loses quality on zoom</td><td>Scales perfectly</td></tr>
+          <tr><td>DOM Access</td><td>No DOM for shapes</td><td>Each shape is a DOM node</td></tr>
+          <tr><td>Event Handling</td><td>Calculate pixel position manually</td><td>Events directly on elements</td></tr>
+          <tr><td>Performance</td><td>Better for many objects/animations</td><td>Slower with many objects</td></tr>
+          <tr><td>Best Use</td><td>Games, charts, image editing</td><td>Logos, icons, diagrams, maps</td></tr>
+        </table>
+        <p><strong>Canvas Example:</strong></p>
+        <pre><code>&lt;canvas id="myCanvas" width="200" height="100"&gt;&lt;/canvas&gt;
 &lt;script&gt;
   var ctx = document.getElementById("myCanvas").getContext("2d");
   ctx.fillStyle = "blue";
   ctx.fillRect(10, 10, 150, 80);
 &lt;/script&gt;</code></pre>
-<p><strong>SVG Example:</strong></p>
-<pre><code>&lt;svg width="200" height="100"&gt;
-  &lt;rect x="10" y="10" width="150" height="80" 
-        fill="blue" /&gt;
+        <p><strong>SVG Example:</strong></p>
+        <pre><code>&lt;svg width="200" height="100"&gt;
+  &lt;rect x="10" y="10" width="150" height="80" fill="blue"/&gt;
+  &lt;circle cx="100" cy="50" r="30" fill="red"/&gt;
 &lt;/svg&gt;</code></pre>
-<div class="tip">💡 Canvas = like painting on paper. SVG = like drawing geometric shapes that stay crisp.</div>`
-  },
-  {
-    q: "Discuss the benefits of using semantic elements over traditional HTML elements.",
-    marks: 3,
-    a: `<p><strong>Traditional vs Semantic:</strong></p>
-<pre><code>&lt;!-- Traditional (Non-Semantic) --&gt;
+        <div class="tip">💡 Canvas = painting on paper (fixed pixels). SVG = geometric drawing (always crisp).</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q7</div>
+        <div class="qa-q">Discuss the benefits of using semantic elements over traditional HTML elements.</div>
+        <div class="qa-meta"><span class="marks-badge marks-3">3 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p><strong>Traditional vs Semantic Comparison:</strong></p>
+        <pre><code>&lt;!-- Traditional (Non-Semantic) - meaningless divs --&gt;
 &lt;div id="header"&gt;...&lt;/div&gt;
 &lt;div id="nav"&gt;...&lt;/div&gt;
 &lt;div id="content"&gt;...&lt;/div&gt;
 
-&lt;!-- Semantic HTML5 --&gt;
+&lt;!-- Semantic HTML5 - self-describing elements --&gt;
 &lt;header&gt;...&lt;/header&gt;
 &lt;nav&gt;...&lt;/nav&gt;
 &lt;main&gt;...&lt;/main&gt;</code></pre>
-<p><strong>Benefits of Semantic Elements:</strong></p>
-<table>
-  <tr><th>Benefit</th><th>Description</th></tr>
-  <tr><td>🔍 Better SEO</td><td>Search engines understand content structure better, improving page ranking</td></tr>
-  <tr><td>♿ Accessibility</td><td>Screen readers use semantic tags to help visually impaired users navigate</td></tr>
-  <tr><td>📖 Readability</td><td>Code is easier to read and maintain for developers</td></tr>
-  <tr><td>🌐 Browser Support</td><td>Browsers render semantic pages more consistently</td></tr>
-  <tr><td>🤝 Team Work</td><td>Clear structure makes collaboration easier</td></tr>
-  <tr><td>📱 Responsive Design</td><td>Easier to apply responsive styles to meaningful sections</td></tr>
-</table>
-<div class="imp">⚠️ IMP: Semantic HTML is a best practice in modern web development and is expected in interviews!</div>`
-  },
-  {
-    q: "List and briefly describe at least five different input types in HTML5.",
-    marks: 5,
-    a: `<p>HTML5 introduced many new <code>type</code> values for the <code>&lt;input&gt;</code> element:</p>
-<table>
-  <tr><th>Input Type</th><th>Description</th><th>Example</th></tr>
-  <tr><td>text</td><td>Single-line text input</td><td>&lt;input type="text"&gt;</td></tr>
-  <tr><td>email</td><td>Email address (validates @ and domain)</td><td>&lt;input type="email"&gt;</td></tr>
-  <tr><td>password</td><td>Masked input for passwords</td><td>&lt;input type="password"&gt;</td></tr>
-  <tr><td>number</td><td>Numeric input with spinner</td><td>&lt;input type="number" min="1" max="100"&gt;</td></tr>
-  <tr><td>date</td><td>Date picker (calendar UI)</td><td>&lt;input type="date"&gt;</td></tr>
-  <tr><td>range</td><td>Slider control for range selection</td><td>&lt;input type="range" min="0" max="100"&gt;</td></tr>
-  <tr><td>color</td><td>Color picker widget</td><td>&lt;input type="color"&gt;</td></tr>
-  <tr><td>checkbox</td><td>Boolean on/off option</td><td>&lt;input type="checkbox"&gt;</td></tr>
-  <tr><td>radio</td><td>Single selection from group</td><td>&lt;input type="radio"&gt;</td></tr>
-  <tr><td>file</td><td>File upload button</td><td>&lt;input type="file"&gt;</td></tr>
-  <tr><td>tel</td><td>Telephone number input</td><td>&lt;input type="tel"&gt;</td></tr>
-  <tr><td>url</td><td>URL input with validation</td><td>&lt;input type="url"&gt;</td></tr>
-  <tr><td>search</td><td>Search box (with clear button)</td><td>&lt;input type="search"&gt;</td></tr>
-  <tr><td>time</td><td>Time picker</td><td>&lt;input type="time"&gt;</td></tr>
-  <tr><td>submit</td><td>Submits the form</td><td>&lt;input type="submit" value="Send"&gt;</td></tr>
-</table>
-<div class="tip">💡 New HTML5 types provide built-in validation and mobile-friendly keyboard layouts.</div>`
-  },
-  {
-    q: "What is Grail layout in HTML?",
-    marks: 8,
-    a: `<p>The <strong>Holy Grail Layout</strong> is a classic web page layout consisting of a header, footer, a main content area, and two sidebars (one on each side). It was historically difficult to implement with pure CSS but is now straightforward with Flexbox or Grid.</p>
-<div class="tip">💡 Called "Holy Grail" because it was the ideal layout that was hard to achieve — like the Holy Grail!</div>
-<p><strong>Structure:</strong></p>
-<pre><code>+---------------------------+
-|         HEADER            |
-+---------------------------+
-| LEFT  |   CONTENT  | RIGHT|
-| SIDE  |            | SIDE |
-| BAR   |            | BAR  |
-+---------------------------+
-|         FOOTER            |
-+---------------------------+</code></pre>
-<p><strong>Implementation using CSS Flexbox:</strong></p>
-<pre><code>&lt;!DOCTYPE html&gt;
+        <table>
+          <tr><th>Benefit</th><th>Description</th></tr>
+          <tr><td>🔍 Better SEO</td><td>Search engines understand content structure, improving page ranking</td></tr>
+          <tr><td>♿ Accessibility</td><td>Screen readers navigate using semantic landmarks (&lt;nav&gt;, &lt;main&gt;, etc.)</td></tr>
+          <tr><td>📖 Code Readability</td><td>Self-documenting code; easier for developers to understand</td></tr>
+          <tr><td>🌐 Browser Consistency</td><td>Browsers apply default styles and behaviors correctly</td></tr>
+          <tr><td>🤝 Team Collaboration</td><td>Clear structure makes collaboration and maintenance easier</td></tr>
+          <tr><td>📱 Responsive Styling</td><td>Easier to target meaningful sections with CSS</td></tr>
+        </table>
+        <div class="imp">⚠️ IMP: Semantic HTML is a modern web development best practice and a common exam/interview topic!</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q8</div>
+        <div class="qa-q">List and briefly describe at least five different input types in HTML5.</div>
+        <div class="qa-meta"><span class="marks-badge marks-5">5 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p>HTML5 introduced many new <code>type</code> values for the <code>&lt;input&gt;</code> element, providing built-in validation and mobile-friendly keyboard layouts.</p>
+        <table>
+          <tr><th>Input Type</th><th>Description</th><th>Syntax</th></tr>
+          <tr><td>text</td><td>Single-line text input</td><td>&lt;input type="text"&gt;</td></tr>
+          <tr><td>email</td><td>Validates @ and domain format</td><td>&lt;input type="email"&gt;</td></tr>
+          <tr><td>password</td><td>Masked characters for security</td><td>&lt;input type="password"&gt;</td></tr>
+          <tr><td>number</td><td>Numeric with spinner arrows</td><td>&lt;input type="number" min="1" max="100"&gt;</td></tr>
+          <tr><td>date</td><td>Calendar date picker UI</td><td>&lt;input type="date"&gt;</td></tr>
+          <tr><td>range</td><td>Slider for selecting a value</td><td>&lt;input type="range" min="0" max="100"&gt;</td></tr>
+          <tr><td>color</td><td>Color picker widget</td><td>&lt;input type="color"&gt;</td></tr>
+          <tr><td>checkbox</td><td>Boolean toggle on/off</td><td>&lt;input type="checkbox"&gt;</td></tr>
+          <tr><td>radio</td><td>Single selection from a group</td><td>&lt;input type="radio" name="g"&gt;</td></tr>
+          <tr><td>file</td><td>File upload browser button</td><td>&lt;input type="file"&gt;</td></tr>
+          <tr><td>tel</td><td>Phone number (numeric keyboard on mobile)</td><td>&lt;input type="tel"&gt;</td></tr>
+          <tr><td>url</td><td>URL with format validation</td><td>&lt;input type="url"&gt;</td></tr>
+          <tr><td>search</td><td>Search box (with clear button)</td><td>&lt;input type="search"&gt;</td></tr>
+          <tr><td>time</td><td>Time picker (HH:MM)</td><td>&lt;input type="time"&gt;</td></tr>
+          <tr><td>submit</td><td>Submits the form</td><td>&lt;input type="submit" value="Send"&gt;</td></tr>
+        </table>
+        <div class="tip">💡 New HTML5 types provide built-in client-side validation — no JavaScript needed for basic checks!</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q9</div>
+        <div class="qa-q">What is Grail layout in HTML?</div>
+        <div class="qa-meta"><span class="marks-badge marks-8">8 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p>The <strong>Holy Grail Layout</strong> is a classic page layout consisting of a header, footer, a main content area, and two sidebars. Historically hard to achieve with CSS floats, it's now easy with Flexbox or Grid.</p>
+        <div class="tip">💡 Called "Holy Grail" because it was the ideal layout that was elusive to achieve — like the mythical Holy Grail!</div>
+        <p><strong>Structure Diagram:</strong></p>
+        <pre><code>+---------------------------------------+
+|             HEADER                    |
++----------+---------------+-----------+
+|          |               |           |
+|  LEFT    |    MAIN       |   RIGHT   |
+| SIDEBAR  |   CONTENT     |  SIDEBAR  |
+|          |               |           |
++----------+---------------+-----------+
+|             FOOTER                    |
++---------------------------------------+</code></pre>
+        <p><strong>Implementation using Flexbox:</strong></p>
+        <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
 &lt;style&gt;
@@ -227,145 +657,130 @@ const unit1 = [
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    font-family: Arial, sans-serif;
   }
-  header {
-    background: #333;
-    color: white;
-    padding: 20px;
-    text-align: center;
+  header, footer {
+    background: #333; color: white;
+    padding: 20px; text-align: center;
   }
-  .middle {
-    display: flex;
-    flex: 1;
-  }
-  nav {
-    background: #555;
-    color: white;
-    width: 180px;
-    padding: 20px;
-    flex-shrink: 0;
-  }
-  main {
-    flex: 1;
-    padding: 20px;
-    background: #f0f0f0;
-  }
-  aside {
-    background: #777;
-    color: white;
-    width: 180px;
-    padding: 20px;
-    flex-shrink: 0;
-  }
-  footer {
-    background: #333;
-    color: white;
-    padding: 15px;
-    text-align: center;
-  }
+  .middle { display: flex; flex: 1; }
+  nav    { background: #555; color: white; width: 180px; padding: 20px; }
+  main   { flex: 1; padding: 20px; background: #f0f0f0; }
+  aside  { background: #777; color: white; width: 180px; padding: 20px; }
 &lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
-  &lt;header&gt;Header - Logo &amp; Navigation&lt;/header&gt;
+  &lt;header&gt;Site Header&lt;/header&gt;
   &lt;div class="middle"&gt;
-    &lt;nav&gt;Left Sidebar (Nav Links)&lt;/nav&gt;
-    &lt;main&gt;Main Content Area&lt;/main&gt;
-    &lt;aside&gt;Right Sidebar (Ads/Info)&lt;/aside&gt;
+    &lt;nav&gt;Left Sidebar&lt;/nav&gt;
+    &lt;main&gt;Main Content&lt;/main&gt;
+    &lt;aside&gt;Right Sidebar&lt;/aside&gt;
   &lt;/div&gt;
-  &lt;footer&gt;Footer - Copyright Info&lt;/footer&gt;
+  &lt;footer&gt;Site Footer&lt;/footer&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-<p><strong>Using CSS Grid:</strong></p>
-<pre><code>&lt;style&gt;
+        <p><strong>Implementation using CSS Grid (preferred):</strong></p>
+        <pre><code>&lt;style&gt;
   body {
     display: grid;
     grid-template-areas:
       "header header header"
       "nav    main   aside"
       "footer footer footer";
-    grid-template-columns: 180px 1fr 180px;
+    grid-template-columns: 200px 1fr 200px;
     grid-template-rows: auto 1fr auto;
     min-height: 100vh;
   }
-  header  { grid-area: header; }
-  nav     { grid-area: nav;    }
-  main    { grid-area: main;   }
-  aside   { grid-area: aside;  }
-  footer  { grid-area: footer; }
+  header { grid-area: header; background: #333; color: white; padding: 20px; }
+  nav    { grid-area: nav;    background: #555; color: white; padding: 20px; }
+  main   { grid-area: main;   padding: 20px; }
+  aside  { grid-area: aside;  background: #777; color: white; padding: 20px; }
+  footer { grid-area: footer; background: #333; color: white; padding: 20px; }
 &lt;/style&gt;</code></pre>
-<div class="note">📌 Grid method is cleaner and more powerful for Holy Grail layouts.</div>`
-  },
-  {
-    q: "Explain HTML <FORM> element with all form attributes with example.",
-    marks: 8,
-    a: `<p>The <code>&lt;form&gt;</code> element is used to create an HTML form for user input. It acts as a container for various input controls.</p>
-<p><strong>Syntax:</strong></p>
-<pre><code>&lt;form attribute="value" ...&gt;
-  ... form controls ...
-&lt;/form&gt;</code></pre>
-<p><strong>Form Attributes:</strong></p>
-<table>
-  <tr><th>Attribute</th><th>Values</th><th>Description</th></tr>
-  <tr><td>action</td><td>URL</td><td>URL where form data is submitted</td></tr>
-  <tr><td>method</td><td>get / post</td><td>HTTP method for sending data</td></tr>
-  <tr><td>name</td><td>text</td><td>Name of the form</td></tr>
-  <tr><td>enctype</td><td>multipart/form-data, application/x-www-form-urlencoded, text/plain</td><td>Encoding type (important for file uploads)</td></tr>
-  <tr><td>target</td><td>_blank, _self, _parent, _top</td><td>Where to open response</td></tr>
-  <tr><td>autocomplete</td><td>on / off</td><td>Enable/disable autocomplete</td></tr>
-  <tr><td>novalidate</td><td>boolean</td><td>Skip browser validation</td></tr>
-  <tr><td>accept-charset</td><td>UTF-8, ISO-8859-1</td><td>Character encoding</td></tr>
-</table>
-<p><strong>Complete Example:</strong></p>
-<pre><code>&lt;form 
+        <div class="note">📌 Grid method is more readable and powerful — preferred for Holy Grail layouts in modern CSS.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q10</div>
+        <div class="qa-q">Explain HTML &lt;FORM&gt; element with all form attributes with example.</div>
+        <div class="qa-meta"><span class="marks-badge marks-8">8 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p>The <code>&lt;form&gt;</code> element creates an HTML form for user input. It acts as a container for input controls like text fields, checkboxes, radio buttons, and submit buttons.</p>
+        <p><strong>All Form Attributes:</strong></p>
+        <table>
+          <tr><th>Attribute</th><th>Values</th><th>Description</th></tr>
+          <tr><td>action</td><td>URL</td><td>URL where form data is sent on submission</td></tr>
+          <tr><td>method</td><td>get / post</td><td>HTTP method for sending data</td></tr>
+          <tr><td>name</td><td>text</td><td>Name identifier for the form</td></tr>
+          <tr><td>enctype</td><td>multipart/form-data, application/x-www-form-urlencoded, text/plain</td><td>Encoding type (required for file uploads)</td></tr>
+          <tr><td>target</td><td>_blank, _self, _parent, _top</td><td>Where to display the response</td></tr>
+          <tr><td>autocomplete</td><td>on / off</td><td>Enable/disable browser autocomplete</td></tr>
+          <tr><td>novalidate</td><td>boolean</td><td>Disables browser's built-in validation</td></tr>
+          <tr><td>accept-charset</td><td>UTF-8</td><td>Character encoding for submitted data</td></tr>
+          <tr><td>id</td><td>text</td><td>Unique ID for the form element</td></tr>
+        </table>
+        <pre><code>&lt;form 
   action="process.php"
   method="post"
   enctype="multipart/form-data"
-  target="_blank"
+  target="_self"
   autocomplete="on"
-  name="registrationForm"&gt;
+  name="registrationForm"
+  id="regForm"&gt;
 
   &lt;!-- Text Input --&gt;
-  &lt;label&gt;Name: &lt;input type="text" name="username" required&gt;&lt;/label&gt;
+  &lt;label&gt;Name: &lt;input type="text" name="username" required&gt;&lt;/label&gt;&lt;br&gt;
 
   &lt;!-- Email --&gt;
-  &lt;label&gt;Email: &lt;input type="email" name="email"&gt;&lt;/label&gt;
+  &lt;label&gt;Email: &lt;input type="email" name="email"&gt;&lt;/label&gt;&lt;br&gt;
 
   &lt;!-- Password --&gt;
-  &lt;label&gt;Password: &lt;input type="password" name="pwd" minlength="8"&gt;&lt;/label&gt;
+  &lt;label&gt;Password: &lt;input type="password" name="pwd" minlength="8"&gt;&lt;/label&gt;&lt;br&gt;
 
   &lt;!-- Radio Buttons --&gt;
-  &lt;label&gt;Gender:&lt;/label&gt;
+  Gender:
   &lt;input type="radio" name="gender" value="male"&gt; Male
-  &lt;input type="radio" name="gender" value="female"&gt; Female
+  &lt;input type="radio" name="gender" value="female"&gt; Female&lt;br&gt;
 
-  &lt;!-- Dropdown --&gt;
+  &lt;!-- Dropdown Select --&gt;
   &lt;label&gt;City:
     &lt;select name="city"&gt;
       &lt;option value="ahmedabad"&gt;Ahmedabad&lt;/option&gt;
       &lt;option value="surat"&gt;Surat&lt;/option&gt;
     &lt;/select&gt;
-  &lt;/label&gt;
+  &lt;/label&gt;&lt;br&gt;
 
   &lt;!-- File Upload --&gt;
-  &lt;label&gt;Photo: &lt;input type="file" name="photo"&gt;&lt;/label&gt;
+  &lt;label&gt;Photo: &lt;input type="file" name="photo"&gt;&lt;/label&gt;&lt;br&gt;
 
   &lt;!-- Textarea --&gt;
-  &lt;label&gt;Message: &lt;textarea name="msg" rows="4"&gt;&lt;/textarea&gt;&lt;/label&gt;
+  &lt;label&gt;Message:&lt;br&gt;
+    &lt;textarea name="msg" rows="4" cols="40"&gt;&lt;/textarea&gt;
+  &lt;/label&gt;&lt;br&gt;
 
   &lt;!-- Checkbox --&gt;
-  &lt;input type="checkbox" name="agree" required&gt; I agree to Terms
+  &lt;input type="checkbox" name="agree" required&gt; I agree to Terms&lt;br&gt;
 
-  &lt;!-- Submit & Reset --&gt;
+  &lt;!-- Buttons --&gt;
   &lt;input type="submit" value="Register"&gt;
-  &lt;input type="reset" value="Clear"&gt;
+  &lt;input type="reset"  value="Clear"&gt;
 &lt;/form&gt;</code></pre>
-<div class="imp">⚠️ IMP: Use method="post" for sensitive data and when uploading files, enctype="multipart/form-data" is mandatory.</div>`
-  },
-  {
-    q: "Create a basic student detail form with First Name, Last Name, Gender, Enrollment ID, Designation, and Phone Number.",
-    marks: 8,
-    a: `<pre><code>&lt;!DOCTYPE html&gt;
+        <div class="imp">⚠️ IMP: Use method="post" for sensitive data. When uploading files, enctype="multipart/form-data" is mandatory.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q11</div>
+        <div class="qa-q">Create a basic student detail form (First Name, Last Name, Gender, Enrollment ID, Designation, Phone Number).</div>
+        <div class="qa-meta"><span class="marks-badge marks-8">8 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
 &lt;head&gt;
   &lt;meta charset="UTF-8"&gt;
@@ -385,40 +800,20 @@ const unit1 = [
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
       width: 450px;
     }
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #333;
-    }
-    .form-group {
-      margin-bottom: 15px;
-    }
-    label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 5px;
-      color: #555;
-    }
-    input[type="text"],
-    input[type="tel"],
-    select {
-      width: 100%;
-      padding: 8px 12px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 14px;
-      box-sizing: border-box;
+    h2 { text-align: center; margin-bottom: 20px; color: #333; }
+    .form-group { margin-bottom: 15px; }
+    label { display: block; font-weight: bold; margin-bottom: 5px; color: #555; }
+    input[type="text"], input[type="tel"], select {
+      width: 100%; padding: 8px 12px;
+      border: 1px solid #ccc; border-radius: 4px;
+      font-size: 14px; box-sizing: border-box;
     }
     .radio-group { display: flex; gap: 15px; }
     button {
-      width: 100%;
-      padding: 10px;
-      background: #007bff;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      font-size: 16px;
-      cursor: pointer;
+      width: 100%; padding: 10px;
+      background: #007bff; color: white;
+      border: none; border-radius: 4px;
+      font-size: 16px; cursor: pointer;
     }
     button:hover { background: #0056b3; }
   &lt;/style&gt;
@@ -427,38 +822,32 @@ const unit1 = [
   &lt;div class="form-container"&gt;
     &lt;h2&gt;Student Detail Form&lt;/h2&gt;
     &lt;form action="submit.php" method="post"&gt;
-      
+
       &lt;div class="form-group"&gt;
         &lt;label for="fname"&gt;First Name:&lt;/label&gt;
-        &lt;input type="text" id="fname" name="first_name" 
+        &lt;input type="text" id="fname" name="first_name"
                placeholder="Enter first name" required&gt;
       &lt;/div&gt;
 
       &lt;div class="form-group"&gt;
         &lt;label for="lname"&gt;Last Name:&lt;/label&gt;
-        &lt;input type="text" id="lname" name="last_name" 
+        &lt;input type="text" id="lname" name="last_name"
                placeholder="Enter last name" required&gt;
       &lt;/div&gt;
 
       &lt;div class="form-group"&gt;
         &lt;label&gt;Gender:&lt;/label&gt;
         &lt;div class="radio-group"&gt;
-          &lt;label&gt;
-            &lt;input type="radio" name="gender" value="male" required&gt; Male
-          &lt;/label&gt;
-          &lt;label&gt;
-            &lt;input type="radio" name="gender" value="female"&gt; Female
-          &lt;/label&gt;
-          &lt;label&gt;
-            &lt;input type="radio" name="gender" value="other"&gt; Other
-          &lt;/label&gt;
+          &lt;label&gt;&lt;input type="radio" name="gender" value="male" required&gt; Male&lt;/label&gt;
+          &lt;label&gt;&lt;input type="radio" name="gender" value="female"&gt; Female&lt;/label&gt;
+          &lt;label&gt;&lt;input type="radio" name="gender" value="other"&gt; Other&lt;/label&gt;
         &lt;/div&gt;
       &lt;/div&gt;
 
       &lt;div class="form-group"&gt;
         &lt;label for="enroll"&gt;Enrollment ID:&lt;/label&gt;
-        &lt;input type="text" id="enroll" name="enrollment_id" 
-               placeholder="e.g. 22IT001" required pattern="[0-9A-Za-z]+"&gt;
+        &lt;input type="text" id="enroll" name="enrollment_id"
+               placeholder="e.g. 22IT001" required&gt;
       &lt;/div&gt;
 
       &lt;div class="form-group"&gt;
@@ -474,8 +863,8 @@ const unit1 = [
 
       &lt;div class="form-group"&gt;
         &lt;label for="phone"&gt;Phone Number:&lt;/label&gt;
-        &lt;input type="tel" id="phone" name="phone" 
-               placeholder="+91 9876543210" 
+        &lt;input type="tel" id="phone" name="phone"
+               placeholder="+91 9876543210"
                pattern="[0-9]{10}" maxlength="10" required&gt;
       &lt;/div&gt;
 
@@ -484,100 +873,136 @@ const unit1 = [
   &lt;/div&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-<div class="note">📌 Form uses POST method, required fields, pattern validation for phone and enrollment ID.</div>`
-  },
-  {
-    q: "Explain any five Git commands with syntax and example.",
-    marks: 5,
-    a: `<p>Git is a distributed version control system. Here are five essential commands:</p>
-<table>
-  <tr><th>Command</th><th>Syntax</th><th>Description</th></tr>
-  <tr><td>git init</td><td>git init [folder]</td><td>Initialize a new Git repository</td></tr>
-  <tr><td>git clone</td><td>git clone &lt;url&gt;</td><td>Copy a remote repository locally</td></tr>
-  <tr><td>git add</td><td>git add &lt;file&gt; or git add .</td><td>Stage files for commit</td></tr>
-  <tr><td>git commit</td><td>git commit -m "message"</td><td>Save staged changes with message</td></tr>
-  <tr><td>git push</td><td>git push origin &lt;branch&gt;</td><td>Upload commits to remote</td></tr>
-</table>
-<p><strong>1. git init</strong> – Create a new repo</p>
-<pre><code>$ git init my-project
-# Creates .git folder in my-project directory</code></pre>
-<p><strong>2. git clone</strong> – Download a repo</p>
-<pre><code>$ git clone https://github.com/user/repo.git
-# Creates a local copy of the remote repo</code></pre>
-<p><strong>3. git add</strong> – Stage changes</p>
-<pre><code>$ git add index.html       # Stage single file
-$ git add .                # Stage all changes</code></pre>
-<p><strong>4. git commit</strong> – Save changes</p>
-<pre><code>$ git commit -m "Add student form page"
-# Saves snapshot with descriptive message</code></pre>
-<p><strong>5. git push</strong> – Upload to GitHub</p>
-<pre><code>$ git push origin main
-# Sends commits to 'main' branch on GitHub</code></pre>
-<div class="tip">💡 Workflow: init → add → commit → push</div>`
-  },
-  {
-    q: "How do you create a new repository on GitHub?",
-    marks: 3,
-    a: `<p>Steps to create a new repository on GitHub:</p>
-<pre><code>STEP 1: Login to github.com
+        <div class="note">📌 Form uses POST method, required validation, pattern for phone (10 digits), and a styled layout.</div>
+      </div>
+    </div>
 
-STEP 2: Click the "+" icon (top right) 
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q12</div>
+        <div class="qa-q">Explain any five Git commands with syntax and example.</div>
+        <div class="qa-meta"><span class="marks-badge marks-5">5 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p>Git is a distributed version control system for tracking changes in code.</p>
+        <table>
+          <tr><th>Command</th><th>Syntax</th><th>Purpose</th></tr>
+          <tr><td>git init</td><td>git init [folder]</td><td>Initialize new repository</td></tr>
+          <tr><td>git clone</td><td>git clone &lt;url&gt;</td><td>Copy remote repo locally</td></tr>
+          <tr><td>git add</td><td>git add &lt;file&gt; / git add .</td><td>Stage files for commit</td></tr>
+          <tr><td>git commit</td><td>git commit -m "message"</td><td>Save staged changes</td></tr>
+          <tr><td>git push</td><td>git push origin &lt;branch&gt;</td><td>Upload commits to remote</td></tr>
+          <tr><td>git pull</td><td>git pull origin &lt;branch&gt;</td><td>Fetch + merge from remote</td></tr>
+          <tr><td>git status</td><td>git status</td><td>Show working tree status</td></tr>
+          <tr><td>git log</td><td>git log --oneline</td><td>View commit history</td></tr>
+          <tr><td>git branch</td><td>git branch &lt;name&gt;</td><td>Create/list branches</td></tr>
+          <tr><td>git merge</td><td>git merge &lt;branch&gt;</td><td>Merge branch into current</td></tr>
+        </table>
+        <pre><code># 1. Initialize a repository
+$ git init my-project
+# Creates .git folder in my-project/
+
+# 2. Clone remote repo
+$ git clone https://github.com/user/repo.git
+
+# 3. Stage files
+$ git add index.html    # Stage one file
+$ git add .             # Stage all changes
+
+# 4. Commit with message
+$ git commit -m "Add login page with form validation"
+
+# 5. Push to GitHub
+$ git push origin main
+# Sends commits to 'main' branch on GitHub</code></pre>
+        <div class="tip">💡 Typical workflow: init → add → commit → push | Or: clone → edit → add → commit → push</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q13</div>
+        <div class="qa-q">How do you create a new repository on GitHub?</div>
+        <div class="qa-meta"><span class="marks-badge marks-3">3 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <pre><code>Steps to create a new GitHub repository:
+
+STEP 1: Login to github.com with your credentials
+
+STEP 2: Click the "+" icon (top right corner)
         → Select "New repository"
 
-STEP 3: Fill in details:
-  - Repository name: my-project
-  - Description: (optional)
-  - Public / Private
-  - ✓ Initialize with README (optional)
-  - .gitignore template (optional)
-  - License (optional)
+STEP 3: Fill in repository details:
+  ✦ Repository name   : my-project
+  ✦ Description       : (optional)
+  ✦ Visibility        : Public / Private
+  ✦ Initialize README : ✓ (optional)
+  ✦ .gitignore        : Choose template (optional)
+  ✦ License           : MIT / Apache (optional)
 
-STEP 4: Click "Create repository"
+STEP 4: Click "Create repository" button
 
 STEP 5: Connect local project to GitHub:
 $ git init
 $ git add .
-$ git commit -m "first commit"
+$ git commit -m "Initial commit"
 $ git branch -M main
 $ git remote add origin https://github.com/username/my-project.git
 $ git push -u origin main</code></pre>
-<div class="note">📌 After creation, GitHub shows exact commands to connect your local repo.</div>`
-  },
-  {
-    q: "What are branches in Git and why are they used?",
-    marks: 3,
-    a: `<p>A <strong>branch</strong> in Git is an independent line of development. It allows multiple versions of a project to exist simultaneously.</p>
-<pre><code>         main branch
+        <div class="note">📌 After creation, GitHub displays exact commands to connect your local repo automatically.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q14</div>
+        <div class="qa-q">What are branches in Git and why are they used?</div>
+        <div class="qa-meta"><span class="marks-badge marks-3">3 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p>A <strong>branch</strong> is an independent line of development in Git. It allows multiple versions of a project to coexist simultaneously.</p>
+        <pre><code>         main branch (production)
            |
-A---B---C---+---F (main: production code)
-             \
-              D---E (feature branch: new feature)</code></pre>
-<p><strong>Why Branches are Used:</strong></p>
-<table>
-  <tr><th>Reason</th><th>Explanation</th></tr>
-  <tr><td>Isolation</td><td>New features/bugs fixed without affecting main code</td></tr>
-  <tr><td>Parallel Work</td><td>Multiple developers work on different features simultaneously</td></tr>
-  <tr><td>Safe Experimentation</td><td>Try new ideas without breaking production</td></tr>
-  <tr><td>Code Review</td><td>Changes reviewed before merging to main</td></tr>
-</table>
-<p><strong>Common Branch Commands:</strong></p>
-<pre><code>git branch                  # List branches
+A---B---C---+----------F
+             \        /
+              D---E--    ← feature/login branch (merged)</code></pre>
+        <p><strong>Why Branches are Used:</strong></p>
+        <table>
+          <tr><th>Reason</th><th>Explanation</th></tr>
+          <tr><td>Isolation</td><td>New features/bug fixes don't affect main/production code</td></tr>
+          <tr><td>Parallel Work</td><td>Multiple developers work on different features simultaneously</td></tr>
+          <tr><td>Safe Experiments</td><td>Try new ideas without breaking production</td></tr>
+          <tr><td>Code Review</td><td>Changes reviewed via Pull Request before merging</td></tr>
+          <tr><td>Release Management</td><td>Maintain separate release and hotfix branches</td></tr>
+        </table>
+        <pre><code>git branch                  # List all branches
 git branch feature-login    # Create new branch
 git checkout feature-login  # Switch to branch
-git checkout -b hotfix      # Create and switch
-git merge feature-login     # Merge into current
-git branch -d feature-login # Delete branch</code></pre>
-<div class="tip">💡 Common branches: main/master (production), develop (integration), feature/*, hotfix/*</div>`
-  },
-  {
-    q: "Explain the concept of Pull and Push Requests in GitHub.",
-    marks: 4,
-    a: `<p><strong>Push:</strong> Uploading local commits to a remote GitHub repository.</p>
-<pre><code># After committing locally:
+git checkout -b hotfix      # Create AND switch
+git merge feature-login     # Merge into current branch
+git branch -d feature-login # Delete merged branch</code></pre>
+        <div class="tip">💡 Common branches: main (production), develop (integration), feature/*, bugfix/*, hotfix/*</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q15</div>
+        <div class="qa-q">Explain the concept of Pull and Push Requests in GitHub.</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p><strong>Push:</strong> The git command that uploads local commits to a remote GitHub repository.</p>
+        <pre><code># After making commits locally:
 git push origin main
-# Sends your commits to GitHub remote repo</code></pre>
-<p><strong>Pull Request (PR):</strong> A request to merge code from one branch into another on GitHub. It's not a git command but a GitHub feature for code review.</p>
-<pre><code>Developer workflow with Pull Request:
+# Sends your commits to 'main' branch on GitHub</code></pre>
+        <p><strong>Pull Request (PR):</strong> A GitHub feature (not a git command) for requesting to merge code from one branch into another. Enables code review and collaboration.</p>
+        <pre><code>Developer Workflow with Pull Request:
 
 1. Create feature branch
    git checkout -b feature/login
@@ -588,52 +1013,61 @@ git push origin main
 3. Push branch to GitHub
    git push origin feature/login
 
-4. On GitHub: 
-   → "Compare & pull request" button
-   → Add title & description
-   → Request reviewers
+4. On GitHub.com:
+   → Click "Compare & pull request"
+   → Add descriptive title & description
+   → Assign reviewers
    → Submit Pull Request
 
-5. Reviewer reviews code, adds comments
+5. Reviewer: reviews code, adds comments
 
-6. If approved → Merge PR into main branch
+6. If approved → Merge PR into main
 
 7. Delete feature branch (cleanup)</code></pre>
-<table>
-  <tr><th>Push</th><th>Pull Request</th></tr>
-  <tr><td>git command</td><td>GitHub feature</td></tr>
-  <tr><td>Uploads code to remote</td><td>Requests code merge</td></tr>
-  <tr><td>No review process</td><td>Includes review process</td></tr>
-  <tr><td>Done by individual</td><td>Involves team collaboration</td></tr>
-</table>
-<div class="imp">⚠️ IMP: Pull Requests enable code review, discussion, and CI/CD checks before merging.</div>`
-  },
-  {
-    q: "Define: Canvas, Figma, Hierarchy, Components, Prototyping",
-    marks: 5,
-    a: `<table>
-  <tr><th>Term</th><th>Definition</th></tr>
-  <tr>
-    <td><strong>1. Canvas</strong></td>
-    <td>In HTML5, &lt;canvas&gt; is an element used to draw 2D graphics via JavaScript API. In design tools (Figma), canvas is the infinite workspace where designs are created. Supports drawing shapes, paths, images, text, and animations.</td>
-  </tr>
-  <tr>
-    <td><strong>2. Figma</strong></td>
-    <td>A cloud-based UI/UX design tool used for designing, prototyping, and collaborating on digital interfaces. Features: vector editing, real-time collaboration, component libraries, prototyping, design systems. Works in browser — no installation needed.</td>
-  </tr>
-  <tr>
-    <td><strong>3. Hierarchy</strong></td>
-    <td>Visual hierarchy is the arrangement of elements to show their order of importance. Achieved through: size (larger = more important), color contrast, spacing, typography weight, positioning. Guides user's eye through content in a logical order.</td>
-  </tr>
-  <tr>
-    <td><strong>4. Components</strong></td>
-    <td>Reusable design elements in Figma (or code). A component is created once and can be reused many times as instances. Examples: buttons, cards, input fields, navigation bars. Editing the main component updates all instances automatically.</td>
-  </tr>
-  <tr>
-    <td><strong>5. Prototyping</strong></td>
-    <td>Creating an interactive simulation of a design to test user flows and interactions before development. In Figma: connect frames with arrows to simulate navigation. Types: low-fidelity (wireframes) and high-fidelity (pixel-perfect). Allows user testing and stakeholder feedback early.</td>
-  </tr>
-</table>`
-  }
-];
-module.exports = unit1;
+        <table>
+          <tr><th>Push</th><th>Pull Request</th></tr>
+          <tr><td>git command</td><td>GitHub web feature</td></tr>
+          <tr><td>Uploads code to remote</td><td>Requests code merge</td></tr>
+          <tr><td>No review process</td><td>Includes peer review</td></tr>
+          <tr><td>Done individually</td><td>Team collaboration</td></tr>
+        </table>
+        <div class="imp">⚠️ IMP: PRs enable code review, discussion, CI/CD checks, and approval before merging into production.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q16</div>
+        <div class="qa-q">Define: Canvas, Figma, Hierarchy, Components, Prototyping</div>
+        <div class="qa-meta"><span class="marks-badge marks-5">5 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <table>
+          <tr><th>Term</th><th>Definition</th></tr>
+          <tr>
+            <td><strong>1. Canvas</strong></td>
+            <td>In HTML5, &lt;canvas&gt; is an element for drawing 2D graphics via JavaScript API. In design tools (Figma/Adobe XD), the canvas is the infinite workspace where UI designs are created and arranged.</td>
+          </tr>
+          <tr>
+            <td><strong>2. Figma</strong></td>
+            <td>A cloud-based, collaborative UI/UX design tool used for creating interfaces, prototypes, and design systems. Works in browser — no installation needed. Supports real-time multi-user collaboration, vector editing, and component libraries.</td>
+          </tr>
+          <tr>
+            <td><strong>3. Hierarchy</strong></td>
+            <td>Visual hierarchy is the arrangement of design elements to indicate their order of importance. Achieved through: size, color contrast, typography weight, spacing, and position. Guides the user's eye in a logical sequence through content.</td>
+          </tr>
+          <tr>
+            <td><strong>4. Components</strong></td>
+            <td>Reusable design or code elements created once and used multiple times. In Figma: a component (e.g., Button, Card) is created as a master and reused as instances. Editing the master component updates all instances automatically. Promotes design consistency.</td>
+          </tr>
+          <tr>
+            <td><strong>5. Prototyping</strong></td>
+            <td>Creating an interactive simulation/mockup of a design to test user flows before development. In Figma: frames are connected with interaction arrows to simulate navigation. Types: Low-fidelity (wireframes) and High-fidelity (pixel-perfect). Enables early user testing and stakeholder feedback.</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- end qa-list -->
+</div><!-- end unit u1 -->
