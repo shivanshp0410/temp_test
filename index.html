@@ -1,3135 +1,639 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OOPU Question Bank – Silver Oak University</title>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg: #0d0f14;
-  --surface: #141720;
-  --surface2: #1c2030;
-  --border: #2a2f45;
-  --text: #e2e8f0;
-  --muted: #8892a4;
-  --code-bg: #0a0c10;
-
-  --u1: #38bdf8; --u1-dim: rgba(56,189,248,0.12);
-  --u2: #a78bfa; --u2-dim: rgba(167,139,250,0.12);
-  --u3: #f472b6; --u3-dim: rgba(244,114,182,0.12);
-  --u4: #34d399; --u4-dim: rgba(52,211,153,0.12);
-  --u5: #fb923c; --u5-dim: rgba(251,146,60,0.12);
-}
-
-* { margin:0; padding:0; box-sizing:border-box; }
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Outfit', sans-serif;
-  font-size: 15px;
-  line-height: 1.7;
-}
-
-/* ── HEADER ── */
-header {
-  background: linear-gradient(135deg, #0d0f14 0%, #141c2e 100%);
-  border-bottom: 1px solid var(--border);
-  padding: 28px 24px 20px;
-  text-align: center;
-}
-header .badge {
-  display: inline-block;
-  background: var(--u1-dim);
-  color: var(--u1);
-  border: 1px solid var(--u1);
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  padding: 3px 14px;
-  margin-bottom: 10px;
-}
-header h1 {
-  font-size: clamp(22px,4vw,36px);
-  font-weight: 800;
-  background: linear-gradient(135deg, #e2e8f0 30%, #94a3b8);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-header p { color: var(--muted); font-size: 13px; margin-top: 4px; }
-
-/* ── TABS ── */
-.tab-bar {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(13,15,20,0.95);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-  display: flex; gap: 4px; padding: 8px 16px; overflow-x: auto;
-  scrollbar-width: none;
-}
-.tab-bar::-webkit-scrollbar { display:none; }
-.tab-btn {
-  flex-shrink: 0;
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: 8px;
-  padding: 7px 16px;
-  font-family: 'Outfit', sans-serif;
-  font-size: 13px; font-weight: 600;
-  cursor: pointer; transition: all .2s;
-  color: var(--muted);
-}
-.tab-btn[data-unit="1"] { --c: var(--u1); --cdim: var(--u1-dim); }
-.tab-btn[data-unit="2"] { --c: var(--u2); --cdim: var(--u2-dim); }
-.tab-btn[data-unit="3"] { --c: var(--u3); --cdim: var(--u3-dim); }
-.tab-btn[data-unit="4"] { --c: var(--u4); --cdim: var(--u4-dim); }
-.tab-btn[data-unit="5"] { --c: var(--u5); --cdim: var(--u5-dim); }
-.tab-btn:hover, .tab-btn.active {
-  color: var(--c); background: var(--cdim);
-  border-color: var(--c);
-}
-
-/* ── UNIT PANELS ── */
-.unit-panel { display: none; padding: 20px 16px 40px; max-width: 900px; margin: 0 auto; }
-.unit-panel.active { display: block; }
-.unit-title {
-  font-size: 18px; font-weight: 800;
-  margin-bottom: 20px; padding: 12px 18px;
-  border-radius: 10px; border-left: 4px solid var(--c);
-  background: var(--cdim);
-  color: var(--c);
-}
-.unit-panel[data-unit="1"] { --c: var(--u1); --cdim: var(--u1-dim); }
-.unit-panel[data-unit="2"] { --c: var(--u2); --cdim: var(--u2-dim); }
-.unit-panel[data-unit="3"] { --c: var(--u3); --cdim: var(--u3-dim); }
-.unit-panel[data-unit="4"] { --c: var(--u4); --cdim: var(--u4-dim); }
-.unit-panel[data-unit="5"] { --c: var(--u5); --cdim: var(--u5-dim); }
-
-/* ── ACCORDION CARDS ── */
-.qa-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px; overflow: hidden; transition: border-color .2s; }
-.qa-card:hover { border-color: var(--c); }
-.qa-header {
-  display: flex; align-items: center; gap: 12px;
-  padding: 14px 18px; cursor: pointer; user-select: none;
-}
-.q-num {
-  background: var(--cdim); color: var(--c);
-  border: 1px solid var(--c);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px; font-weight: 700;
-  min-width: 36px; height: 26px;
-  border-radius: 6px; display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-.q-marks {
-  margin-left: auto; flex-shrink: 0;
-  font-size: 11px; color: var(--muted);
-  font-family: 'JetBrains Mono', monospace;
-  background: var(--surface2); padding: 2px 8px; border-radius: 4px;
-}
-.q-text { font-size: 14px; font-weight: 600; color: var(--text); flex: 1; }
-.q-arrow { color: var(--muted); font-size: 16px; transition: transform .3s; flex-shrink: 0; }
-.qa-card.open .q-arrow { transform: rotate(180deg); }
-.qa-body { display: none; padding: 0 18px 18px; border-top: 1px solid var(--border); }
-.qa-card.open .qa-body { display: block; }
-.qa-body > *:first-child { margin-top: 14px; }
-
-/* ── CONTENT ELEMENTS ── */
-p { margin-bottom: 10px; }
-ul, ol { padding-left: 22px; margin-bottom: 10px; }
-li { margin-bottom: 4px; }
-
-pre {
-  background: var(--code-bg);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--c);
-  border-radius: 8px;
-  padding: 14px 16px;
-  overflow-x: auto;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12.5px;
-  line-height: 1.6;
-  margin: 12px 0;
-  color: #c9d1d9;
-}
-code {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  background: var(--code-bg);
-  padding: 2px 6px; border-radius: 4px;
-  color: #79c0ff;
-}
-
-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
-th { background: var(--cdim); color: var(--c); padding: 9px 12px; text-align: left; font-weight: 700; border: 1px solid var(--border); }
-td { padding: 8px 12px; border: 1px solid var(--border); vertical-align: top; }
-tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
-
-.box { border-radius: 8px; padding: 12px 16px; margin: 12px 0; border-left: 3px solid; }
-.box-tip  { background: rgba(52,211,153,0.08); border-color: #34d399; }
-.box-tip::before  { content: "💡 TIP  "; font-weight: 700; color: #34d399; }
-.box-note { background: rgba(56,189,248,0.08); border-color: #38bdf8; }
-.box-note::before { content: "📝 NOTE  "; font-weight: 700; color: #38bdf8; }
-.box-imp  { background: rgba(248,113,113,0.08); border-color: #f87171; }
-.box-imp::before  { content: "⚠️ IMPORTANT  "; font-weight: 700; color: #f87171; }
-.box-def  { background: rgba(167,139,250,0.08); border-color: #a78bfa; }
-.box-def::before  { content: "📖 DEFINITION  "; font-weight: 700; color: #a78bfa; }
-
-h3 { color: var(--c); font-size: 14px; font-weight: 700; margin: 14px 0 6px; text-transform: uppercase; letter-spacing: .5px; }
-h4 { color: #94a3b8; font-size: 13px; font-weight: 600; margin: 10px 0 4px; }
-
-.kw { color: #ff79c6; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
-.cm { color: #6a9955; }
-.str { color: #ce9178; }
-.num { color: #b5cea8; }
-.type { color: #4ec9b0; }
-</style>
-</head>
-<body>
-
-<header>
-  <div class="badge">Silver Oak University · Semester 4 · 2025-26</div>
-  <h1>Object-Oriented Programming with UML</h1>
-  <p>Course Code: 2010043231 &nbsp;|&nbsp; Complete Question Bank Answer Guide &nbsp;|&nbsp; 96 Questions</p>
-</header>
-
-<div class="tab-bar">
-  <button class="tab-btn active" data-unit="1" onclick="showUnit(1)">Unit 1 · Java Basics</button>
-  <button class="tab-btn" data-unit="2" onclick="showUnit(2)">Unit 2 · OOP &amp; Classes</button>
-  <button class="tab-btn" data-unit="3" onclick="showUnit(3)">Unit 3 · Exceptions &amp; Threads</button>
-  <button class="tab-btn" data-unit="4" onclick="showUnit(4)">Unit 4 · I/O &amp; Collections</button>
-  <button class="tab-btn" data-unit="5" onclick="showUnit(5)">Unit 5 · UML</button>
-</div>
-
-<!-- ════════════════════════════════════════════════════════
-     UNIT 1
-════════════════════════════════════════════════════════ -->
-<div class="unit-panel active" id="unit-1" data-unit="1">
-<div class="unit-title">Unit 1 — Introduction to Java, Basic Programming, Control Structure, Array &amp; String</div>
-
-<!-- Q1 -->
-<div class="qa-card" id="q1">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q1</span>
-  <span class="q-text">Explain features of JAVA.</span>
-  <span class="q-marks">3 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<h3>Key Features of Java</h3>
+// Unit 1 Q&A Data
+const unit1 = [
+  {
+    q: "What is the purpose of semantic elements in HTML5?",
+    marks: 2,
+    a: `<p>Semantic elements in HTML5 clearly describe their meaning to both the browser and the developer. They define the role and structure of the content on a web page.</p>
+<div class="tip">💡 Semantic = meaningful tags that describe content purpose</div>
+<table>
+  <tr><th>Semantic Element</th><th>Purpose</th></tr>
+  <tr><td>&lt;header&gt;</td><td>Top section / site header</td></tr>
+  <tr><td>&lt;nav&gt;</td><td>Navigation links</td></tr>
+  <tr><td>&lt;main&gt;</td><td>Main content area</td></tr>
+  <tr><td>&lt;article&gt;</td><td>Self-contained content</td></tr>
+  <tr><td>&lt;section&gt;</td><td>Thematic grouping</td></tr>
+  <tr><td>&lt;footer&gt;</td><td>Bottom section</td></tr>
+  <tr><td>&lt;aside&gt;</td><td>Side content / sidebar</td></tr>
+  <tr><td>&lt;figure&gt;</td><td>Image with caption</td></tr>
+</table>
+<div class="note">📌 Benefits: Better SEO, Accessibility (screen readers), Readable code, Browser understanding</div>`
+  },
+  {
+    q: "Name two multimedia elements supported by HTML5.",
+    marks: 2,
+    a: `<p>HTML5 introduced native support for multimedia without requiring plugins like Flash.</p>
+<p><strong>1. &lt;audio&gt;</strong> – Embeds audio content</p>
+<pre><code>&lt;audio controls&gt;
+  &lt;source src="music.mp3" type="audio/mpeg"&gt;
+  Your browser does not support audio.
+&lt;/audio&gt;</code></pre>
+<p><strong>2. &lt;video&gt;</strong> – Embeds video content</p>
+<pre><code>&lt;video controls width="400"&gt;
+  &lt;source src="movie.mp4" type="video/mp4"&gt;
+  Your browser does not support video.
+&lt;/video&gt;</code></pre>
+<div class="tip">💡 Both support: autoplay, controls, loop, muted attributes</div>`
+  },
+  {
+    q: "How do you define a required field in an HTML form with an example?",
+    marks: 4,
+    a: `<p>The <code>required</code> attribute is used to specify that an input field must be filled before submitting the form. It is a boolean attribute.</p>
+<div class="imp">⚠️ IMP: Browser performs automatic validation when <code>required</code> is set.</div>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+  &lt;form action="/submit" method="post"&gt;
+    
+    &lt;label for="name"&gt;Full Name:&lt;/label&gt;
+    &lt;input type="text" id="name" name="name" required&gt;
+    
+    &lt;label for="email"&gt;Email:&lt;/label&gt;
+    &lt;input type="email" id="email" name="email" required&gt;
+    
+    &lt;label for="phone"&gt;Phone:&lt;/label&gt;
+    &lt;input type="tel" id="phone" name="phone"&gt;
+    &lt;!-- Phone is optional - no required attribute --&gt;
+    
+    &lt;button type="submit"&gt;Submit&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<div class="note">📌 If user tries to submit without required fields, browser shows error message automatically.</div>
+<table>
+  <tr><th>Attribute</th><th>Description</th></tr>
+  <tr><td>required</td><td>Field must be filled</td></tr>
+  <tr><td>minlength</td><td>Minimum characters</td></tr>
+  <tr><td>maxlength</td><td>Maximum characters</td></tr>
+  <tr><td>pattern</td><td>Regex validation</td></tr>
+</table>`
+  },
+  {
+    q: "List all HTML tags which are new and removed in HTML5.",
+    marks: 4,
+    a: `<p><strong>New Tags in HTML5:</strong></p>
+<table>
+  <tr><th>Category</th><th>Tags</th></tr>
+  <tr><td>Structural / Semantic</td><td>&lt;header&gt;, &lt;footer&gt;, &lt;nav&gt;, &lt;main&gt;, &lt;section&gt;, &lt;article&gt;, &lt;aside&gt;, &lt;figure&gt;, &lt;figcaption&gt;, &lt;details&gt;, &lt;summary&gt;</td></tr>
+  <tr><td>Multimedia</td><td>&lt;audio&gt;, &lt;video&gt;, &lt;source&gt;, &lt;track&gt;, &lt;embed&gt;</td></tr>
+  <tr><td>Graphics</td><td>&lt;canvas&gt;, &lt;svg&gt;</td></tr>
+  <tr><td>Form Input</td><td>&lt;datalist&gt;, &lt;output&gt;, &lt;keygen&gt;, &lt;meter&gt;, &lt;progress&gt;</td></tr>
+  <tr><td>Text</td><td>&lt;mark&gt;, &lt;ruby&gt;, &lt;rt&gt;, &lt;rp&gt;, &lt;bdi&gt;, &lt;wbr&gt;, &lt;time&gt;</td></tr>
+</table>
+<p><strong>Removed/Deprecated Tags in HTML5:</strong></p>
+<table>
+  <tr><th>Removed Tag</th><th>Reason / Replacement</th></tr>
+  <tr><td>&lt;font&gt;</td><td>Use CSS font properties instead</td></tr>
+  <tr><td>&lt;center&gt;</td><td>Use CSS text-align: center</td></tr>
+  <tr><td>&lt;big&gt;</td><td>Use CSS font-size</td></tr>
+  <tr><td>&lt;strike&gt;</td><td>Use &lt;del&gt; or CSS text-decoration</td></tr>
+  <tr><td>&lt;tt&gt;</td><td>Use &lt;code&gt; or CSS</td></tr>
+  <tr><td>&lt;frameset&gt;</td><td>Frames deprecated entirely</td></tr>
+  <tr><td>&lt;frame&gt;</td><td>Frames deprecated entirely</td></tr>
+  <tr><td>&lt;noframes&gt;</td><td>Frames deprecated entirely</td></tr>
+  <tr><td>&lt;applet&gt;</td><td>Use &lt;embed&gt; or &lt;object&gt;</td></tr>
+  <tr><td>&lt;acronym&gt;</td><td>Use &lt;abbr&gt;</td></tr>
+</table>`
+  },
+  {
+    q: "What is the significance of using placeholder attributes in form inputs with example?",
+    marks: 3,
+    a: `<p>The <code>placeholder</code> attribute provides a short hint that describes the expected value of an input field. It appears inside the input field when it is empty.</p>
+<div class="tip">💡 Placeholder text disappears when user starts typing.</div>
+<p><strong>Significance / Benefits:</strong></p>
 <ul>
-  <li><strong>Simple:</strong> Java has a clean, easy-to-learn syntax derived from C/C++ with complex features (like pointers, operator overloading) removed.</li>
-  <li><strong>Object-Oriented:</strong> Everything in Java is an object. Supports encapsulation, inheritance, polymorphism, and abstraction.</li>
-  <li><strong>Platform Independent (WORA):</strong> Write Once, Run Anywhere. Java bytecode runs on any machine with a JVM.</li>
-  <li><strong>Secure:</strong> No pointer arithmetic; bytecode is verified before execution; has a Security Manager.</li>
-  <li><strong>Robust:</strong> Strong type checking, exception handling, garbage collection — reduces runtime errors.</li>
-  <li><strong>Multithreaded:</strong> Built-in support for concurrent programming via <code>Thread</code> class and <code>Runnable</code> interface.</li>
-  <li><strong>Architecture Neutral:</strong> Compiled to architecture-neutral bytecode (.class files) independent of CPU.</li>
-  <li><strong>High Performance:</strong> Just-In-Time (JIT) compiler translates bytecode to native machine code at runtime.</li>
-  <li><strong>Distributed:</strong> Rich set of networking libraries (java.net) for building distributed applications.</li>
-  <li><strong>Dynamic:</strong> Supports dynamic loading of classes and runtime binding.</li>
+  <li>Provides contextual hints to users about expected input format</li>
+  <li>Improves user experience and form usability</li>
+  <li>Reduces need for separate instruction text</li>
+  <li>Works with text, email, password, search, tel, url inputs</li>
 </ul>
-<div class="box box-tip">WORA = Write Once, Run Anywhere — Java's core promise enabled by the JVM.</div>
-</div>
-</div>
-
-<!-- Q2 -->
-<div class="qa-card" id="q2">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q2</span>
-  <span class="q-text">Explain the characteristics of JAVA.</span>
-  <span class="q-marks">4 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<h3>Characteristics of Java</h3>
-<table>
-  <tr><th>Characteristic</th><th>Description</th></tr>
-  <tr><td>Simple</td><td>Clean syntax, no pointers, automatic memory management</td></tr>
-  <tr><td>Object-Oriented</td><td>Based on objects & classes; supports all OOP pillars</td></tr>
-  <tr><td>Platform Independent</td><td>Bytecode runs on any JVM — OS/Hardware independent</td></tr>
-  <tr><td>Secure</td><td>Bytecode verifier, sandbox model, no direct memory access</td></tr>
-  <tr><td>Robust</td><td>Strong typing, exception handling, garbage collection</td></tr>
-  <tr><td>Multithreaded</td><td>Native thread support; enables concurrent execution</td></tr>
-  <tr><td>Interpreted</td><td>JVM interprets bytecode at runtime (aided by JIT)</td></tr>
-  <tr><td>High Performance</td><td>JIT compilation makes Java near-native speed</td></tr>
-  <tr><td>Distributed</td><td>RMI, CORBA, Socket APIs for networked applications</td></tr>
-  <tr><td>Dynamic</td><td>Runtime class loading, reflection API</td></tr>
+<pre><code>&lt;form&gt;
+  &lt;input type="text" 
+         placeholder="Enter your full name"&gt;
+  
+  &lt;input type="email" 
+         placeholder="example@gmail.com"&gt;
+  
+  &lt;input type="tel" 
+         placeholder="+91 9876543210"&gt;
+  
+  &lt;input type="password" 
+         placeholder="Minimum 8 characters"&gt;
+  
+  &lt;textarea 
+    placeholder="Write your message here..."&gt;
+  &lt;/textarea&gt;
+&lt;/form&gt;</code></pre>
+<div class="note">📌 Note: Placeholder should NOT replace &lt;label&gt; for accessibility. Always use both.</div>`
+  },
+  {
+    q: "What is the difference between a canvas and SVG element in HTML5?",
+    marks: 4,
+    a: `<table>
+  <tr><th>Feature</th><th>Canvas</th><th>SVG</th></tr>
+  <tr><td>Type</td><td>Raster (pixel-based)</td><td>Vector (shape-based)</td></tr>
+  <tr><td>Rendering</td><td>JavaScript API</td><td>XML markup</td></tr>
+  <tr><td>Scalability</td><td>Loses quality on zoom</td><td>Scales perfectly (vector)</td></tr>
+  <tr><td>DOM</td><td>No DOM for shapes</td><td>Each shape is a DOM element</td></tr>
+  <tr><td>Events</td><td>Must calculate pixel position</td><td>Events on individual elements</td></tr>
+  <tr><td>Performance</td><td>Better for many objects/animation</td><td>Slower with many objects</td></tr>
+  <tr><td>Best Used For</td><td>Games, image editing, charts</td><td>Logos, icons, diagrams</td></tr>
+  <tr><td>Resolution</td><td>Resolution-dependent</td><td>Resolution-independent</td></tr>
 </table>
-<div class="box box-note">Java achieves security through bytecode verification before execution and a class loader that controls which classes can access which resources.</div>
-</div>
-</div>
+<p><strong>Canvas Example:</strong></p>
+<pre><code>&lt;canvas id="myCanvas" width="200" height="100"&gt;&lt;/canvas&gt;
+&lt;script&gt;
+  var ctx = document.getElementById("myCanvas").getContext("2d");
+  ctx.fillStyle = "blue";
+  ctx.fillRect(10, 10, 150, 80);
+&lt;/script&gt;</code></pre>
+<p><strong>SVG Example:</strong></p>
+<pre><code>&lt;svg width="200" height="100"&gt;
+  &lt;rect x="10" y="10" width="150" height="80" 
+        fill="blue" /&gt;
+&lt;/svg&gt;</code></pre>
+<div class="tip">💡 Canvas = like painting on paper. SVG = like drawing geometric shapes that stay crisp.</div>`
+  },
+  {
+    q: "Discuss the benefits of using semantic elements over traditional HTML elements.",
+    marks: 3,
+    a: `<p><strong>Traditional vs Semantic:</strong></p>
+<pre><code>&lt;!-- Traditional (Non-Semantic) --&gt;
+&lt;div id="header"&gt;...&lt;/div&gt;
+&lt;div id="nav"&gt;...&lt;/div&gt;
+&lt;div id="content"&gt;...&lt;/div&gt;
 
-<!-- Q3 -->
-<div class="qa-card" id="q3">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q3</span>
-  <span class="q-text">Explain JDK, JVM &amp; JRE.</span>
-  <span class="q-marks">4 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<pre>
-  ┌──────────────────────────────────────────┐
-  │              JDK                         │
-  │  ┌────────────────────────────────────┐  │
-  │  │              JRE                  │  │
-  │  │  ┌──────────────────────────────┐ │  │
-  │  │  │          JVM                 │ │  │
-  │  │  │  (Class Loader, Bytecode     │ │  │
-  │  │  │   Verifier, Interpreter,JIT) │ │  │
-  │  │  └──────────────────────────────┘ │  │
-  │  │  + Java Class Libraries (rt.jar)  │  │
-  │  └────────────────────────────────────┘  │
-  │  + javac, javadoc, jar, jdb tools        │
-  └──────────────────────────────────────────┘</pre>
-<h3>JDK — Java Development Kit</h3>
-<p>The complete development package. Contains: compiler (<code>javac</code>), debugger (<code>jdb</code>), archiver (<code>jar</code>), documentation generator (<code>javadoc</code>), and the JRE. Used by developers to write and compile Java programs.</p>
-
-<h3>JRE — Java Runtime Environment</h3>
-<p>Provides the runtime environment to <em>execute</em> Java programs. Contains: JVM + Java Class Libraries (java.lang, java.util, java.io, etc.) + supporting files. End-users who only run Java apps need the JRE, not full JDK.</p>
-
-<h3>JVM — Java Virtual Machine</h3>
-<p>An abstract computing machine that executes Java bytecode (.class files). Key components:</p>
-<ul>
-  <li><strong>Class Loader:</strong> Loads .class files into memory</li>
-  <li><strong>Bytecode Verifier:</strong> Checks code for security violations</li>
-  <li><strong>Interpreter:</strong> Executes bytecode instructions</li>
-  <li><strong>JIT Compiler:</strong> Compiles hot bytecode to native machine code</li>
-  <li><strong>Garbage Collector:</strong> Automatically reclaims unused memory</li>
-</ul>
-<div class="box box-imp">JVM is platform-specific (different JVMs for Windows, Linux, Mac), but the bytecode it runs is platform-independent. This is how WORA works!</div>
-</div>
-</div>
-
-<!-- Q4 -->
-<div class="qa-card" id="q4">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q4</span>
-  <span class="q-text">Explain the statement "public static void main(String args[])"</span>
-  <span class="q-marks">4 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<pre>
-public static void main(String args[])
-  │      │      │    │    └─ Command-line argument array
-  │      │      │    └─ Method name (entry point)
-  │      │      └─ Return type (nothing returned)
-  │      └─ Belongs to the class, no object needed
-  └─ Accessible from outside the class/package</pre>
+&lt;!-- Semantic HTML5 --&gt;
+&lt;header&gt;...&lt;/header&gt;
+&lt;nav&gt;...&lt;/nav&gt;
+&lt;main&gt;...&lt;/main&gt;</code></pre>
+<p><strong>Benefits of Semantic Elements:</strong></p>
 <table>
-  <tr><th>Keyword</th><th>Meaning</th></tr>
-  <tr><td><code>public</code></td><td>Access modifier — JVM must be able to call it from outside the class</td></tr>
-  <tr><td><code>static</code></td><td>JVM calls main() without creating an object of the class</td></tr>
-  <tr><td><code>void</code></td><td>main() returns nothing to the JVM</td></tr>
-  <tr><td><code>main</code></td><td>Name recognized by JVM as the entry point of execution</td></tr>
-  <tr><td><code>String args[]</code></td><td>Array of String arguments passed from command line</td></tr>
+  <tr><th>Benefit</th><th>Description</th></tr>
+  <tr><td>🔍 Better SEO</td><td>Search engines understand content structure better, improving page ranking</td></tr>
+  <tr><td>♿ Accessibility</td><td>Screen readers use semantic tags to help visually impaired users navigate</td></tr>
+  <tr><td>📖 Readability</td><td>Code is easier to read and maintain for developers</td></tr>
+  <tr><td>🌐 Browser Support</td><td>Browsers render semantic pages more consistently</td></tr>
+  <tr><td>🤝 Team Work</td><td>Clear structure makes collaboration easier</td></tr>
+  <tr><td>📱 Responsive Design</td><td>Easier to apply responsive styles to meaningful sections</td></tr>
 </table>
-<div class="box box-note">You can also write <code>String[] args</code> — both forms are valid. The args array can be empty if no command-line arguments are provided.</div>
-<pre>
-<span class="cm">// Example usage of args</span>
-<span class="kw">public class</span> <span class="type">Hello</span> {
-    <span class="kw">public static void</span> main(<span class="type">String</span> args[]) {
-        <span class="type">System</span>.out.println(<span class="str">"Hello, "</span> + args[0]); <span class="cm">// java Hello World</span>
-    }
-}</pre>
-</div>
-</div>
-
-<!-- Q5 -->
-<div class="qa-card" id="q5">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q5</span>
-  <span class="q-text">What is a variable? How to define variables in Java? Rules for valid variable names.</span>
-  <span class="q-marks">4 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<div class="box box-def">A <strong>variable</strong> is a named memory location that holds a data value which can change during program execution.</div>
-<h3>Variable Declaration Syntax</h3>
-<pre>dataType variableName = value;
-
-<span class="cm">// Examples:</span>
-<span class="kw">int</span> age = <span class="num">20</span>;
-<span class="kw">double</span> salary = <span class="num">50000.50</span>;
-<span class="type">String</span> name = <span class="str">"Alice"</span>;
-<span class="kw">boolean</span> isActive = <span class="kw">true</span>;</pre>
-<h3>Types of Variables</h3>
-<ul>
-  <li><strong>Local:</strong> Declared inside a method; accessible only within that method</li>
-  <li><strong>Instance:</strong> Declared in class but outside methods; each object gets its own copy</li>
-  <li><strong>Static (Class):</strong> Declared with <code>static</code>; shared across all objects</li>
-</ul>
-<h3>Rules for Valid Variable Names</h3>
-<ul>
-  <li>Must start with a letter (a-z, A-Z), underscore (_), or dollar sign ($)</li>
-  <li>Cannot start with a digit</li>
-  <li>Can contain letters, digits, _, $</li>
-  <li>Cannot be a Java reserved keyword (<code>int</code>, <code>class</code>, etc.)</li>
-  <li>Case-sensitive: <code>age</code> ≠ <code>Age</code></li>
-  <li>No spaces allowed</li>
-  <li>No length limit (but keep it meaningful)</li>
-</ul>
+<div class="imp">⚠️ IMP: Semantic HTML is a best practice in modern web development and is expected in interviews!</div>`
+  },
+  {
+    q: "List and briefly describe at least five different input types in HTML5.",
+    marks: 5,
+    a: `<p>HTML5 introduced many new <code>type</code> values for the <code>&lt;input&gt;</code> element:</p>
 <table>
-  <tr><th>Valid ✅</th><th>Invalid ❌</th></tr>
-  <tr><td>myVar, _count, $price, age2</td><td>2age, my-var, int, hello world</td></tr>
+  <tr><th>Input Type</th><th>Description</th><th>Example</th></tr>
+  <tr><td>text</td><td>Single-line text input</td><td>&lt;input type="text"&gt;</td></tr>
+  <tr><td>email</td><td>Email address (validates @ and domain)</td><td>&lt;input type="email"&gt;</td></tr>
+  <tr><td>password</td><td>Masked input for passwords</td><td>&lt;input type="password"&gt;</td></tr>
+  <tr><td>number</td><td>Numeric input with spinner</td><td>&lt;input type="number" min="1" max="100"&gt;</td></tr>
+  <tr><td>date</td><td>Date picker (calendar UI)</td><td>&lt;input type="date"&gt;</td></tr>
+  <tr><td>range</td><td>Slider control for range selection</td><td>&lt;input type="range" min="0" max="100"&gt;</td></tr>
+  <tr><td>color</td><td>Color picker widget</td><td>&lt;input type="color"&gt;</td></tr>
+  <tr><td>checkbox</td><td>Boolean on/off option</td><td>&lt;input type="checkbox"&gt;</td></tr>
+  <tr><td>radio</td><td>Single selection from group</td><td>&lt;input type="radio"&gt;</td></tr>
+  <tr><td>file</td><td>File upload button</td><td>&lt;input type="file"&gt;</td></tr>
+  <tr><td>tel</td><td>Telephone number input</td><td>&lt;input type="tel"&gt;</td></tr>
+  <tr><td>url</td><td>URL input with validation</td><td>&lt;input type="url"&gt;</td></tr>
+  <tr><td>search</td><td>Search box (with clear button)</td><td>&lt;input type="search"&gt;</td></tr>
+  <tr><td>time</td><td>Time picker</td><td>&lt;input type="time"&gt;</td></tr>
+  <tr><td>submit</td><td>Submits the form</td><td>&lt;input type="submit" value="Send"&gt;</td></tr>
 </table>
-</div>
-</div>
-
-<!-- Q6 -->
-<div class="qa-card" id="q6">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q6</span>
-  <span class="q-text">Explain different types of operators (augmented assignment, increment/decrement, logical operators)</span>
-  <span class="q-marks">8 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<h3>1. Augmented (Compound) Assignment Operators</h3>
-<p>Combine an arithmetic operation with assignment.</p>
+<div class="tip">💡 New HTML5 types provide built-in validation and mobile-friendly keyboard layouts.</div>`
+  },
+  {
+    q: "What is Grail layout in HTML?",
+    marks: 8,
+    a: `<p>The <strong>Holy Grail Layout</strong> is a classic web page layout consisting of a header, footer, a main content area, and two sidebars (one on each side). It was historically difficult to implement with pure CSS but is now straightforward with Flexbox or Grid.</p>
+<div class="tip">💡 Called "Holy Grail" because it was the ideal layout that was hard to achieve — like the Holy Grail!</div>
+<p><strong>Structure:</strong></p>
+<pre><code>+---------------------------+
+|         HEADER            |
++---------------------------+
+| LEFT  |   CONTENT  | RIGHT|
+| SIDE  |            | SIDE |
+| BAR   |            | BAR  |
++---------------------------+
+|         FOOTER            |
++---------------------------+</code></pre>
+<p><strong>Implementation using CSS Flexbox:</strong></p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;style&gt;
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+  }
+  header {
+    background: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+  }
+  .middle {
+    display: flex;
+    flex: 1;
+  }
+  nav {
+    background: #555;
+    color: white;
+    width: 180px;
+    padding: 20px;
+    flex-shrink: 0;
+  }
+  main {
+    flex: 1;
+    padding: 20px;
+    background: #f0f0f0;
+  }
+  aside {
+    background: #777;
+    color: white;
+    width: 180px;
+    padding: 20px;
+    flex-shrink: 0;
+  }
+  footer {
+    background: #333;
+    color: white;
+    padding: 15px;
+    text-align: center;
+  }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;Header - Logo &amp; Navigation&lt;/header&gt;
+  &lt;div class="middle"&gt;
+    &lt;nav&gt;Left Sidebar (Nav Links)&lt;/nav&gt;
+    &lt;main&gt;Main Content Area&lt;/main&gt;
+    &lt;aside&gt;Right Sidebar (Ads/Info)&lt;/aside&gt;
+  &lt;/div&gt;
+  &lt;footer&gt;Footer - Copyright Info&lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p><strong>Using CSS Grid:</strong></p>
+<pre><code>&lt;style&gt;
+  body {
+    display: grid;
+    grid-template-areas:
+      "header header header"
+      "nav    main   aside"
+      "footer footer footer";
+    grid-template-columns: 180px 1fr 180px;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+  }
+  header  { grid-area: header; }
+  nav     { grid-area: nav;    }
+  main    { grid-area: main;   }
+  aside   { grid-area: aside;  }
+  footer  { grid-area: footer; }
+&lt;/style&gt;</code></pre>
+<div class="note">📌 Grid method is cleaner and more powerful for Holy Grail layouts.</div>`
+  },
+  {
+    q: "Explain HTML <FORM> element with all form attributes with example.",
+    marks: 8,
+    a: `<p>The <code>&lt;form&gt;</code> element is used to create an HTML form for user input. It acts as a container for various input controls.</p>
+<p><strong>Syntax:</strong></p>
+<pre><code>&lt;form attribute="value" ...&gt;
+  ... form controls ...
+&lt;/form&gt;</code></pre>
+<p><strong>Form Attributes:</strong></p>
 <table>
-  <tr><th>Operator</th><th>Example</th><th>Equivalent</th></tr>
-  <tr><td><code>+=</code></td><td>x += 5</td><td>x = x + 5</td></tr>
-  <tr><td><code>-=</code></td><td>x -= 3</td><td>x = x - 3</td></tr>
-  <tr><td><code>*=</code></td><td>x *= 2</td><td>x = x * 2</td></tr>
-  <tr><td><code>/=</code></td><td>x /= 4</td><td>x = x / 4</td></tr>
-  <tr><td><code>%=</code></td><td>x %= 3</td><td>x = x % 3</td></tr>
+  <tr><th>Attribute</th><th>Values</th><th>Description</th></tr>
+  <tr><td>action</td><td>URL</td><td>URL where form data is submitted</td></tr>
+  <tr><td>method</td><td>get / post</td><td>HTTP method for sending data</td></tr>
+  <tr><td>name</td><td>text</td><td>Name of the form</td></tr>
+  <tr><td>enctype</td><td>multipart/form-data, application/x-www-form-urlencoded, text/plain</td><td>Encoding type (important for file uploads)</td></tr>
+  <tr><td>target</td><td>_blank, _self, _parent, _top</td><td>Where to open response</td></tr>
+  <tr><td>autocomplete</td><td>on / off</td><td>Enable/disable autocomplete</td></tr>
+  <tr><td>novalidate</td><td>boolean</td><td>Skip browser validation</td></tr>
+  <tr><td>accept-charset</td><td>UTF-8, ISO-8859-1</td><td>Character encoding</td></tr>
 </table>
+<p><strong>Complete Example:</strong></p>
+<pre><code>&lt;form 
+  action="process.php"
+  method="post"
+  enctype="multipart/form-data"
+  target="_blank"
+  autocomplete="on"
+  name="registrationForm"&gt;
 
-<h3>2. Increment and Decrement Operators</h3>
+  &lt;!-- Text Input --&gt;
+  &lt;label&gt;Name: &lt;input type="text" name="username" required&gt;&lt;/label&gt;
+
+  &lt;!-- Email --&gt;
+  &lt;label&gt;Email: &lt;input type="email" name="email"&gt;&lt;/label&gt;
+
+  &lt;!-- Password --&gt;
+  &lt;label&gt;Password: &lt;input type="password" name="pwd" minlength="8"&gt;&lt;/label&gt;
+
+  &lt;!-- Radio Buttons --&gt;
+  &lt;label&gt;Gender:&lt;/label&gt;
+  &lt;input type="radio" name="gender" value="male"&gt; Male
+  &lt;input type="radio" name="gender" value="female"&gt; Female
+
+  &lt;!-- Dropdown --&gt;
+  &lt;label&gt;City:
+    &lt;select name="city"&gt;
+      &lt;option value="ahmedabad"&gt;Ahmedabad&lt;/option&gt;
+      &lt;option value="surat"&gt;Surat&lt;/option&gt;
+    &lt;/select&gt;
+  &lt;/label&gt;
+
+  &lt;!-- File Upload --&gt;
+  &lt;label&gt;Photo: &lt;input type="file" name="photo"&gt;&lt;/label&gt;
+
+  &lt;!-- Textarea --&gt;
+  &lt;label&gt;Message: &lt;textarea name="msg" rows="4"&gt;&lt;/textarea&gt;&lt;/label&gt;
+
+  &lt;!-- Checkbox --&gt;
+  &lt;input type="checkbox" name="agree" required&gt; I agree to Terms
+
+  &lt;!-- Submit & Reset --&gt;
+  &lt;input type="submit" value="Register"&gt;
+  &lt;input type="reset" value="Clear"&gt;
+&lt;/form&gt;</code></pre>
+<div class="imp">⚠️ IMP: Use method="post" for sensitive data and when uploading files, enctype="multipart/form-data" is mandatory.</div>`
+  },
+  {
+    q: "Create a basic student detail form with First Name, Last Name, Gender, Enrollment ID, Designation, and Phone Number.",
+    marks: 8,
+    a: `<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Student Detail Form&lt;/title&gt;
+  &lt;style&gt;
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      padding: 30px;
+    }
+    .form-container {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      width: 450px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #555;
+    }
+    input[type="text"],
+    input[type="tel"],
+    select {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    .radio-group { display: flex; gap: 15px; }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover { background: #0056b3; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class="form-container"&gt;
+    &lt;h2&gt;Student Detail Form&lt;/h2&gt;
+    &lt;form action="submit.php" method="post"&gt;
+      
+      &lt;div class="form-group"&gt;
+        &lt;label for="fname"&gt;First Name:&lt;/label&gt;
+        &lt;input type="text" id="fname" name="first_name" 
+               placeholder="Enter first name" required&gt;
+      &lt;/div&gt;
+
+      &lt;div class="form-group"&gt;
+        &lt;label for="lname"&gt;Last Name:&lt;/label&gt;
+        &lt;input type="text" id="lname" name="last_name" 
+               placeholder="Enter last name" required&gt;
+      &lt;/div&gt;
+
+      &lt;div class="form-group"&gt;
+        &lt;label&gt;Gender:&lt;/label&gt;
+        &lt;div class="radio-group"&gt;
+          &lt;label&gt;
+            &lt;input type="radio" name="gender" value="male" required&gt; Male
+          &lt;/label&gt;
+          &lt;label&gt;
+            &lt;input type="radio" name="gender" value="female"&gt; Female
+          &lt;/label&gt;
+          &lt;label&gt;
+            &lt;input type="radio" name="gender" value="other"&gt; Other
+          &lt;/label&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class="form-group"&gt;
+        &lt;label for="enroll"&gt;Enrollment ID:&lt;/label&gt;
+        &lt;input type="text" id="enroll" name="enrollment_id" 
+               placeholder="e.g. 22IT001" required pattern="[0-9A-Za-z]+"&gt;
+      &lt;/div&gt;
+
+      &lt;div class="form-group"&gt;
+        &lt;label for="desig"&gt;Designation:&lt;/label&gt;
+        &lt;select id="desig" name="designation" required&gt;
+          &lt;option value=""&gt;-- Select Designation --&lt;/option&gt;
+          &lt;option value="student"&gt;Student&lt;/option&gt;
+          &lt;option value="monitor"&gt;Class Monitor&lt;/option&gt;
+          &lt;option value="cr"&gt;Class Representative&lt;/option&gt;
+          &lt;option value="leader"&gt;Group Leader&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/div&gt;
+
+      &lt;div class="form-group"&gt;
+        &lt;label for="phone"&gt;Phone Number:&lt;/label&gt;
+        &lt;input type="tel" id="phone" name="phone" 
+               placeholder="+91 9876543210" 
+               pattern="[0-9]{10}" maxlength="10" required&gt;
+      &lt;/div&gt;
+
+      &lt;button type="submit"&gt;Submit Details&lt;/button&gt;
+    &lt;/form&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<div class="note">📌 Form uses POST method, required fields, pattern validation for phone and enrollment ID.</div>`
+  },
+  {
+    q: "Explain any five Git commands with syntax and example.",
+    marks: 5,
+    a: `<p>Git is a distributed version control system. Here are five essential commands:</p>
 <table>
-  <tr><th>Operator</th><th>Name</th><th>Effect</th></tr>
-  <tr><td><code>++x</code></td><td>Pre-increment</td><td>Increment first, then use value</td></tr>
-  <tr><td><code>x++</code></td><td>Post-increment</td><td>Use value first, then increment</td></tr>
-  <tr><td><code>--x</code></td><td>Pre-decrement</td><td>Decrement first, then use value</td></tr>
-  <tr><td><code>x--</code></td><td>Post-decrement</td><td>Use value first, then decrement</td></tr>
+  <tr><th>Command</th><th>Syntax</th><th>Description</th></tr>
+  <tr><td>git init</td><td>git init [folder]</td><td>Initialize a new Git repository</td></tr>
+  <tr><td>git clone</td><td>git clone &lt;url&gt;</td><td>Copy a remote repository locally</td></tr>
+  <tr><td>git add</td><td>git add &lt;file&gt; or git add .</td><td>Stage files for commit</td></tr>
+  <tr><td>git commit</td><td>git commit -m "message"</td><td>Save staged changes with message</td></tr>
+  <tr><td>git push</td><td>git push origin &lt;branch&gt;</td><td>Upload commits to remote</td></tr>
 </table>
-<pre>
-<span class="kw">int</span> a = <span class="num">5</span>;
-<span class="type">System</span>.out.println(++a); <span class="cm">// prints 6 (pre)</span>
-<span class="type">System</span>.out.println(a++); <span class="cm">// prints 6 (post, then a becomes 7)</span>
-<span class="type">System</span>.out.println(a);   <span class="cm">// prints 7</span></pre>
+<p><strong>1. git init</strong> – Create a new repo</p>
+<pre><code>$ git init my-project
+# Creates .git folder in my-project directory</code></pre>
+<p><strong>2. git clone</strong> – Download a repo</p>
+<pre><code>$ git clone https://github.com/user/repo.git
+# Creates a local copy of the remote repo</code></pre>
+<p><strong>3. git add</strong> – Stage changes</p>
+<pre><code>$ git add index.html       # Stage single file
+$ git add .                # Stage all changes</code></pre>
+<p><strong>4. git commit</strong> – Save changes</p>
+<pre><code>$ git commit -m "Add student form page"
+# Saves snapshot with descriptive message</code></pre>
+<p><strong>5. git push</strong> – Upload to GitHub</p>
+<pre><code>$ git push origin main
+# Sends commits to 'main' branch on GitHub</code></pre>
+<div class="tip">💡 Workflow: init → add → commit → push</div>`
+  },
+  {
+    q: "How do you create a new repository on GitHub?",
+    marks: 3,
+    a: `<p>Steps to create a new repository on GitHub:</p>
+<pre><code>STEP 1: Login to github.com
 
-<h3>3. Logical Operators</h3>
+STEP 2: Click the "+" icon (top right) 
+        → Select "New repository"
+
+STEP 3: Fill in details:
+  - Repository name: my-project
+  - Description: (optional)
+  - Public / Private
+  - ✓ Initialize with README (optional)
+  - .gitignore template (optional)
+  - License (optional)
+
+STEP 4: Click "Create repository"
+
+STEP 5: Connect local project to GitHub:
+$ git init
+$ git add .
+$ git commit -m "first commit"
+$ git branch -M main
+$ git remote add origin https://github.com/username/my-project.git
+$ git push -u origin main</code></pre>
+<div class="note">📌 After creation, GitHub shows exact commands to connect your local repo.</div>`
+  },
+  {
+    q: "What are branches in Git and why are they used?",
+    marks: 3,
+    a: `<p>A <strong>branch</strong> in Git is an independent line of development. It allows multiple versions of a project to exist simultaneously.</p>
+<pre><code>         main branch
+           |
+A---B---C---+---F (main: production code)
+             \
+              D---E (feature branch: new feature)</code></pre>
+<p><strong>Why Branches are Used:</strong></p>
 <table>
-  <tr><th>Operator</th><th>Name</th><th>Description</th><th>Example</th></tr>
-  <tr><td><code>&amp;&amp;</code></td><td>Logical AND</td><td>True if both operands are true; short-circuits</td><td>a>0 &amp;&amp; b>0</td></tr>
-  <tr><td><code>||</code></td><td>Logical OR</td><td>True if at least one is true; short-circuits</td><td>a==0 || b==0</td></tr>
-  <tr><td><code>!</code></td><td>Logical NOT</td><td>Negates the operand</td><td>!(a>b)</td></tr>
-  <tr><td><code>&amp;</code></td><td>Bitwise AND</td><td>No short-circuit; evaluates both sides</td><td>a &amp; b</td></tr>
-  <tr><td><code>|</code></td><td>Bitwise OR</td><td>No short-circuit; evaluates both sides</td><td>a | b</td></tr>
+  <tr><th>Reason</th><th>Explanation</th></tr>
+  <tr><td>Isolation</td><td>New features/bugs fixed without affecting main code</td></tr>
+  <tr><td>Parallel Work</td><td>Multiple developers work on different features simultaneously</td></tr>
+  <tr><td>Safe Experimentation</td><td>Try new ideas without breaking production</td></tr>
+  <tr><td>Code Review</td><td>Changes reviewed before merging to main</td></tr>
 </table>
-<pre>
-<span class="kw">int</span> x = <span class="num">5</span>, y = <span class="num">10</span>;
-<span class="type">System</span>.out.println(x > <span class="num">3</span> && y < <span class="num">20</span>); <span class="cm">// true</span>
-<span class="type">System</span>.out.println(x > <span class="num">10</span> || y > <span class="num">5</span>); <span class="cm">// true</span>
-<span class="type">System</span>.out.println(!(x == <span class="num">5</span>));       <span class="cm">// false</span></pre>
-<div class="box box-tip">Short-circuit evaluation: In <code>&&</code>, if left side is false, right side is NOT evaluated. In <code>||</code>, if left side is true, right side is NOT evaluated. This can avoid NullPointerExceptions.</div>
-</div>
-</div>
+<p><strong>Common Branch Commands:</strong></p>
+<pre><code>git branch                  # List branches
+git branch feature-login    # Create new branch
+git checkout feature-login  # Switch to branch
+git checkout -b hotfix      # Create and switch
+git merge feature-login     # Merge into current
+git branch -d feature-login # Delete branch</code></pre>
+<div class="tip">💡 Common branches: main/master (production), develop (integration), feature/*, hotfix/*</div>`
+  },
+  {
+    q: "Explain the concept of Pull and Push Requests in GitHub.",
+    marks: 4,
+    a: `<p><strong>Push:</strong> Uploading local commits to a remote GitHub repository.</p>
+<pre><code># After committing locally:
+git push origin main
+# Sends your commits to GitHub remote repo</code></pre>
+<p><strong>Pull Request (PR):</strong> A request to merge code from one branch into another on GitHub. It's not a git command but a GitHub feature for code review.</p>
+<pre><code>Developer workflow with Pull Request:
 
-<!-- Q7 -->
-<div class="qa-card" id="q7">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q7</span>
-  <span class="q-text">Define Operator precedence and associativity.</span>
-  <span class="q-marks">8 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<div class="box box-def"><strong>Operator Precedence</strong> determines the order in which operators are evaluated in an expression when multiple operators appear together.<br>
-<strong>Associativity</strong> determines the order of evaluation when operators of the same precedence appear in an expression (left-to-right or right-to-left).</div>
-<h3>Java Operator Precedence Table (High → Low)</h3>
+1. Create feature branch
+   git checkout -b feature/login
+
+2. Make changes & commit
+   git add . && git commit -m "Add login page"
+
+3. Push branch to GitHub
+   git push origin feature/login
+
+4. On GitHub: 
+   → "Compare & pull request" button
+   → Add title & description
+   → Request reviewers
+   → Submit Pull Request
+
+5. Reviewer reviews code, adds comments
+
+6. If approved → Merge PR into main branch
+
+7. Delete feature branch (cleanup)</code></pre>
 <table>
-  <tr><th>Level</th><th>Operators</th><th>Associativity</th></tr>
-  <tr><td>1 (Highest)</td><td><code>() [] . ++ --</code> (postfix)</td><td>Left → Right</td></tr>
-  <tr><td>2</td><td><code>++ -- + - ~ !</code> (prefix/unary)</td><td>Right → Left</td></tr>
-  <tr><td>3</td><td><code>* / %</code></td><td>Left → Right</td></tr>
-  <tr><td>4</td><td><code>+ -</code></td><td>Left → Right</td></tr>
-  <tr><td>5</td><td><code>&lt;&lt; &gt;&gt; &gt;&gt;&gt;</code></td><td>Left → Right</td></tr>
-  <tr><td>6</td><td><code>&lt; &lt;= &gt; &gt;=</code></td><td>Left → Right</td></tr>
-  <tr><td>7</td><td><code>== !=</code></td><td>Left → Right</td></tr>
-  <tr><td>8</td><td><code>&amp;</code></td><td>Left → Right</td></tr>
-  <tr><td>9</td><td><code>^</code></td><td>Left → Right</td></tr>
-  <tr><td>10</td><td><code>|</code></td><td>Left → Right</td></tr>
-  <tr><td>11</td><td><code>&amp;&amp;</code></td><td>Left → Right</td></tr>
-  <tr><td>12</td><td><code>||</code></td><td>Left → Right</td></tr>
-  <tr><td>13</td><td><code>?:</code> (ternary)</td><td>Right → Left</td></tr>
-  <tr><td>14 (Lowest)</td><td><code>= += -= *= /= %=</code></td><td>Right → Left</td></tr>
+  <tr><th>Push</th><th>Pull Request</th></tr>
+  <tr><td>git command</td><td>GitHub feature</td></tr>
+  <tr><td>Uploads code to remote</td><td>Requests code merge</td></tr>
+  <tr><td>No review process</td><td>Includes review process</td></tr>
+  <tr><td>Done by individual</td><td>Involves team collaboration</td></tr>
 </table>
-<h3>Example</h3>
-<pre>
-<span class="kw">int</span> result = <span class="num">2</span> + <span class="num">3</span> * <span class="num">4</span>;   <span class="cm">// = 2 + 12 = 14 (not 20)</span>
-<span class="cm">// * has higher precedence than +</span>
-
-<span class="kw">int</span> a = <span class="num">10</span> - <span class="num">5</span> - <span class="num">2</span>;       <span class="cm">// = (10-5)-2 = 3 (left assoc)</span>
-<span class="kw">int</span> b = <span class="num">2</span>;
-b += <span class="num">3</span> * <span class="num">4</span>;              <span class="cm">// b = b + (3*4) = 2+12 = 14</span></pre>
-<div class="box box-tip">Use parentheses to make expression order explicit and improve readability, rather than relying on implicit precedence.</div>
-</div>
-</div>
-
-<!-- Q8 -->
-<div class="qa-card" id="q8">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q8</span>
-  <span class="q-text">Explain type casting with an example.</span>
-  <span class="q-marks">4 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<div class="box box-def"><strong>Type Casting</strong> is the process of converting a value from one data type to another.</div>
-<h3>Types of Casting</h3>
-<h4>1. Widening (Implicit) Casting</h4>
-<p>Converting a smaller type to a larger type — done automatically by Java. No data loss.</p>
-<pre>byte → short → int → long → float → double
-
-<span class="kw">int</span> i = <span class="num">100</span>;
-<span class="kw">double</span> d = i;    <span class="cm">// Implicit: int → double</span>
-<span class="type">System</span>.out.println(d); <span class="cm">// 100.0</span></pre>
-<h4>2. Narrowing (Explicit) Casting</h4>
-<p>Converting a larger type to a smaller type — must be done manually. May cause data loss.</p>
-<pre>double → float → long → int → short → byte
-
-<span class="kw">double</span> d = <span class="num">9.78</span>;
-<span class="kw">int</span> i = (<span class="kw">int</span>) d;   <span class="cm">// Explicit: double → int</span>
-<span class="type">System</span>.out.println(i); <span class="cm">// 9 (decimal part lost!)</span></pre>
-<h4>3. Object Casting (Upcasting / Downcasting)</h4>
-<pre>
-<span class="type">Animal</span> a = <span class="kw">new</span> <span class="type">Dog</span>();        <span class="cm">// Upcasting (implicit)</span>
-<span class="type">Dog</span> d = (<span class="type">Dog</span>) a;             <span class="cm">// Downcasting (explicit)</span></pre>
-<div class="box box-imp">Narrowing cast can cause data loss or overflow. Always check the range before narrowing.</div>
-</div>
-</div>
-
-<!-- Q9 -->
-<div class="qa-card" id="q9">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q9</span>
-  <span class="q-text">Explain For-each loop with an example.</span>
-  <span class="q-marks">3 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<div class="box box-def">The <strong>for-each loop</strong> (enhanced for loop) iterates over elements of an array or collection without using an index variable.</div>
-<h3>Syntax</h3>
-<pre>
-<span class="kw">for</span> (<span class="type">DataType</span> variable : arrayOrCollection) {
-    <span class="cm">// use variable</span>
-}</pre>
-<h3>Example with Array</h3>
-<pre>
-<span class="kw">int</span>[] nums = {<span class="num">10</span>, <span class="num">20</span>, <span class="num">30</span>, <span class="num">40</span>};
-<span class="kw">for</span> (<span class="kw">int</span> n : nums) {
-    <span class="type">System</span>.out.println(n);  <span class="cm">// 10, 20, 30, 40</span>
-}</pre>
-<h3>Example with ArrayList</h3>
-<pre>
-<span class="type">List</span>&lt;<span class="type">String</span>&gt; names = <span class="type">Arrays</span>.asList(<span class="str">"Alice"</span>, <span class="str">"Bob"</span>, <span class="str">"Carol"</span>);
-<span class="kw">for</span> (<span class="type">String</span> name : names) {
-    <span class="type">System</span>.out.println(name);
-}</pre>
-<table>
-  <tr><th>For Loop</th><th>For-Each Loop</th></tr>
-  <tr><td>Can modify elements by index</td><td>Cannot modify elements directly</td></tr>
-  <tr><td>Can iterate in reverse</td><td>Only forward iteration</td></tr>
-  <tr><td>Needs index variable</td><td>Cleaner, no index needed</td></tr>
-</table>
-</div>
-</div>
-
-<!-- Q10 -->
-<div class="qa-card" id="q10">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q10</span>
-  <span class="q-text">Explain the break and continue with an example.</span>
-  <span class="q-marks">4 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<h3>break Statement</h3>
-<p>Immediately terminates the nearest enclosing loop or switch statement. Execution continues after the loop.</p>
-<pre>
-<span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">1</span>; i &lt;= <span class="num">10</span>; i++) {
-    <span class="kw">if</span> (i == <span class="num">5</span>) <span class="kw">break</span>;
-    <span class="type">System</span>.out.print(i + <span class="str">" "</span>);
-}
-<span class="cm">// Output: 1 2 3 4</span></pre>
-
-<h3>continue Statement</h3>
-<p>Skips the rest of the current iteration and jumps to the next iteration of the loop.</p>
-<pre>
-<span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">1</span>; i &lt;= <span class="num">10</span>; i++) {
-    <span class="kw">if</span> (i % <span class="num">2</span> == <span class="num">0</span>) <span class="kw">continue</span>;  <span class="cm">// skip even</span>
-    <span class="type">System</span>.out.print(i + <span class="str">" "</span>);
-}
-<span class="cm">// Output: 1 3 5 7 9</span></pre>
-<table>
-  <tr><th>break</th><th>continue</th></tr>
-  <tr><td>Exits the loop entirely</td><td>Skips to next iteration</td></tr>
-  <tr><td>Works in loops &amp; switch</td><td>Works only in loops</td></tr>
-  <tr><td>Terminates loop prematurely</td><td>Loop still runs remaining iterations</td></tr>
-</table>
-</div>
-</div>
-
-<!-- Q11 -->
-<div class="qa-card" id="q11">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q11</span>
-  <span class="q-text">Write a program: student percent → grade using if-else ladder.</span>
-  <span class="q-marks">8 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<h3>Grade Classification</h3>
-<table>
-  <tr><th>Percentage</th><th>Grade</th></tr>
-  <tr><td>≥ 70%</td><td>Distinction</td></tr>
-  <tr><td>60% – 69.99%</td><td>First Class</td></tr>
-  <tr><td>40% – 59.99%</td><td>Second Class</td></tr>
-  <tr><td>&lt; 40%</td><td>Fail</td></tr>
-</table>
-<pre>
-<span class="kw">import</span> java.util.Scanner;
-
-<span class="kw">public class</span> <span class="type">GradeCalculator</span> {
-    <span class="kw">public static void</span> main(<span class="type">String</span>[] args) {
-        <span class="type">Scanner</span> sc = <span class="kw">new</span> <span class="type">Scanner</span>(<span class="type">System</span>.in);
-        <span class="type">System</span>.out.print(<span class="str">"Enter student percentage: "</span>);
-        <span class="kw">double</span> percent = sc.nextDouble();
-
-        <span class="type">String</span> grade;
-
-        <span class="kw">if</span> (percent &gt;= <span class="num">70</span>) {
-            grade = <span class="str">"Distinction"</span>;
-        } <span class="kw">else if</span> (percent &gt;= <span class="num">60</span>) {
-            grade = <span class="str">"First Class"</span>;
-        } <span class="kw">else if</span> (percent &gt;= <span class="num">40</span>) {
-            grade = <span class="str">"Second Class"</span>;
-        } <span class="kw">else</span> {
-            grade = <span class="str">"Fail"</span>;
-        }
-
-        <span class="type">System</span>.out.println(<span class="str">"Percentage: "</span> + percent + <span class="str">"%"</span>);
-        <span class="type">System</span>.out.println(<span class="str">"Grade: "</span> + grade);
-        sc.close();
-    }
-}</pre>
-<h3>Sample Output</h3>
-<pre>
-Enter student percentage: 75
-Percentage: 75.0%
-Grade: Distinction
-
-Enter student percentage: 38
-Percentage: 38.0%
-Grade: Fail</pre>
-</div>
-</div>
-
-<!-- Q12 -->
-<div class="qa-card" id="q12">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q12</span>
-  <span class="q-text">Explain the switch case with an example.</span>
-  <span class="q-marks">4 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<div class="box box-def">The <strong>switch</strong> statement selects one of many code blocks to execute based on the value of an expression. It is a cleaner alternative to multiple if-else-if chains.</div>
-<h3>Syntax</h3>
-<pre>
-<span class="kw">switch</span> (expression) {
-    <span class="kw">case</span> value1:
-        <span class="cm">// code block</span>
-        <span class="kw">break</span>;
-    <span class="kw">case</span> value2:
-        <span class="cm">// code block</span>
-        <span class="kw">break</span>;
-    <span class="kw">default</span>:
-        <span class="cm">// default block (optional)</span>
-}</pre>
-<h3>Example — Day of Week</h3>
-<pre>
-<span class="kw">int</span> day = <span class="num">3</span>;
-<span class="kw">switch</span> (day) {
-    <span class="kw">case</span> <span class="num">1</span>: <span class="type">System</span>.out.println(<span class="str">"Monday"</span>);    <span class="kw">break</span>;
-    <span class="kw">case</span> <span class="num">2</span>: <span class="type">System</span>.out.println(<span class="str">"Tuesday"</span>);   <span class="kw">break</span>;
-    <span class="kw">case</span> <span class="num">3</span>: <span class="type">System</span>.out.println(<span class="str">"Wednesday"</span>); <span class="kw">break</span>;
-    <span class="kw">case</span> <span class="num">4</span>: <span class="type">System</span>.out.println(<span class="str">"Thursday"</span>);  <span class="kw">break</span>;
-    <span class="kw">case</span> <span class="num">5</span>: <span class="type">System</span>.out.println(<span class="str">"Friday"</span>);    <span class="kw">break</span>;
-    <span class="kw">default</span>: <span class="type">System</span>.out.println(<span class="str">"Weekend"</span>);
-}
-<span class="cm">// Output: Wednesday</span></pre>
-<div class="box box-imp">Without <code>break</code>, execution "falls through" to subsequent cases. This can be a bug or intentional behavior.</div>
-<p>Switch works with: <code>int</code>, <code>char</code>, <code>String</code> (Java 7+), <code>enum</code>. Does NOT work with <code>float</code>, <code>double</code>, <code>long</code>.</p>
-</div>
-</div>
-
-<!-- Q13 -->
-<div class="qa-card" id="q13">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q13</span>
-  <span class="q-text">Difference between while and do…while with example.</span>
-  <span class="q-marks">4 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<table>
-  <tr><th>Feature</th><th>while loop</th><th>do-while loop</th></tr>
-  <tr><td>Condition check</td><td>Before each iteration (entry-controlled)</td><td>After each iteration (exit-controlled)</td></tr>
-  <tr><td>Minimum executions</td><td>0 (may never execute)</td><td>1 (always executes at least once)</td></tr>
-  <tr><td>Use case</td><td>When count may be 0</td><td>When body must execute at least once</td></tr>
-  <tr><td>Syntax</td><td><code>while(cond){...}</code></td><td><code>do{...}while(cond);</code></td></tr>
-</table>
-<h3>while Example</h3>
-<pre>
-<span class="kw">int</span> i = <span class="num">1</span>;
-<span class="kw">while</span> (i &lt;= <span class="num">5</span>) {
-    <span class="type">System</span>.out.print(i + <span class="str">" "</span>);
-    i++;
-}
-<span class="cm">// Output: 1 2 3 4 5</span></pre>
-<h3>do-while Example</h3>
-<pre>
-<span class="kw">int</span> i = <span class="num">1</span>;
-<span class="kw">do</span> {
-    <span class="type">System</span>.out.print(i + <span class="str">" "</span>);
-    i++;
-} <span class="kw">while</span> (i &lt;= <span class="num">5</span>);
-<span class="cm">// Output: 1 2 3 4 5</span>
-
-<span class="cm">// Key difference: with false condition from start</span>
-<span class="kw">int</span> x = <span class="num">10</span>;
-<span class="kw">while</span> (x &lt; <span class="num">5</span>) { <span class="type">System</span>.out.println(<span class="str">"while"</span>); }    <span class="cm">// Never runs</span>
-<span class="kw">do</span> { <span class="type">System</span>.out.println(<span class="str">"do-while"</span>); } <span class="kw">while</span>(x &lt; <span class="num">5</span>); <span class="cm">// Runs once!</span></pre>
-</div>
-</div>
-
-<!-- Q14 -->
-<div class="qa-card" id="q14">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q14</span>
-  <span class="q-text">Compare String with StringBuffer class.</span>
-  <span class="q-marks">4 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<table>
-  <tr><th>Feature</th><th>String</th><th>StringBuffer</th></tr>
-  <tr><td>Mutability</td><td>Immutable (cannot be changed)</td><td>Mutable (can be modified)</td></tr>
-  <tr><td>Thread Safety</td><td>Thread-safe (immutable)</td><td>Thread-safe (synchronized)</td></tr>
-  <tr><td>Performance</td><td>Slower for concatenation (creates new objects)</td><td>Faster for modifications</td></tr>
-  <tr><td>Memory</td><td>Stored in String Pool</td><td>Stored in Heap</td></tr>
-  <tr><td>Storage</td><td>String Pool (literal) or Heap (new)</td><td>Heap only</td></tr>
-  <tr><td>Key methods</td><td>length(), charAt(), substring()</td><td>append(), insert(), delete(), reverse()</td></tr>
-</table>
-<pre>
-<span class="cm">// String — each + creates a new object</span>
-<span class="type">String</span> s = <span class="str">"Hello"</span>;
-s = s + <span class="str">" World"</span>;  <span class="cm">// new String object created</span>
-
-<span class="cm">// StringBuffer — modifies in place</span>
-<span class="type">StringBuffer</span> sb = <span class="kw">new</span> <span class="type">StringBuffer</span>(<span class="str">"Hello"</span>);
-sb.append(<span class="str">" World"</span>);   <span class="cm">// same object modified</span>
-sb.insert(<span class="num">5</span>, <span class="str">","</span>);      <span class="cm">// "Hello, World"</span>
-sb.reverse();            <span class="cm">// "dlroW ,olleH"</span></pre>
-<div class="box box-note">Also compare with <strong>StringBuilder</strong>: same as StringBuffer but NOT thread-safe; faster in single-threaded contexts.</div>
-</div>
-</div>
-
-<!-- Q15 -->
-<div class="qa-card" id="q15">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q15</span>
-  <span class="q-text">What is a Wrapper class in Java? Explain with an example.</span>
-  <span class="q-marks">4 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<div class="box box-def">A <strong>Wrapper class</strong> wraps a primitive data type in an object. Java provides wrapper classes for each primitive type in the <code>java.lang</code> package.</div>
-<table>
-  <tr><th>Primitive</th><th>Wrapper Class</th></tr>
-  <tr><td>byte</td><td>Byte</td></tr>
-  <tr><td>short</td><td>Short</td></tr>
-  <tr><td>int</td><td>Integer</td></tr>
-  <tr><td>long</td><td>Long</td></tr>
-  <tr><td>float</td><td>Float</td></tr>
-  <tr><td>double</td><td>Double</td></tr>
-  <tr><td>char</td><td>Character</td></tr>
-  <tr><td>boolean</td><td>Boolean</td></tr>
-</table>
-<h3>Why Wrapper Classes?</h3>
-<ul>
-  <li>Collections (ArrayList, HashMap) can only store objects, not primitives</li>
-  <li>Utility methods: parsing, converting types</li>
-  <li>Autoboxing/unboxing support</li>
-</ul>
-<pre>
-<span class="cm">// Manual boxing and unboxing</span>
-<span class="type">Integer</span> obj = <span class="type">Integer</span>.valueOf(<span class="num">42</span>);  <span class="cm">// boxing</span>
-<span class="kw">int</span> val = obj.intValue();           <span class="cm">// unboxing</span>
-
-<span class="cm">// Autoboxing (Java 5+) — automatic</span>
-<span class="type">Integer</span> x = <span class="num">100</span>;     <span class="cm">// auto-boxing int → Integer</span>
-<span class="kw">int</span> y = x;           <span class="cm">// auto-unboxing Integer → int</span>
-
-<span class="cm">// Useful methods</span>
-<span class="kw">int</span> parsed = <span class="type">Integer</span>.parseInt(<span class="str">"123"</span>);   <span class="cm">// String → int</span>
-<span class="type">String</span> s = <span class="type">Integer</span>.toString(<span class="num">456</span>);       <span class="cm">// int → String</span>
-<span class="kw">int</span> max = <span class="type">Integer</span>.MAX_VALUE;            <span class="cm">// 2147483647</span></pre>
-</div>
-</div>
-
-<!-- Q16 -->
-<div class="qa-card" id="q16">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q16</span>
-  <span class="q-text">Write a program: 5 integer array — average using command line argument.</span>
-  <span class="q-marks">8 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<pre>
-<span class="kw">public class</span> <span class="type">ArrayAverage</span> {
-    <span class="kw">public static void</span> main(<span class="type">String</span>[] args) {
-        <span class="cm">// Validate input</span>
-        <span class="kw">if</span> (args.length != <span class="num">5</span>) {
-            <span class="type">System</span>.out.println(<span class="str">"Please provide exactly 5 integers."</span>);
-            <span class="type">System</span>.out.println(<span class="str">"Usage: java ArrayAverage n1 n2 n3 n4 n5"</span>);
-            <span class="kw">return</span>;
-        }
-
-        <span class="kw">int</span>[] arr = <span class="kw">new int</span>[<span class="num">5</span>];
-        <span class="kw">int</span> sum = <span class="num">0</span>;
-
-        <span class="cm">// Parse command line arguments</span>
-        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; <span class="num">5</span>; i++) {
-            arr[i] = <span class="type">Integer</span>.parseInt(args[i]);
-            sum += arr[i];
-        }
-
-        <span class="kw">double</span> average = (<span class="kw">double</span>) sum / <span class="num">5</span>;
-
-        <span class="type">System</span>.out.print(<span class="str">"Array elements: "</span>);
-        <span class="kw">for</span> (<span class="kw">int</span> n : arr) <span class="type">System</span>.out.print(n + <span class="str">" "</span>);
-        <span class="type">System</span>.out.println(<span class="str">"\nSum: "</span> + sum);
-        <span class="type">System</span>.out.printf(<span class="str">"Average: %.2f%n"</span>, average);
-    }
-}</pre>
-<h3>Running the Program</h3>
-<pre>
-javac ArrayAverage.java
-java ArrayAverage 10 20 30 40 50
-
-Array elements: 10 20 30 40 50
-Sum: 150
-Average: 30.00</pre>
-</div>
-</div>
-
-<!-- Q17 -->
-<div class="qa-card" id="q17">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q17</span>
-  <span class="q-text">Write a program to do matrix multiplication using multidimensional array.</span>
-  <span class="q-marks">8 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<h3>Matrix Multiplication Rule</h3>
-<pre>
-C[i][j] = Σ A[i][k] * B[k][j]  for k = 0 to n-1
-
-A(m×n) × B(n×p) = C(m×p)</pre>
-<pre>
-<span class="kw">public class</span> <span class="type">MatrixMultiply</span> {
-    <span class="kw">public static void</span> main(<span class="type">String</span>[] args) {
-        <span class="kw">int</span>[][] A = {
-            {<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>},
-            {<span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>}
-        };  <span class="cm">// 2×3 matrix</span>
-
-        <span class="kw">int</span>[][] B = {
-            {<span class="num">7</span>,  <span class="num">8</span>},
-            {<span class="num">9</span>,  <span class="num">10</span>},
-            {<span class="num">11</span>, <span class="num">12</span>}
-        };  <span class="cm">// 3×2 matrix</span>
-
-        <span class="kw">int</span> rows = A.length;
-        <span class="kw">int</span> cols = B[<span class="num">0</span>].length;
-        <span class="kw">int</span> inner = B.length;
-
-        <span class="kw">int</span>[][] C = <span class="kw">new int</span>[rows][cols];  <span class="cm">// 2×2 result</span>
-
-        <span class="cm">// Multiply</span>
-        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; rows; i++) {
-            <span class="kw">for</span> (<span class="kw">int</span> j = <span class="num">0</span>; j &lt; cols; j++) {
-                <span class="kw">for</span> (<span class="kw">int</span> k = <span class="num">0</span>; k &lt; inner; k++) {
-                    C[i][j] += A[i][k] * B[k][j];
-                }
-            }
-        }
-
-        <span class="cm">// Print result</span>
-        <span class="type">System</span>.out.println(<span class="str">"Result Matrix C:"</span>);
-        <span class="kw">for</span> (<span class="kw">int</span>[] row : C) {
-            <span class="kw">for</span> (<span class="kw">int</span> val : row)
-                <span class="type">System</span>.out.printf(<span class="str">"%5d"</span>, val);
-            <span class="type">System</span>.out.println();
-        }
-    }
-}</pre>
-<h3>Output</h3>
-<pre>
-Result Matrix C:
-   58   64
-  139  154</pre>
-<div class="box box-tip">Verify: C[0][0] = 1×7 + 2×9 + 3×11 = 7+18+33 = 58 ✓</div>
-</div>
-</div>
-
-</div><!-- end unit-1 -->
-
-<!-- ════════════════════════════════════════════════════════
-     UNIT 2
-════════════════════════════════════════════════════════ -->
-<div class="unit-panel" id="unit-2" data-unit="2">
-<div class="unit-title">Unit 2 — Classes, Objects, Methods and Object-Oriented Thinking</div>
-
-<!-- Q18 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q18</span>
-  <span class="q-text">Differentiate constructor and method. Define method overloading. Program for constructor overloading.</span>
-  <span class="q-marks">8 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<h3>Constructor vs Method</h3>
-<table>
-  <tr><th>Feature</th><th>Constructor</th><th>Method</th></tr>
-  <tr><td>Name</td><td>Same as class name</td><td>Any valid identifier</td></tr>
-  <tr><td>Return type</td><td>No return type (not even void)</td><td>Must have return type</td></tr>
-  <tr><td>Called by</td><td>JVM automatically on object creation</td><td>Explicitly by programmer</td></tr>
-  <tr><td>Purpose</td><td>Initialize object state</td><td>Perform operations</td></tr>
-  <tr><td>Inheritance</td><td>Not inherited</td><td>Inherited (unless private)</td></tr>
-</table>
-<h3>Method Overloading</h3>
-<p>Having multiple methods with the <strong>same name</strong> but different parameter lists (different number, type, or order of parameters). Return type alone cannot distinguish overloaded methods.</p>
-<h3>Constructor Overloading Program</h3>
-<pre>
-<span class="kw">public class</span> <span class="type">Student</span> {
-    <span class="type">String</span> name;
-    <span class="kw">int</span> age;
-    <span class="kw">double</span> gpa;
-
-    <span class="cm">// Default constructor</span>
-    <span class="type">Student</span>() {
-        name = <span class="str">"Unknown"</span>;
-        age = <span class="num">0</span>;
-        gpa = <span class="num">0.0</span>;
-    }
-
-    <span class="cm">// Parameterized constructor 1</span>
-    <span class="type">Student</span>(<span class="type">String</span> n) {
-        name = n; age = <span class="num">18</span>; gpa = <span class="num">0.0</span>;
-    }
-
-    <span class="cm">// Parameterized constructor 2</span>
-    <span class="type">Student</span>(<span class="type">String</span> n, <span class="kw">int</span> a) {
-        name = n; age = a; gpa = <span class="num">0.0</span>;
-    }
-
-    <span class="cm">// Parameterized constructor 3</span>
-    <span class="type">Student</span>(<span class="type">String</span> n, <span class="kw">int</span> a, <span class="kw">double</span> g) {
-        name = n; age = a; gpa = g;
-    }
-
-    <span class="kw">void</span> display() {
-        <span class="type">System</span>.out.printf(<span class="str">"Name: %s, Age: %d, GPA: %.2f%n"</span>, name, age, gpa);
-    }
-
-    <span class="kw">public static void</span> main(<span class="type">String</span>[] args) {
-        <span class="type">Student</span> s1 = <span class="kw">new</span> <span class="type">Student</span>();
-        <span class="type">Student</span> s2 = <span class="kw">new</span> <span class="type">Student</span>(<span class="str">"Alice"</span>);
-        <span class="type">Student</span> s3 = <span class="kw">new</span> <span class="type">Student</span>(<span class="str">"Bob"</span>, <span class="num">20</span>);
-        <span class="type">Student</span> s4 = <span class="kw">new</span> <span class="type">Student</span>(<span class="str">"Carol"</span>, <span class="num">22</span>, <span class="num">3.9</span>);
-
-        s1.display();  <span class="cm">// Name: Unknown, Age: 0, GPA: 0.00</span>
-        s2.display();  <span class="cm">// Name: Alice, Age: 18, GPA: 0.00</span>
-        s3.display();  <span class="cm">// Name: Bob, Age: 20, GPA: 0.00</span>
-        s4.display();  <span class="cm">// Name: Carol, Age: 22, GPA: 3.90</span>
-    }
-}</pre>
-</div>
-</div>
-
-<!-- Q19 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q19</span>
-  <span class="q-text">What is a Constructor? Explain types. Program to find Area of Circle using Constructor.</span>
-  <span class="q-marks">8 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<div class="box box-def">A <strong>constructor</strong> is a special method that initializes an object when it is created. It has the same name as the class and no return type.</div>
-<h3>Types of Constructors</h3>
-<h4>1. Default Constructor</h4>
-<p>No parameters. Java automatically provides one if you define no constructors. Assigns default values (0, null, false).</p>
-<h4>2. Parameterized Constructor</h4>
-<p>Takes arguments to initialize object with specific values.</p>
-<h4>3. Copy Constructor</h4>
-<p>Takes an object of the same class as parameter and creates a copy.</p>
-<pre>
-<span class="kw">public class</span> <span class="type">Circle</span> {
-    <span class="kw">double</span> radius;
-
-    <span class="cm">// Default constructor</span>
-    <span class="type">Circle</span>() {
-        radius = <span class="num">1.0</span>;
-    }
-
-    <span class="cm">// Parameterized constructor</span>
-    <span class="type">Circle</span>(<span class="kw">double</span> r) {
-        radius = r;
-    }
-
-    <span class="cm">// Copy constructor</span>
-    <span class="type">Circle</span>(<span class="type">Circle</span> c) {
-        radius = c.radius;
-    }
-
-    <span class="kw">double</span> area() {
-        <span class="kw">return</span> <span class="type">Math</span>.PI * radius * radius;
-    }
-
-    <span class="kw">public static void</span> main(<span class="type">String</span>[] args) {
-        <span class="type">Circle</span> c1 = <span class="kw">new</span> <span class="type">Circle</span>();        <span class="cm">// radius = 1.0</span>
-        <span class="type">Circle</span> c2 = <span class="kw">new</span> <span class="type">Circle</span>(<span class="num">5.0</span>);    <span class="cm">// radius = 5.0</span>
-        <span class="type">Circle</span> c3 = <span class="kw">new</span> <span class="type">Circle</span>(c2);    <span class="cm">// copy of c2</span>
-
-        <span class="type">System</span>.out.printf(<span class="str">"c1 area = %.4f%n"</span>, c1.area()); <span class="cm">// 3.1416</span>
-        <span class="type">System</span>.out.printf(<span class="str">"c2 area = %.4f%n"</span>, c2.area()); <span class="cm">// 78.5398</span>
-        <span class="type">System</span>.out.printf(<span class="str">"c3 area = %.4f%n"</span>, c3.area()); <span class="cm">// 78.5398</span>
-    }
-}</pre>
-</div>
-</div>
-
-<!-- Q20 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q20</span>
-  <span class="q-text">Explain this keyword, static keyword and garbage collection with finalize().</span>
-  <span class="q-marks">4 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<h3>this Keyword</h3>
-<p>Refers to the current object. Used to: distinguish instance variables from parameters, call other constructors (<code>this()</code>), return the current object.</p>
-<pre>
-<span class="kw">class</span> <span class="type">Box</span> {
-    <span class="kw">int</span> width;
-    <span class="type">Box</span>(<span class="kw">int</span> width) {
-        <span class="kw">this</span>.width = width;  <span class="cm">// 'this.width' = instance var</span>
-    }
-}</pre>
-<h3>static Keyword</h3>
-<p>Members declared <code>static</code> belong to the <em>class</em>, not individual objects. Shared among all instances. Can be accessed without creating an object.</p>
-<pre>
-<span class="kw">class</span> <span class="type">Counter</span> {
-    <span class="kw">static int</span> count = <span class="num">0</span>;  <span class="cm">// shared</span>
-    <span class="type">Counter</span>() { count++; }
-    <span class="kw">static int</span> getCount() { <span class="kw">return</span> count; }
-}
-<span class="cm">// Counter.getCount() — no object needed</span></pre>
-<h3>Garbage Collection &amp; finalize()</h3>
-<p>Java's Garbage Collector (GC) automatically frees memory of objects no longer referenced. The <code>finalize()</code> method in the <code>Object</code> class is called by the GC before collecting the object — used for cleanup (closing files, connections). You can request GC with <code>System.gc()</code> but it's not guaranteed.</p>
-<pre>
-<span class="kw">class</span> <span class="type">Resource</span> {
-    <span class="kw">protected void</span> finalize() {
-        <span class="type">System</span>.out.println(<span class="str">"Cleaning up resource..."</span>);
-    }
-}
-<span class="type">Resource</span> r = <span class="kw">new</span> <span class="type">Resource</span>();
-r = <span class="kw">null</span>;       <span class="cm">// eligible for GC</span>
-<span class="type">System</span>.gc();    <span class="cm">// suggest GC run</span></pre>
-<div class="box box-note">finalize() is deprecated in Java 9+. Use try-with-resources or explicit close() instead.</div>
-</div>
-</div>
-
-<!-- Q21 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q21</span>
-  <span class="q-text">Compute SPI of n students — class with constructor and calculate_spi. Array of objects from command line.</span>
-  <span class="q-marks">8 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<pre>
-<span class="kw">public class</span> <span class="type">Student</span> {
-    <span class="kw">int</span>    id_no;
-    <span class="kw">int</span>    no_of_subjects_registered;
-    <span class="kw">int</span>[]  subject_code;
-    <span class="kw">int</span>[]  subject_credits;
-    <span class="kw">int</span>[]  grade_obtained;   <span class="cm">// grade points: O=10,A+=9,A=8,B+=7,B=6,C=5</span>
-    <span class="kw">double</span> spi;
-
-    <span class="cm">// Constructor</span>
-    <span class="type">Student</span>(<span class="kw">int</span> id, <span class="kw">int</span> n, <span class="kw">int</span>[] codes,
-             <span class="kw">int</span>[] credits, <span class="kw">int</span>[] grades) {
-        id_no = id;
-        no_of_subjects_registered = n;
-        subject_code    = codes;
-        subject_credits = credits;
-        grade_obtained  = grades;
-        spi = <span class="num">0.0</span>;
-    }
-
-    <span class="cm">// Calculate SPI = Σ(credit × grade) / Σ(credit)</span>
-    <span class="kw">void</span> calculate_spi() {
-        <span class="kw">int</span> totalCredit = <span class="num">0</span>, weightedSum = <span class="num">0</span>;
-        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; no_of_subjects_registered; i++) {
-            totalCredit  += subject_credits[i];
-            weightedSum  += subject_credits[i] * grade_obtained[i];
-        }
-        spi = (<span class="kw">double</span>) weightedSum / totalCredit;
-    }
-
-    <span class="kw">void</span> display() {
-        <span class="type">System</span>.out.printf(<span class="str">"ID: %d | Subjects: %d | SPI: %.2f%n"</span>,
-            id_no, no_of_subjects_registered, spi);
-    }
-
-    <span class="kw">public static void</span> main(<span class="type">String</span>[] args) {
-        <span class="cm">// args: n (number of students)</span>
-        <span class="kw">int</span> n = <span class="type">Integer</span>.parseInt(args[<span class="num">0</span>]);
-        <span class="type">Student</span>[] students = <span class="kw">new</span> <span class="type">Student</span>[n];
-
-        <span class="cm">// Sample data for 2 students (3 subjects each)</span>
-        students[<span class="num">0</span>] = <span class="kw">new</span> <span class="type">Student</span>(<span class="num">101</span>, <span class="num">3</span>,
-            <span class="kw">new int</span>[]{<span class="num">1001</span>, <span class="num">1002</span>, <span class="num">1003</span>},
-            <span class="kw">new int</span>[]{<span class="num">4</span>, <span class="num">3</span>, <span class="num">3</span>},      <span class="cm">// credits</span>
-            <span class="kw">new int</span>[]{<span class="num">9</span>, <span class="num">8</span>, <span class="num">10</span>});     <span class="cm">// grade points</span>
-
-        students[<span class="num">1</span>] = <span class="kw">new</span> <span class="type">Student</span>(<span class="num">102</span>, <span class="num">3</span>,
-            <span class="kw">new int</span>[]{<span class="num">1001</span>, <span class="num">1002</span>, <span class="num">1003</span>},
-            <span class="kw">new int</span>[]{<span class="num">4</span>, <span class="num">3</span>, <span class="num">3</span>},
-            <span class="kw">new int</span>[]{<span class="num">7</span>, <span class="num">6</span>, <span class="num">8</span>});
-
-        <span class="kw">for</span> (<span class="type">Student</span> s : students) {
-            s.calculate_spi();
-            s.display();
-        }
-    }
-}</pre>
-<h3>SPI Calculation</h3>
-<pre>
-Student 101: (4×9 + 3×8 + 3×10) / (4+3+3) = (36+24+30)/10 = 9.0
-Student 102: (4×7 + 3×6 + 3×8) / 10 = (28+18+24)/10 = 7.0</pre>
-</div>
-</div>
-
-<!-- Q22 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q22</span>
-  <span class="q-text">What is a constructor? Rules for creating constructors in Java.</span>
-  <span class="q-marks">4 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<div class="box box-def">A <strong>constructor</strong> is a special block of code that initializes a newly created object. It is called automatically by the JVM when an object is instantiated using <code>new</code>.</div>
-<h3>Rules for Creating Constructors</h3>
-<ul>
-  <li>Constructor name <strong>must be identical</strong> to the class name</li>
-  <li>Constructor has <strong>no return type</strong> — not even <code>void</code></li>
-  <li>Can have any access modifier: <code>public</code>, <code>protected</code>, <code>private</code>, default</li>
-  <li>Can be overloaded (multiple constructors with different parameters)</li>
-  <li>Cannot be <code>static</code>, <code>final</code>, <code>abstract</code>, or <code>synchronized</code></li>
-  <li>If you define no constructor, Java provides a default (no-arg) constructor</li>
-  <li>If you define any constructor, Java does NOT provide the default one automatically</li>
-  <li>A constructor can call another constructor using <code>this()</code> — must be first statement</li>
-  <li>A child constructor can call parent constructor using <code>super()</code> — must be first statement</li>
-</ul>
-<pre>
-<span class="kw">class</span> <span class="type">Demo</span> {
-    <span class="cm">// ✅ Valid constructor</span>
-    <span class="type">Demo</span>() { }
-
-    <span class="cm">// ❌ Invalid — has return type (this is a METHOD not a constructor)</span>
-    <span class="kw">void</span> <span class="type">Demo</span>() { }  <span class="cm">// compile warning, treated as method</span>
-}</pre>
-</div>
-</div>
-
-<!-- Q24 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q24</span>
-  <span class="q-text">Explain Anonymous inner class with examples.</span>
-  <span class="q-marks">3 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<div class="box box-def">An <strong>anonymous inner class</strong> is a local class without a name, declared and instantiated in a single expression. It is used to provide a one-time implementation of an interface or abstract class.</div>
-<pre>
-<span class="cm">// Interface</span>
-<span class="kw">interface</span> <span class="type">Greeting</span> {
-    <span class="kw">void</span> sayHello();
-}
-
-<span class="kw">public class</span> <span class="type">AnonDemo</span> {
-    <span class="kw">public static void</span> main(<span class="type">String</span>[] args) {
-
-        <span class="cm">// Anonymous class implementing Greeting</span>
-        <span class="type">Greeting</span> g = <span class="kw">new</span> <span class="type">Greeting</span>() {
-            @<span class="type">Override</span>
-            <span class="kw">public void</span> sayHello() {
-                <span class="type">System</span>.out.println(<span class="str">"Hello from anonymous class!"</span>);
-            }
-        };
-        g.sayHello();
-
-        <span class="cm">// Common use: Runnable thread</span>
-        <span class="type">Thread</span> t = <span class="kw">new</span> <span class="type">Thread</span>(<span class="kw">new</span> <span class="type">Runnable</span>() {
-            <span class="kw">public void</span> run() {
-                <span class="type">System</span>.out.println(<span class="str">"Thread running anonymously!"</span>);
-            }
-        });
-        t.start();
-    }
-}</pre>
-<div class="box box-note">With Java 8+ lambda expressions, anonymous classes for single-method interfaces can be replaced: <code>Runnable r = () -> System.out.println("Hi");</code></div>
-</div>
-</div>
-
-<!-- Q25 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q25</span>
-  <span class="q-text">What is the visibility (access) modifier? Explain all with examples.</span>
-  <span class="q-marks">3 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<p>Access modifiers control the <strong>visibility/accessibility</strong> of classes, methods, and variables.</p>
-<table>
-  <tr><th>Modifier</th><th>Same Class</th><th>Same Package</th><th>Subclass</th><th>Other Package</th></tr>
-  <tr><td><code>public</code></td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
-  <tr><td><code>protected</code></td><td>✅</td><td>✅</td><td>✅</td><td>❌</td></tr>
-  <tr><td>default (no modifier)</td><td>✅</td><td>✅</td><td>❌</td><td>❌</td></tr>
-  <tr><td><code>private</code></td><td>✅</td><td>❌</td><td>❌</td><td>❌</td></tr>
-</table>
-<pre>
-<span class="kw">public class</span> <span class="type">AccessDemo</span> {
-    <span class="kw">public</span>    <span class="kw">int</span> a = <span class="num">1</span>;   <span class="cm">// Accessible everywhere</span>
-    <span class="kw">protected int</span> b = <span class="num">2</span>;   <span class="cm">// Package + subclasses</span>
-              <span class="kw">int</span> c = <span class="num">3</span>;   <span class="cm">// Package only (default)</span>
-    <span class="kw">private</span>   <span class="kw">int</span> d = <span class="num">4</span>;   <span class="cm">// This class only</span>
-}</pre>
-<div class="box box-tip">Best practice: use <code>private</code> for data members and <code>public</code> getter/setter methods — this is Encapsulation!</div>
-</div>
-</div>
-
-<!-- Q26 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q26</span>
-  <span class="q-text">Write a program to pass and return an object from a method.</span>
-  <span class="q-marks">4 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<pre>
-<span class="kw">class</span> <span class="type">Rectangle</span> {
-    <span class="kw">int</span> length, width;
-
-    <span class="type">Rectangle</span>(<span class="kw">int</span> l, <span class="kw">int</span> w) {
-        length = l; width = w;
-    }
-
-    <span class="cm">// Method that takes an object as parameter</span>
-    <span class="kw">boolean</span> isLargerThan(<span class="type">Rectangle</span> other) {
-        <span class="kw">return</span> (length * width) > (other.length * other.width);
-    }
-
-    <span class="cm">// Method that returns an object</span>
-    <span class="kw">static</span> <span class="type">Rectangle</span> createSquare(<span class="kw">int</span> side) {
-        <span class="kw">return new</span> <span class="type">Rectangle</span>(side, side);
-    }
-
-    <span class="kw">void</span> display() {
-        <span class="type">System</span>.out.printf(<span class="str">"Rectangle %dx%d, Area=%d%n"</span>,
-            length, width, length*width);
-    }
-
-    <span class="kw">public static void</span> main(<span class="type">String</span>[] args) {
-        <span class="type">Rectangle</span> r1 = <span class="kw">new</span> <span class="type">Rectangle</span>(<span class="num">5</span>, <span class="num">3</span>);
-        <span class="type">Rectangle</span> r2 = <span class="kw">new</span> <span class="type">Rectangle</span>(<span class="num">4</span>, <span class="num">4</span>);
-
-        r1.display();
-        r2.display();
-
-        <span class="cm">// Passing object to method</span>
-        <span class="type">System</span>.out.println(<span class="str">"r1 larger than r2? "</span> + r1.isLargerThan(r2));
-
-        <span class="cm">// Receiving object from method</span>
-        <span class="type">Rectangle</span> square = <span class="type">Rectangle</span>.createSquare(<span class="num">6</span>);
-        square.display();
-    }
-}</pre>
-</div>
-</div>
-
-<!-- Q27 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q27</span>
-  <span class="q-text">Write a program to generate Fibonacci series using Recursion.</span>
-  <span class="q-marks">4 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<pre>
-<span class="kw">public class</span> <span class="type">FibonacciRecursion</span> {
-
-    <span class="cm">// Recursive method</span>
-    <span class="kw">static long</span> fib(<span class="kw">int</span> n) {
-        <span class="kw">if</span> (n &lt;= <span class="num">0</span>) <span class="kw">return</span> <span class="num">0</span>;
-        <span class="kw">if</span> (n == <span class="num">1</span>) <span class="kw">return</span> <span class="num">1</span>;
-        <span class="kw">return</span> fib(n - <span class="num">1</span>) + fib(n - <span class="num">2</span>);  <span class="cm">// Recursive call</span>
-    }
-
-    <span class="kw">public static void</span> main(<span class="type">String</span>[] args) {
-        <span class="kw">int</span> terms = <span class="num">10</span>;
-        <span class="type">System</span>.out.print(<span class="str">"Fibonacci series (first "</span> + terms + <span class="str">" terms):\n"</span>);
-        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; terms; i++) {
-            <span class="type">System</span>.out.print(fib(i) + <span class="str">" "</span>);
-        }
-    }
-}
-<span class="cm">// Output: 0 1 1 2 3 5 8 13 21 34</span></pre>
-<h3>Recursion Tree (n=4)</h3>
-<pre>
-          fib(4)
-         /      \
-      fib(3)   fib(2)
-      /    \    /   \
-  fib(2) fib(1) fib(1) fib(0)
-  /   \
-fib(1) fib(0)</pre>
-<div class="box box-tip">Recursive fib has O(2ⁿ) time complexity. For better performance, use memoization or iterative approach.</div>
-</div>
-</div>
-
-<!-- Q28 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q28</span>
-  <span class="q-text">Describe inheritance and its types with proper examples.</span>
-  <span class="q-marks">8 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<div class="box box-def"><strong>Inheritance</strong> is an OOP mechanism where a subclass acquires the properties (fields) and behaviors (methods) of a parent class. Promotes code reuse and establishes an IS-A relationship.</div>
-<h3>Types of Inheritance</h3>
-<table>
-  <tr><th>Type</th><th>Description</th><th>Java Support</th></tr>
-  <tr><td>Single</td><td>One subclass extends one superclass</td><td>✅</td></tr>
-  <tr><td>Multilevel</td><td>Chain: A → B → C</td><td>✅</td></tr>
-  <tr><td>Hierarchical</td><td>Multiple subclasses extend one superclass</td><td>✅</td></tr>
-  <tr><td>Multiple</td><td>One subclass extends multiple superclasses</td><td>❌ (via class), ✅ (via interface)</td></tr>
-  <tr><td>Hybrid</td><td>Combination of above types</td><td>✅ (via interfaces)</td></tr>
-</table>
-<pre>
-<span class="cm">// Single Inheritance</span>
-<span class="kw">class</span> <span class="type">Animal</span> {
-    <span class="kw">void</span> breathe() { <span class="type">System</span>.out.println(<span class="str">"Breathing"</span>); }
-}
-<span class="kw">class</span> <span class="type">Dog</span> <span class="kw">extends</span> <span class="type">Animal</span> {
-    <span class="kw">void</span> bark() { <span class="type">System</span>.out.println(<span class="str">"Woof!"</span>); }
-}
-
-<span class="cm">// Multilevel Inheritance</span>
-<span class="kw">class</span> <span class="type">Vehicle</span> {
-    <span class="kw">void</span> start() { <span class="type">System</span>.out.println(<span class="str">"Vehicle starts"</span>); }
-}
-<span class="kw">class</span> <span class="type">Car</span> <span class="kw">extends</span> <span class="type">Vehicle</span> {
-    <span class="kw">void</span> drive() { <span class="type">System</span>.out.println(<span class="str">"Car driving"</span>); }
-}
-<span class="kw">class</span> <span class="type">ElectricCar</span> <span class="kw">extends</span> <span class="type">Car</span> {
-    <span class="kw">void</span> charge() { <span class="type">System</span>.out.println(<span class="str">"Charging battery"</span>); }
-}
-
-<span class="cm">// Hierarchical Inheritance</span>
-<span class="kw">class</span> <span class="type">Shape</span> { <span class="kw">void</span> draw() { <span class="type">System</span>.out.println(<span class="str">"Drawing shape"</span>); } }
-<span class="kw">class</span> <span class="type">Circle</span>    <span class="kw">extends</span> <span class="type">Shape</span> { }
-<span class="kw">class</span> <span class="type">Rectangle</span> <span class="kw">extends</span> <span class="type">Shape</span> { }
-<span class="kw">class</span> <span class="type">Triangle</span>  <span class="kw">extends</span> <span class="type">Shape</span> { }</pre>
-</div>
-</div>
-
-<!-- Q29 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q29</span>
-  <span class="q-text">Explain method overriding and method overloading with examples. Differentiate them.</span>
-  <span class="q-marks">8 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<h3>Method Overloading</h3>
-<p>Same method name, different parameter lists — in the <strong>same class</strong>. Resolved at <em>compile time</em> (Static polymorphism).</p>
-<pre>
-<span class="kw">class</span> <span class="type">Calculator</span> {
-    <span class="kw">int</span> add(<span class="kw">int</span> a, <span class="kw">int</span> b)           { <span class="kw">return</span> a + b; }
-    <span class="kw">double</span> add(<span class="kw">double</span> a, <span class="kw">double</span> b)  { <span class="kw">return</span> a + b; }
-    <span class="kw">int</span> add(<span class="kw">int</span> a, <span class="kw">int</span> b, <span class="kw">int</span> c)    { <span class="kw">return</span> a + b + c; }
-}</pre>
-<h3>Method Overriding</h3>
-<p>Subclass provides a new implementation for an inherited method — <strong>same signature</strong>. Resolved at <em>runtime</em> (Dynamic polymorphism).</p>
-<pre>
-<span class="kw">class</span> <span class="type">Animal</span> {
-    <span class="kw">void</span> sound() { <span class="type">System</span>.out.println(<span class="str">"Some sound"</span>); }
-}
-<span class="kw">class</span> <span class="type">Cat</span> <span class="kw">extends</span> <span class="type">Animal</span> {
-    @<span class="type">Override</span>
-    <span class="kw">void</span> sound() { <span class="type">System</span>.out.println(<span class="str">"Meow"</span>); }
-}
-<span class="kw">class</span> <span class="type">Dog</span> <span class="kw">extends</span> <span class="type">Animal</span> {
-    @<span class="type">Override</span>
-    <span class="kw">void</span> sound() { <span class="type">System</span>.out.println(<span class="str">"Woof"</span>); }
-}</pre>
-<table>
-  <tr><th>Feature</th><th>Overloading</th><th>Overriding</th></tr>
-  <tr><td>Where</td><td>Same class</td><td>Parent-child classes</td></tr>
-  <tr><td>Signature</td><td>Different parameters</td><td>Same signature</td></tr>
-  <tr><td>Return type</td><td>Can differ</td><td>Same (or covariant)</td></tr>
-  <tr><td>Binding</td><td>Compile time (static)</td><td>Runtime (dynamic)</td></tr>
-  <tr><td>Access modifier</td><td>Can differ</td><td>Cannot be more restrictive</td></tr>
-  <tr><td>static/final</td><td>Can overload static</td><td>Cannot override final/static</td></tr>
-</table>
-</div>
-</div>
-
-<!-- Q30 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q30</span>
-  <span class="q-text">Explain: A) Super keyword  B) Final keyword  C) instanceof operator</span>
-  <span class="q-marks">4 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<h3>A) super Keyword</h3>
-<p>Refers to the immediate parent class. Used to: access parent's hidden fields, call parent's overridden methods, call parent constructor.</p>
-<pre>
-<span class="kw">class</span> <span class="type">Parent</span> {
-    <span class="kw">int</span> x = <span class="num">10</span>;
-    <span class="kw">void</span> show() { <span class="type">System</span>.out.println(<span class="str">"Parent x = "</span> + x); }
-}
-<span class="kw">class</span> <span class="type">Child</span> <span class="kw">extends</span> <span class="type">Parent</span> {
-    <span class="kw">int</span> x = <span class="num">20</span>;
-    <span class="kw">void</span> show() {
-        <span class="type">System</span>.out.println(<span class="str">"Child x = "</span> + x);
-        <span class="type">System</span>.out.println(<span class="str">"Parent x = "</span> + <span class="kw">super</span>.x); <span class="cm">// super field</span>
-        <span class="kw">super</span>.show();  <span class="cm">// super method</span>
-    }
-}</pre>
-<h3>B) final Keyword</h3>
-<ul>
-  <li><strong>final variable:</strong> Constant — value cannot be changed once assigned</li>
-  <li><strong>final method:</strong> Cannot be overridden by subclasses</li>
-  <li><strong>final class:</strong> Cannot be extended (e.g., <code>String</code> is final)</li>
-</ul>
-<pre>
-<span class="kw">final int</span> PI_INT = <span class="num">3</span>;   <span class="cm">// constant</span>
-<span class="kw">final class</span> <span class="type">Immutable</span> { } <span class="cm">// cannot extend</span></pre>
-<h3>C) instanceof Operator</h3>
-<p>Checks whether an object is an instance of a given class or interface. Returns boolean.</p>
-<pre>
-<span class="type">Animal</span> a = <span class="kw">new</span> <span class="type">Dog</span>();
-<span class="type">System</span>.out.println(a <span class="kw">instanceof</span> <span class="type">Animal</span>); <span class="cm">// true</span>
-<span class="type">System</span>.out.println(a <span class="kw">instanceof</span> <span class="type">Dog</span>);    <span class="cm">// true</span>
-<span class="type">System</span>.out.println(a <span class="kw">instanceof</span> <span class="type">Cat</span>);    <span class="cm">// false</span></pre>
-</div>
-</div>
-
-<!-- Q31 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q31</span>
-  <span class="q-text">What is an interface? Rules to create an interface in Java with examples.</span>
-  <span class="q-marks">8 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<div class="box box-def">An <strong>interface</strong> is a reference type in Java, similar to a class, that can contain only abstract methods (Java 7), default methods, static methods (Java 8+), and constant fields. It defines a contract that implementing classes must fulfill.</div>
-<h3>Rules for Creating an Interface</h3>
-<ul>
-  <li>Declared with <code>interface</code> keyword</li>
-  <li>All methods are implicitly <code>public abstract</code> (before Java 8)</li>
-  <li>All variables are implicitly <code>public static final</code> (constants)</li>
-  <li>Interface cannot be instantiated directly</li>
-  <li>A class implements interface using <code>implements</code> keyword</li>
-  <li>A class can implement <strong>multiple interfaces</strong></li>
-  <li>An interface can extend another interface using <code>extends</code></li>
-  <li>Java 8+: can have <code>default</code> and <code>static</code> methods with bodies</li>
-</ul>
-<pre>
-<span class="cm">// Interface declaration</span>
-<span class="kw">interface</span> <span class="type">Drawable</span> {
-    <span class="kw">double</span> PI = <span class="num">3.14159</span>;   <span class="cm">// public static final</span>
-    <span class="kw">void</span> draw();             <span class="cm">// public abstract</span>
-    <span class="kw">void</span> resize(<span class="kw">double</span> factor);
-
-    <span class="cm">// Default method (Java 8+)</span>
-    <span class="kw">default void</span> printInfo() {
-        <span class="type">System</span>.out.println(<span class="str">"This is a drawable shape"</span>);
-    }
-}
-
-<span class="kw">interface</span> <span class="type">Colorable</span> {
-    <span class="kw">void</span> setColor(<span class="type">String</span> color);
-}
-
-<span class="cm">// Class implementing multiple interfaces</span>
-<span class="kw">class</span> <span class="type">Circle</span> <span class="kw">implements</span> <span class="type">Drawable</span>, <span class="type">Colorable</span> {
-    <span class="kw">double</span> radius;
-    <span class="type">String</span> color;
-
-    <span class="type">Circle</span>(<span class="kw">double</span> r) { radius = r; }
-
-    @<span class="type">Override</span>
-    <span class="kw">public void</span> draw() {
-        <span class="type">System</span>.out.println(<span class="str">"Drawing circle r="</span> + radius);
-    }
-
-    @<span class="type">Override</span>
-    <span class="kw">public void</span> resize(<span class="kw">double</span> f) { radius *= f; }
-
-    @<span class="type">Override</span>
-    <span class="kw">public void</span> setColor(<span class="type">String</span> c) { color = c; }
-}
-
-<span class="kw">public class</span> <span class="type">Main</span> {
-    <span class="kw">public static void</span> main(<span class="type">String</span>[] args) {
-        <span class="type">Circle</span> c = <span class="kw">new</span> <span class="type">Circle</span>(<span class="num">5.0</span>);
-        c.draw();
-        c.printInfo();
-        c.setColor(<span class="str">"Red"</span>);
-    }
-}</pre>
-</div>
-</div>
-
-<!-- Q32 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q32</span>
-  <span class="q-text">Implement Multiple Inheritance with the help of interface.</span>
-  <span class="q-marks">8 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<p>Java does not support multiple inheritance through classes (to avoid the Diamond Problem), but it does through interfaces.</p>
-<pre>
-<span class="kw">interface</span> <span class="type">Flyable</span> {
-    <span class="kw">void</span> fly();
-    <span class="kw">default void</span> info() { <span class="type">System</span>.out.println(<span class="str">"I can fly"</span>); }
-}
-
-<span class="kw">interface</span> <span class="type">Swimmable</span> {
-    <span class="kw">void</span> swim();
-    <span class="kw">default void</span> info() { <span class="type">System</span>.out.println(<span class="str">"I can swim"</span>); }
-}
-
-<span class="kw">interface</span> <span class="type">Runnable</span> {
-    <span class="kw">void</span> run();
-}
-
-<span class="cm">// Duck implements multiple interfaces</span>
-<span class="kw">class</span> <span class="type">Duck</span> <span class="kw">implements</span> <span class="type">Flyable</span>, <span class="type">Swimmable</span>, <span class="type">Runnable</span> {
-    @<span class="type">Override</span>
-    <span class="kw">public void</span> fly()  { <span class="type">System</span>.out.println(<span class="str">"Duck flying"</span>); }
-    @<span class="type">Override</span>
-    <span class="kw">public void</span> swim() { <span class="type">System</span>.out.println(<span class="str">"Duck swimming"</span>); }
-    @<span class="type">Override</span>
-    <span class="kw">public void</span> run()  { <span class="type">System</span>.out.println(<span class="str">"Duck running"</span>); }
-    <span class="cm">// Must override info() to resolve diamond conflict</span>
-    @<span class="type">Override</span>
-    <span class="kw">public void</span> info() { <span class="type">System</span>.out.println(<span class="str">"Duck: fly + swim"</span>); }
-}
-
-<span class="kw">public class</span> <span class="type">MultipleInheritance</span> {
-    <span class="kw">public static void</span> main(<span class="type">String</span>[] args) {
-        <span class="type">Duck</span> d = <span class="kw">new</span> <span class="type">Duck</span>();
-        d.fly();    <span class="cm">// Duck flying</span>
-        d.swim();   <span class="cm">// Duck swimming</span>
-        d.run();    <span class="cm">// Duck running</span>
-        d.info();   <span class="cm">// Duck: fly + swim</span>
-
-        <span class="cm">// Polymorphic references</span>
-        <span class="type">Flyable</span>  f = d;  f.fly();
-        <span class="type">Swimmable</span> s = d; s.swim();
-    }
-}</pre>
-</div>
-</div>
-
-<!-- Q33 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q33</span>
-  <span class="q-text">Define polymorphism. Explain Compile time and Runtime polymorphism with example.</span>
-  <span class="q-marks">8 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<div class="box box-def"><strong>Polymorphism</strong> means "many forms." In OOP, it allows the same interface or method name to be used with different underlying implementations. An object can take on multiple forms depending on context.</div>
-<h3>1. Compile-Time Polymorphism (Static Binding)</h3>
-<p>Achieved through <strong>Method Overloading</strong>. The compiler decides which method to call based on the method signature.</p>
-<pre>
-<span class="kw">class</span> <span class="type">Print</span> {
-    <span class="kw">void</span> show(<span class="kw">int</span> x)    { <span class="type">System</span>.out.println(<span class="str">"int: "</span>  + x); }
-    <span class="kw">void</span> show(<span class="kw">double</span> x) { <span class="type">System</span>.out.println(<span class="str">"double: "</span> + x); }
-    <span class="kw">void</span> show(<span class="type">String</span> x) { <span class="type">System</span>.out.println(<span class="str">"String: "</span> + x); }
-}
-<span class="cm">// Compiler resolves which show() to call at compile time</span></pre>
-<h3>2. Runtime Polymorphism (Dynamic Binding)</h3>
-<p>Achieved through <strong>Method Overriding</strong>. JVM decides which method to call at runtime based on the actual object type, not the reference type.</p>
-<pre>
-<span class="kw">class</span> <span class="type">Shape</span> {
-    <span class="kw">void</span> area() { <span class="type">System</span>.out.println(<span class="str">"Shape area"</span>); }
-}
-<span class="kw">class</span> <span class="type">Circle</span> <span class="kw">extends</span> <span class="type">Shape</span> {
-    @<span class="type">Override</span>
-    <span class="kw">void</span> area() { <span class="type">System</span>.out.println(<span class="str">"Circle area = πr²"</span>); }
-}
-<span class="kw">class</span> <span class="type">Square</span> <span class="kw">extends</span> <span class="type">Shape</span> {
-    @<span class="type">Override</span>
-    <span class="kw">void</span> area() { <span class="type">System</span>.out.println(<span class="str">"Square area = s²"</span>); }
-}
-
-<span class="kw">public class</span> <span class="type">RuntimePoly</span> {
-    <span class="kw">public static void</span> main(<span class="type">String</span>[] args) {
-        <span class="type">Shape</span> s;         <span class="cm">// Reference type = Shape</span>
-
-        s = <span class="kw">new</span> <span class="type">Circle</span>(); <span class="cm">// Object type = Circle</span>
-        s.area();          <span class="cm">// → "Circle area = πr²"</span>
-
-        s = <span class="kw">new</span> <span class="type">Square</span>(); <span class="cm">// Object type = Square</span>
-        s.area();          <span class="cm">// → "Square area = s²"</span>
-    }
-}</pre>
-<table>
-  <tr><th>Feature</th><th>Compile-Time</th><th>Runtime</th></tr>
-  <tr><td>Mechanism</td><td>Method Overloading</td><td>Method Overriding</td></tr>
-  <tr><td>Resolution</td><td>At compile time</td><td>At runtime by JVM</td></tr>
-  <tr><td>Performance</td><td>Faster</td><td>Slight overhead</td></tr>
-  <tr><td>Also called</td><td>Static polymorphism</td><td>Dynamic polymorphism</td></tr>
-</table>
-</div>
-</div>
-
-<!-- Q34 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q34</span>
-  <span class="q-text">Explain Dynamic method dispatch with proper examples.</span>
-  <span class="q-marks">4 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<div class="box box-def"><strong>Dynamic Method Dispatch</strong> is the mechanism by which Java determines which version of an overridden method to call at <em>runtime</em>, based on the type of the actual object (not the reference variable type).</div>
-<pre>
-<span class="kw">class</span> <span class="type">Vehicle</span> {
-    <span class="kw">void</span> fuelType() { <span class="type">System</span>.out.println(<span class="str">"Fuel: Petrol"</span>); }
-}
-<span class="kw">class</span> <span class="type">ElectricCar</span> <span class="kw">extends</span> <span class="type">Vehicle</span> {
-    @<span class="type">Override</span>
-    <span class="kw">void</span> fuelType() { <span class="type">System</span>.out.println(<span class="str">"Fuel: Electric"</span>); }
-}
-<span class="kw">class</span> <span class="type">HybridCar</span> <span class="kw">extends</span> <span class="type">Vehicle</span> {
-    @<span class="type">Override</span>
-    <span class="kw">void</span> fuelType() { <span class="type">System</span>.out.println(<span class="str">"Fuel: Hybrid"</span>); }
-}
-
-<span class="kw">public class</span> <span class="type">Dispatch</span> {
-    <span class="kw">public static void</span> main(<span class="type">String</span>[] args) {
-        <span class="type">Vehicle</span> v;           <span class="cm">// Reference type: Vehicle</span>
-
-        v = <span class="kw">new</span> <span class="type">Vehicle</span>();   <span class="cm">// Object: Vehicle</span>
-        v.fuelType();        <span class="cm">// "Fuel: Petrol"</span>
-
-        v = <span class="kw">new</span> <span class="type">ElectricCar</span>(); <span class="cm">// Object: ElectricCar</span>
-        v.fuelType();          <span class="cm">// "Fuel: Electric" ← dispatch!</span>
-
-        v = <span class="kw">new</span> <span class="type">HybridCar</span>();   <span class="cm">// Object: HybridCar</span>
-        v.fuelType();           <span class="cm">// "Fuel: Hybrid" ← dispatch!</span>
-    }
-}</pre>
-<div class="box box-note">The same reference <code>v</code> calls different methods based on what object it points to — this is Dynamic Dispatch. It is the foundation of runtime polymorphism.</div>
-</div>
-</div>
-
-<!-- Q36 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q36</span>
-  <span class="q-text">What are the final class, final function and final variable in Java?</span>
-  <span class="q-marks">4 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<h3>final Variable</h3>
-<p>A variable that can only be assigned <strong>once</strong>. Acts as a constant. Must be initialized either at declaration, in constructor, or in a static block.</p>
-<pre>
-<span class="kw">final int</span> MAX = <span class="num">100</span>;     <span class="cm">// Constant</span>
-MAX = <span class="num">200</span>;               <span class="cm">// ❌ Compile error!</span></pre>
-<h3>final Method</h3>
-<p>A method that <strong>cannot be overridden</strong> by any subclass. Ensures the implementation is fixed.</p>
-<pre>
-<span class="kw">class</span> <span class="type">Parent</span> {
-    <span class="kw">final void</span> display() { <span class="type">System</span>.out.println(<span class="str">"Cannot override"</span>); }
-}
-<span class="kw">class</span> <span class="type">Child</span> <span class="kw">extends</span> <span class="type">Parent</span> {
-    <span class="kw">void</span> display() { }  <span class="cm">// ❌ Compile error!</span>
-}</pre>
-<h3>final Class</h3>
-<p>A class that <strong>cannot be subclassed/extended</strong>. Used to prevent inheritance. Examples: <code>String</code>, <code>Integer</code>, <code>Math</code>.</p>
-<pre>
-<span class="kw">final class</span> <span class="type">Singleton</span> { }
-<span class="kw">class</span> <span class="type">MySingleton</span> <span class="kw">extends</span> <span class="type">Singleton</span> { } <span class="cm">// ❌ Compile error!</span></pre>
-<table>
-  <tr><th>final on</th><th>Effect</th></tr>
-  <tr><td>Variable</td><td>Value cannot change (constant)</td></tr>
-  <tr><td>Method</td><td>Cannot be overridden</td></tr>
-  <tr><td>Class</td><td>Cannot be extended</td></tr>
-</table>
-</div>
-</div>
-
-<!-- Q38 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q38</span>
-  <span class="q-text">Compare Abstract class and Interface.</span>
-  <span class="q-marks">4 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<table>
-  <tr><th>Feature</th><th>Abstract Class</th><th>Interface</th></tr>
-  <tr><td>Keyword</td><td><code>abstract class</code></td><td><code>interface</code></td></tr>
-  <tr><td>Methods</td><td>Abstract + concrete methods</td><td>Abstract (Java 7), default/static (Java 8+)</td></tr>
-  <tr><td>Variables</td><td>Any type (instance/static)</td><td>public static final only</td></tr>
-  <tr><td>Constructors</td><td>Can have constructors</td><td>Cannot have constructors</td></tr>
-  <tr><td>Inheritance</td><td>Single (extends one class)</td><td>Multiple (implements many)</td></tr>
-  <tr><td>Access modifiers</td><td>Any modifier for methods</td><td>All methods implicitly public</td></tr>
-  <tr><td>When to use</td><td>Shared code + IS-A relationship</td><td>Contract definition, multiple inheritance</td></tr>
-  <tr><td>Speed</td><td>Slightly faster</td><td>Slightly slower</td></tr>
-</table>
-<pre>
-<span class="cm">// Abstract class</span>
-<span class="kw">abstract class</span> <span class="type">Animal</span> {
-    <span class="type">String</span> name;  <span class="cm">// instance variable OK</span>
-    <span class="type">Animal</span>(<span class="type">String</span> n) { name = n; }  <span class="cm">// constructor OK</span>
-    <span class="kw">abstract void</span> sound();            <span class="cm">// must override</span>
-    <span class="kw">void</span> breathe() { <span class="type">System</span>.out.println(<span class="str">"Breathing"</span>); } <span class="cm">// concrete</span>
-}
-
-<span class="cm">// Interface</span>
-<span class="kw">interface</span> <span class="type">Trainable</span> {
-    <span class="kw">int</span> MAX_TRICKS = <span class="num">10</span>;  <span class="cm">// public static final</span>
-    <span class="kw">void</span> train();          <span class="cm">// public abstract</span>
-}</pre>
-</div>
-</div>
-
-</div><!-- end unit-2 -->
-
-<!-- ════════════════════════════════════════════════════════
-     UNIT 3
-════════════════════════════════════════════════════════ -->
-<div class="unit-panel" id="unit-3" data-unit="3">
-<div class="unit-title">Unit 3 — Exception Handling and Multithreading</div>
-
-<!-- Q39 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q39</span>
-  <span class="q-text">What is error? Types of errors. How can we handle run time errors in Java?</span>
-  <span class="q-marks">3 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<h3>Types of Errors</h3>
-<table>
-  <tr><th>Type</th><th>When?</th><th>Example</th></tr>
-  <tr><td>Compile-time errors</td><td>During compilation</td><td>Syntax errors, missing semicolons, type mismatch</td></tr>
-  <tr><td>Runtime errors</td><td>During execution</td><td>Division by zero, NullPointerException, ArrayIndexOutOfBounds</td></tr>
-  <tr><td>Logical errors</td><td>Incorrect results</td><td>Wrong formula, off-by-one loops</td></tr>
-  <tr><td>Errors (java.lang.Error)</td><td>JVM level</td><td>StackOverflowError, OutOfMemoryError</td></tr>
-</table>
-<h3>Handling Runtime Errors — Exception Handling</h3>
-<p>Java provides a structured exception handling mechanism using <code>try-catch-finally</code>:</p>
-<pre>
-<span class="kw">try</span> {
-    <span class="cm">// Code that might throw an exception</span>
-    <span class="kw">int</span> result = <span class="num">10</span> / <span class="num">0</span>;  <span class="cm">// ArithmeticException</span>
-} <span class="kw">catch</span> (<span class="type">ArithmeticException</span> e) {
-    <span class="type">System</span>.out.println(<span class="str">"Cannot divide by zero: "</span> + e.getMessage());
-} <span class="kw">finally</span> {
-    <span class="type">System</span>.out.println(<span class="str">"This always executes"</span>);
-}</pre>
-</div>
-</div>
-
-<!-- Q40 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q40</span>
-  <span class="q-text">Explain exception handling in JAVA. Program: custom exception if integer argument is negative.</span>
-  <span class="q-marks">8 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<h3>Exception Handling Hierarchy</h3>
-<pre>
-java.lang.Object
-  └── java.lang.Throwable
-        ├── java.lang.Error (JVM errors, not handled)
-        └── java.lang.Exception
-              ├── Checked Exceptions (must handle)
-              │     ├── IOException
-              │     ├── SQLException
-              │     └── ...
-              └── RuntimeException (unchecked)
-                    ├── NullPointerException
-                    ├── ArithmeticException
-                    └── ...</pre>
-<h3>Key Keywords</h3>
-<table>
-  <tr><th>Keyword</th><th>Purpose</th></tr>
-  <tr><td><code>try</code></td><td>Block containing risky code</td></tr>
-  <tr><td><code>catch</code></td><td>Handles a specific exception</td></tr>
-  <tr><td><code>finally</code></td><td>Always executes (cleanup)</td></tr>
-  <tr><td><code>throw</code></td><td>Manually throws an exception</td></tr>
-  <tr><td><code>throws</code></td><td>Declares exceptions a method may throw</td></tr>
-</table>
-<h3>Custom Exception Program</h3>
-<pre>
-<span class="cm">// Custom Exception class</span>
-<span class="kw">class</span> <span class="type">NegativeNumberException</span> <span class="kw">extends</span> <span class="type">Exception</span> {
-    <span class="type">NegativeNumberException</span>(<span class="type">String</span> msg) {
-        <span class="kw">super</span>(msg);
-    }
-}
-
-<span class="kw">public class</span> <span class="type">CustomExceptionDemo</span> {
-
-    <span class="kw">static void</span> checkPositive(<span class="kw">int</span> num)
-            <span class="kw">throws</span> <span class="type">NegativeNumberException</span> {
-        <span class="kw">if</span> (num &lt; <span class="num">0</span>) {
-            <span class="kw">throw new</span> <span class="type">NegativeNumberException</span>(
-                <span class="str">"Negative number not allowed: "</span> + num);
-        }
-        <span class="type">System</span>.out.println(<span class="str">"Valid number: "</span> + num);
-    }
-
-    <span class="kw">public static void</span> main(<span class="type">String</span>[] args) {
-        <span class="kw">for</span> (<span class="type">String</span> arg : args) {
-            <span class="kw">try</span> {
-                <span class="kw">int</span> num = <span class="type">Integer</span>.parseInt(arg);
-                checkPositive(num);
-            } <span class="kw">catch</span> (<span class="type">NegativeNumberException</span> e) {
-                <span class="type">System</span>.out.println(<span class="str">"Exception: "</span> + e.getMessage());
-            } <span class="kw">catch</span> (<span class="type">NumberFormatException</span> e) {
-                <span class="type">System</span>.out.println(<span class="str">"Not a number: "</span> + arg);
-            }
-        }
-    }
-}
-<span class="cm">// java CustomExceptionDemo 5 -3 10 -7
-// Valid number: 5
-// Exception: Negative number not allowed: -3
-// Valid number: 10
-// Exception: Negative number not allowed: -7</span></pre>
-</div>
-</div>
-
-<!-- Q42 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q42</span>
-  <span class="q-text">Explain any 5 Built-in Exceptions in Java with proper examples.</span>
-  <span class="q-marks">8 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<table>
-  <tr><th>Exception</th><th>Package</th><th>Cause</th></tr>
-  <tr><td>ArithmeticException</td><td>java.lang</td><td>Division by zero, illegal arithmetic</td></tr>
-  <tr><td>NullPointerException</td><td>java.lang</td><td>Accessing member of null reference</td></tr>
-  <tr><td>ArrayIndexOutOfBoundsException</td><td>java.lang</td><td>Array index negative or ≥ array length</td></tr>
-  <tr><td>ClassCastException</td><td>java.lang</td><td>Invalid type cast</td></tr>
-  <tr><td>NumberFormatException</td><td>java.lang</td><td>String to number conversion failure</td></tr>
-  <tr><td>StackOverflowError</td><td>java.lang</td><td>Infinite/deep recursion</td></tr>
-</table>
-<pre>
-<span class="kw">public class</span> <span class="type">BuiltInExceptions</span> {
-    <span class="kw">public static void</span> main(<span class="type">String</span>[] args) {
-
-        <span class="cm">// 1. ArithmeticException</span>
-        <span class="kw">try</span> {
-            <span class="kw">int</span> x = <span class="num">10</span> / <span class="num">0</span>;
-        } <span class="kw">catch</span> (<span class="type">ArithmeticException</span> e) {
-            <span class="type">System</span>.out.println(<span class="str">"1. ArithmeticException: "</span> + e.getMessage());
-        }
-
-        <span class="cm">// 2. NullPointerException</span>
-        <span class="kw">try</span> {
-            <span class="type">String</span> s = <span class="kw">null</span>;
-            s.length();
-        } <span class="kw">catch</span> (<span class="type">NullPointerException</span> e) {
-            <span class="type">System</span>.out.println(<span class="str">"2. NullPointerException caught"</span>);
-        }
-
-        <span class="cm">// 3. ArrayIndexOutOfBoundsException</span>
-        <span class="kw">try</span> {
-            <span class="kw">int</span>[] arr = {<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>};
-            <span class="type">System</span>.out.println(arr[<span class="num">5</span>]);
-        } <span class="kw">catch</span> (<span class="type">ArrayIndexOutOfBoundsException</span> e) {
-            <span class="type">System</span>.out.println(<span class="str">"3. ArrayIndexOutOfBoundsException: "</span> + e.getMessage());
-        }
-
-        <span class="cm">// 4. ClassCastException</span>
-        <span class="kw">try</span> {
-            <span class="type">Object</span> obj = <span class="str">"Hello"</span>;
-            <span class="type">Integer</span> i = (<span class="type">Integer</span>) obj;
-        } <span class="kw">catch</span> (<span class="type">ClassCastException</span> e) {
-            <span class="type">System</span>.out.println(<span class="str">"4. ClassCastException caught"</span>);
-        }
-
-        <span class="cm">// 5. NumberFormatException</span>
-        <span class="kw">try</span> {
-            <span class="kw">int</span> n = <span class="type">Integer</span>.parseInt(<span class="str">"abc"</span>);
-        } <span class="kw">catch</span> (<span class="type">NumberFormatException</span> e) {
-            <span class="type">System</span>.out.println(<span class="str">"5. NumberFormatException: "</span> + e.getMessage());
-        }
-    }
-}</pre>
-</div>
-</div>
-
-<!-- Q43 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q43</span>
-  <span class="q-text">Show the use of finally statements with examples.</span>
-  <span class="q-marks">8 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<div class="box box-def">The <strong>finally</strong> block always executes after the try-catch block, regardless of whether an exception was thrown or caught. Used for cleanup operations like closing files, connections, etc.</div>
-<pre>
-<span class="kw">public class</span> <span class="type">FinallyDemo</span> {
-
-    <span class="kw">static void</span> test(<span class="kw">int</span> x) {
-        <span class="kw">try</span> {
-            <span class="type">System</span>.out.println(<span class="str">"In try block"</span>);
-            <span class="kw">if</span> (x == <span class="num">0</span>) <span class="kw">throw new</span> <span class="type">ArithmeticException</span>(<span class="str">"x is zero"</span>);
-            <span class="type">System</span>.out.println(<span class="str">"After possible exception"</span>);
-        } <span class="kw">catch</span> (<span class="type">ArithmeticException</span> e) {
-            <span class="type">System</span>.out.println(<span class="str">"Caught: "</span> + e.getMessage());
-        } <span class="kw">finally</span> {
-            <span class="type">System</span>.out.println(<span class="str">"Finally always runs!\n"</span>);
-        }
-    }
-
-    <span class="kw">public static void</span> main(<span class="type">String</span>[] args) {
-        test(<span class="num">5</span>);  <span class="cm">// No exception</span>
-        test(<span class="num">0</span>);  <span class="cm">// Exception thrown</span>
-    }
-}
-<span class="cm">/* Output:
-In try block
-After possible exception
-Finally always runs!
-
-In try block
-Caught: x is zero
-Finally always runs!
-*/</span></pre>
-<div class="box box-imp">finally executes even if: a return statement is in try/catch, an exception is thrown but not caught, a break/continue is used inside the try block.</div>
-<h3>Practical Use — Closing Resources</h3>
-<pre>
-<span class="type">FileReader</span> fr = <span class="kw">null</span>;
-<span class="kw">try</span> {
-    fr = <span class="kw">new</span> <span class="type">FileReader</span>(<span class="str">"data.txt"</span>);
-    <span class="cm">// read file...</span>
-} <span class="kw">catch</span> (<span class="type">IOException</span> e) {
-    <span class="type">System</span>.out.println(<span class="str">"Error: "</span> + e.getMessage());
-} <span class="kw">finally</span> {
-    <span class="kw">if</span> (fr != <span class="kw">null</span>) {
-        <span class="kw">try</span> { fr.close(); } <span class="kw">catch</span> (<span class="type">IOException</span> e) { }
-    }
-    <span class="type">System</span>.out.println(<span class="str">"File closed in finally"</span>);
-}</pre>
-</div>
-</div>
-
-<!-- Q45 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q45</span>
-  <span class="q-text">Explain try, catch, throw, throws and finally with example.</span>
-  <span class="q-marks">4 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<table>
-  <tr><th>Keyword</th><th>Role</th></tr>
-  <tr><td><code>try</code></td><td>Encloses code that may throw exceptions</td></tr>
-  <tr><td><code>catch</code></td><td>Handles a specific exception type</td></tr>
-  <tr><td><code>finally</code></td><td>Always executes — used for cleanup</td></tr>
-  <tr><td><code>throw</code></td><td>Explicitly throws an exception object</td></tr>
-  <tr><td><code>throws</code></td><td>Declares that a method may throw exceptions</td></tr>
-</table>
-<pre>
-<span class="kw">import</span> java.io.*;
-
-<span class="kw">class</span> <span class="type">AgeValidator</span> {
-
-    <span class="cm">// 'throws' declares possible exceptions</span>
-    <span class="kw">static void</span> validateAge(<span class="kw">int</span> age) <span class="kw">throws</span> <span class="type">IllegalArgumentException</span> {
-        <span class="kw">if</span> (age &lt; <span class="num">0</span> || age > <span class="num">150</span>) {
-            <span class="cm">// 'throw' raises the exception</span>
-            <span class="kw">throw new</span> <span class="type">IllegalArgumentException</span>(<span class="str">"Invalid age: "</span> + age);
-        }
-        <span class="type">System</span>.out.println(<span class="str">"Age "</span> + age + <span class="str">" is valid."</span>);
-    }
-
-    <span class="kw">public static void</span> main(<span class="type">String</span>[] args) {
-        <span class="cm">// 'try' block</span>
-        <span class="kw">try</span> {
-            validateAge(<span class="num">25</span>);    <span class="cm">// valid</span>
-            validateAge(-<span class="num">5</span>);    <span class="cm">// throws exception</span>
-            validateAge(<span class="num">30</span>);    <span class="cm">// never reached</span>
-        }
-        <span class="cm">// 'catch' handles it</span>
-        <span class="kw">catch</span> (<span class="type">IllegalArgumentException</span> e) {
-            <span class="type">System</span>.out.println(<span class="str">"Caught: "</span> + e.getMessage());
-        }
-        <span class="cm">// 'finally' always runs</span>
-        <span class="kw">finally</span> {
-            <span class="type">System</span>.out.println(<span class="str">"Validation done."</span>);
-        }
-    }
-}</pre>
-</div>
-</div>
-
-<!-- Q46 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q46</span>
-  <span class="q-text">Explain: wait, sleep, synchronized, notify.</span>
-  <span class="q-marks">3 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<table>
-  <tr><th>Method/Keyword</th><th>Class</th><th>Description</th></tr>
-  <tr><td><code>wait()</code></td><td>Object</td><td>Makes the current thread release the lock and wait until notified. Must be called inside synchronized block.</td></tr>
-  <tr><td><code>notify()</code></td><td>Object</td><td>Wakes up one thread waiting on this object's monitor.</td></tr>
-  <tr><td><code>notifyAll()</code></td><td>Object</td><td>Wakes up ALL threads waiting on this object's monitor.</td></tr>
-  <tr><td><code>sleep(ms)</code></td><td>Thread</td><td>Pauses execution for specified milliseconds. Thread retains its lock (if any).</td></tr>
-  <tr><td><code>synchronized</code></td><td>Keyword</td><td>Ensures only one thread can execute the block/method at a time using the object's intrinsic lock.</td></tr>
-</table>
-<pre>
-<span class="kw">class</span> <span class="type">SharedResource</span> {
-    <span class="kw">boolean</span> ready = <span class="kw">false</span>;
-
-    <span class="kw">synchronized void</span> produce() <span class="kw">throws</span> <span class="type">InterruptedException</span> {
-        <span class="type">System</span>.out.println(<span class="str">"Producing..."</span>);
-        <span class="type">Thread</span>.sleep(<span class="num">1000</span>);   <span class="cm">// sleep — still holds lock</span>
-        ready = <span class="kw">true</span>;
-        notify();              <span class="cm">// wake up consumer</span>
-    }
-
-    <span class="kw">synchronized void</span> consume() <span class="kw">throws</span> <span class="type">InterruptedException</span> {
-        <span class="kw">while</span> (!ready) wait(); <span class="cm">// release lock, wait for notify</span>
-        <span class="type">System</span>.out.println(<span class="str">"Consumed!"</span>);
-    }
-}</pre>
-<div class="box box-imp">wait() and notify() must always be called inside a synchronized context, or you get IllegalMonitorStateException.</div>
-</div>
-</div>
-
-<!-- Q50 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q50</span>
-  <span class="q-text">What is Multithreading? Explain the Life Cycle of Thread with example.</span>
-  <span class="q-marks">8 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<div class="box box-def"><strong>Multithreading</strong> is the ability of a CPU to execute multiple threads concurrently. Each thread is an independent lightweight sub-process sharing the same memory space as the main process.</div>
-<h3>Thread Life Cycle</h3>
-<pre>
-        ┌──────────────────────────────────────────────┐
-        │                                              │
-  NEW ──► RUNNABLE ──► RUNNING ──► BLOCKED/WAITING ──►┤
-    start()  Scheduler   yield()   wait()/sleep()      │
-                         run()     synchronized()      │
-                          │                            │
-                          ▼                            │
-                       TERMINATED ◄───────────────────┘
-                         (run() ends / exception)
-</pre>
-<table>
-  <tr><th>State</th><th>Description</th></tr>
-  <tr><td>NEW</td><td>Thread created but start() not yet called</td></tr>
-  <tr><td>RUNNABLE</td><td>Ready to run; waiting for CPU (in run queue)</td></tr>
-  <tr><td>RUNNING</td><td>Currently executing on CPU</td></tr>
-  <tr><td>BLOCKED</td><td>Waiting for a monitor lock (synchronized)</td></tr>
-  <tr><td>WAITING</td><td>Indefinitely waiting (wait(), join() without timeout)</td></tr>
-  <tr><td>TIMED_WAITING</td><td>Waiting for specified time (sleep(), wait(ms))</td></tr>
-  <tr><td>TERMINATED</td><td>run() completed or exception occurred</td></tr>
-</table>
-<h3>Creating Threads</h3>
-<pre>
-<span class="cm">// Method 1: extend Thread</span>
-<span class="kw">class</span> <span class="type">MyThread</span> <span class="kw">extends</span> <span class="type">Thread</span> {
-    @<span class="type">Override</span>
-    <span class="kw">public void</span> run() {
-        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">1</span>; i &lt;= <span class="num">5</span>; i++) {
-            <span class="type">System</span>.out.println(<span class="type">Thread</span>.currentThread().getName() + <span class="str">": "</span> + i);
-            <span class="kw">try</span> { <span class="type">Thread</span>.sleep(<span class="num">500</span>); }
-            <span class="kw">catch</span> (<span class="type">InterruptedException</span> e) { }
-        }
-    }
-}
-
-<span class="cm">// Method 2: implement Runnable</span>
-<span class="kw">class</span> <span class="type">MyRunnable</span> <span class="kw">implements</span> <span class="type">Runnable</span> {
-    <span class="kw">public void</span> run() { <span class="type">System</span>.out.println(<span class="str">"Runnable running"</span>); }
-}
-
-<span class="kw">public class</span> <span class="type">ThreadDemo</span> {
-    <span class="kw">public static void</span> main(<span class="type">String</span>[] args) <span class="kw">throws</span> <span class="type">InterruptedException</span> {
-        <span class="type">MyThread</span> t1 = <span class="kw">new</span> <span class="type">MyThread</span>();
-        t1.setName(<span class="str">"Thread-A"</span>);
-        t1.start();   <span class="cm">// NEW → RUNNABLE</span>
-
-        <span class="type">Thread</span> t2 = <span class="kw">new</span> <span class="type">Thread</span>(<span class="kw">new</span> <span class="type">MyRunnable</span>(), <span class="str">"Thread-B"</span>);
-        t2.start();
-    }
-}</pre>
-</div>
-</div>
-
-<!-- Q52 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q52</span>
-  <span class="q-text">What is Thread? Draw and explain the life cycle of thread.</span>
-  <span class="q-marks">8 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<div class="box box-def">A <strong>thread</strong> is the smallest unit of a process that can execute independently. Java supports multithreading natively through the <code>java.lang.Thread</code> class and <code>Runnable</code> interface.</div>
-<p>See Q50 for the lifecycle diagram and states. Key lifecycle transitions:</p>
-<ul>
-  <li><strong>NEW → RUNNABLE:</strong> <code>t.start()</code> is called</li>
-  <li><strong>RUNNABLE → RUNNING:</strong> Thread Scheduler picks the thread</li>
-  <li><strong>RUNNING → TIMED_WAITING:</strong> <code>Thread.sleep(ms)</code> or <code>wait(ms)</code></li>
-  <li><strong>RUNNING → WAITING:</strong> <code>wait()</code>, <code>join()</code></li>
-  <li><strong>RUNNING → BLOCKED:</strong> Waiting to acquire a synchronized lock</li>
-  <li><strong>Any → TERMINATED:</strong> run() finishes or unhandled exception</li>
-</ul>
-<h3>Thread Priority</h3>
-<pre>
-t.setPriority(<span class="type">Thread</span>.MIN_PRIORITY);  <span class="cm">// 1</span>
-t.setPriority(<span class="type">Thread</span>.NORM_PRIORITY); <span class="cm">// 5 (default)</span>
-t.setPriority(<span class="type">Thread</span>.MAX_PRIORITY);  <span class="cm">// 10</span></pre>
-</div>
-</div>
-
-<!-- Q56 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q56</span>
-  <span class="q-text">Why synchronization is required? Program using thread synchronization for data integrity.</span>
-  <span class="q-marks">8 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<p>When multiple threads access and modify a shared resource concurrently, it leads to <strong>race conditions</strong> and <strong>data inconsistency</strong>. Synchronization ensures mutual exclusion — only one thread can access the critical section at a time.</p>
-<pre>
-<span class="cm">// Without synchronization — PROBLEM</span>
-<span class="kw">class</span> <span class="type">BankAccount</span> {
-    <span class="kw">private int</span> balance = <span class="num">1000</span>;
-
-    <span class="cm">// Synchronized method — SOLUTION</span>
-    <span class="kw">public synchronized void</span> withdraw(<span class="kw">int</span> amount) {
-        <span class="type">System</span>.out.println(
-            <span class="type">Thread</span>.currentThread().getName() +
-            <span class="str">" attempting to withdraw "</span> + amount);
-
-        <span class="kw">if</span> (balance >= amount) {
-            <span class="kw">try</span> { <span class="type">Thread</span>.sleep(<span class="num">100</span>); }  <span class="cm">// simulate processing</span>
-            <span class="kw">catch</span> (<span class="type">InterruptedException</span> e) { }
-            balance -= amount;
-            <span class="type">System</span>.out.println(
-                <span class="type">Thread</span>.currentThread().getName() +
-                <span class="str">" withdrew. Balance: "</span> + balance);
-        } <span class="kw">else</span> {
-            <span class="type">System</span>.out.println(<span class="str">"Insufficient balance!"</span>);
-        }
-    }
-}
-
-<span class="kw">public class</span> <span class="type">SyncDemo</span> {
-    <span class="kw">public static void</span> main(<span class="type">String</span>[] args) {
-        <span class="type">BankAccount</span> account = <span class="kw">new</span> <span class="type">BankAccount</span>();
-
-        <span class="type">Thread</span> t1 = <span class="kw">new</span> <span class="type">Thread</span>(() -&gt; account.withdraw(<span class="num">700</span>), <span class="str">"Alice"</span>);
-        <span class="type">Thread</span> t2 = <span class="kw">new</span> <span class="type">Thread</span>(() -&gt; account.withdraw(<span class="num">700</span>), <span class="str">"Bob"</span>);
-
-        t1.start();
-        t2.start();
-    }
-}</pre>
-<div class="box box-tip">With synchronized: only one thread enters withdraw() at a time. Without it: both threads could pass the balance check simultaneously, causing overdraft!</div>
-</div>
-</div>
-
-<!-- Q57 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q57</span>
-  <span class="q-text">What is the significance of using packages in a large-scale Java project?</span>
-  <span class="q-marks">3 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<p>Packages are namespaces that group related classes and interfaces together. Their significance:</p>
-<ul>
-  <li><strong>Namespace Management:</strong> Prevents naming conflicts — two classes can have the same name in different packages</li>
-  <li><strong>Access Control:</strong> Package-level access modifier restricts access to within the package</li>
-  <li><strong>Organization:</strong> Logical grouping of related classes (e.g., <code>com.company.database</code>, <code>com.company.ui</code>)</li>
-  <li><strong>Reusability:</strong> Packaged code can be easily imported and reused across projects</li>
-  <li><strong>Maintainability:</strong> Easier to find, modify, and maintain code in large projects</li>
-  <li><strong>Security:</strong> Classes can be hidden from outside packages using default/package-private access</li>
-</ul>
-<pre>
-<span class="cm">// Package declaration (must be first line)</span>
-<span class="kw">package</span> com.silveroak.student;
-
-<span class="cm">// Importing from another package</span>
-<span class="kw">import</span> java.util.ArrayList;
-<span class="kw">import</span> com.silveroak.teacher.Teacher;</pre>
-</div>
-</div>
-
-</div><!-- end unit-3 -->
-
-<!-- ════════════════════════════════════════════════════════
-     UNIT 4
-════════════════════════════════════════════════════════ -->
-<div class="unit-panel" id="unit-4" data-unit="4">
-<div class="unit-title">Unit 4 — IO Programming and Collections</div>
-
-<!-- Q60 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q60</span>
-  <span class="q-text">Compare byte streams and character streams.</span>
-  <span class="q-marks">4 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<table>
-  <tr><th>Feature</th><th>Byte Streams</th><th>Character Streams</th></tr>
-  <tr><td>Unit of data</td><td>8-bit bytes</td><td>16-bit Unicode characters</td></tr>
-  <tr><td>Base classes</td><td>InputStream, OutputStream</td><td>Reader, Writer</td></tr>
-  <tr><td>Key classes</td><td>FileInputStream, FileOutputStream</td><td>FileReader, FileWriter</td></tr>
-  <tr><td>Used for</td><td>Binary files (images, audio, exe)</td><td>Text files</td></tr>
-  <tr><td>Encoding</td><td>No character encoding</td><td>Handles character encoding (UTF-8, etc.)</td></tr>
-  <tr><td>Buffered versions</td><td>BufferedInputStream, BufferedOutputStream</td><td>BufferedReader, BufferedWriter</td></tr>
-  <tr><td>Performance</td><td>Slower without buffering</td><td>Efficient for text with readLine()</td></tr>
-</table>
-<pre>
-<span class="cm">// Byte Stream</span>
-<span class="type">FileInputStream</span>  fis = <span class="kw">new</span> <span class="type">FileInputStream</span>(<span class="str">"image.jpg"</span>);
-<span class="type">FileOutputStream</span> fos = <span class="kw">new</span> <span class="type">FileOutputStream</span>(<span class="str">"copy.jpg"</span>);
-
-<span class="cm">// Character Stream</span>
-<span class="type">FileReader</span>  fr = <span class="kw">new</span> <span class="type">FileReader</span>(<span class="str">"text.txt"</span>);
-<span class="type">FileWriter</span>  fw = <span class="kw">new</span> <span class="type">FileWriter</span>(<span class="str">"output.txt"</span>);</pre>
-</div>
-</div>
-
-<!-- Q61 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q61</span>
-  <span class="q-text">How can we open and read a text file in Java? Explain with an example.</span>
-  <span class="q-marks">3 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<pre>
-<span class="kw">import</span> java.io.*;
-
-<span class="kw">public class</span> <span class="type">ReadFile</span> {
-    <span class="kw">public static void</span> main(<span class="type">String</span>[] args) {
-        <span class="cm">// Method 1: BufferedReader (recommended for text files)</span>
-        <span class="kw">try</span> (<span class="type">BufferedReader</span> br = <span class="kw">new</span> <span class="type">BufferedReader</span>(
-                                  <span class="kw">new</span> <span class="type">FileReader</span>(<span class="str">"sample.txt"</span>))) {
-            <span class="type">String</span> line;
-            <span class="kw">while</span> ((line = br.readLine()) != <span class="kw">null</span>) {
-                <span class="type">System</span>.out.println(line);
-            }
-        } <span class="kw">catch</span> (<span class="type">FileNotFoundException</span> e) {
-            <span class="type">System</span>.out.println(<span class="str">"File not found: "</span> + e.getMessage());
-        } <span class="kw">catch</span> (<span class="type">IOException</span> e) {
-            <span class="type">System</span>.out.println(<span class="str">"Error reading: "</span> + e.getMessage());
-        }
-        <span class="cm">// try-with-resources automatically closes the file</span>
-    }
-}</pre>
-<div class="box box-note">The <code>try-with-resources</code> statement (Java 7+) automatically closes the stream, even if an exception occurs. The resource must implement <code>AutoCloseable</code>.</div>
-</div>
-</div>
-
-<!-- Q63 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q63</span>
-  <span class="q-text">Explain FileInputStream and FileOutputStream concept with example.</span>
-  <span class="q-marks">8 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<h3>FileInputStream</h3>
-<p>Reads raw bytes from a file. Extends <code>InputStream</code>. Used for binary files.</p>
-<h3>FileOutputStream</h3>
-<p>Writes raw bytes to a file. Extends <code>OutputStream</code>. Creates file if not exists.</p>
-<pre>
-<span class="kw">import</span> java.io.*;
-
-<span class="kw">public class</span> <span class="type">ByteStreamDemo</span> {
-
-    <span class="kw">public static void</span> main(<span class="type">String</span>[] args) <span class="kw">throws</span> <span class="type">IOException</span> {
-        <span class="cm">// Write bytes to file</span>
-        <span class="kw">try</span> (<span class="type">FileOutputStream</span> fos = <span class="kw">new</span> <span class="type">FileOutputStream</span>(<span class="str">"data.bin"</span>)) {
-            <span class="kw">byte</span>[] data = {<span class="num">72</span>, <span class="num">101</span>, <span class="num">108</span>, <span class="num">108</span>, <span class="num">111</span>}; <span class="cm">// "Hello" in bytes</span>
-            fos.write(data);
-            <span class="type">System</span>.out.println(<span class="str">"Written to file."</span>);
-        }
-
-        <span class="cm">// Read bytes from file</span>
-        <span class="kw">try</span> (<span class="type">FileInputStream</span> fis = <span class="kw">new</span> <span class="type">FileInputStream</span>(<span class="str">"data.bin"</span>)) {
-            <span class="kw">int</span> byteData;
-            <span class="type">System</span>.out.print(<span class="str">"Read: "</span>);
-            <span class="kw">while</span> ((byteData = fis.read()) != -<span class="num">1</span>) {
-                <span class="type">System</span>.out.print((<span class="kw">char</span>) byteData); <span class="cm">// cast to char</span>
-            }
-        }
-
-        <span class="cm">// Copy a file using byte streams</span>
-        <span class="kw">try</span> (<span class="type">FileInputStream</span>  in  = <span class="kw">new</span> <span class="type">FileInputStream</span>(<span class="str">"source.txt"</span>);
-             <span class="type">FileOutputStream</span> out = <span class="kw">new</span> <span class="type">FileOutputStream</span>(<span class="str">"dest.txt"</span>)) {
-            <span class="kw">byte</span>[] buffer = <span class="kw">new byte</span>[<span class="num">1024</span>];
-            <span class="kw">int</span> bytesRead;
-            <span class="kw">while</span> ((bytesRead = in.read(buffer)) != -<span class="num">1</span>) {
-                out.write(buffer, <span class="num">0</span>, bytesRead);
-            }
-            <span class="type">System</span>.out.println(<span class="str">"File copied!"</span>);
-        } <span class="kw">catch</span> (<span class="type">IOException</span> e) {
-            <span class="type">System</span>.out.println(<span class="str">"Source file not found."</span>);
-        }
-    }
-}</pre>
-</div>
-</div>
-
-<!-- Q64 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q64</span>
-  <span class="q-text">Explain FileReader and FileWriter Class with Example.</span>
-  <span class="q-marks">4 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<h3>FileReader</h3>
-<p>Character-based stream for reading text files. Extends <code>Reader</code>. Reads one character at a time or into a char array.</p>
-<h3>FileWriter</h3>
-<p>Character-based stream for writing text files. Can append to existing file using second constructor argument <code>true</code>.</p>
-<pre>
-<span class="kw">import</span> java.io.*;
-
-<span class="kw">public class</span> <span class="type">CharStreamDemo</span> {
-    <span class="kw">public static void</span> main(<span class="type">String</span>[] args) <span class="kw">throws</span> <span class="type">IOException</span> {
-
-        <span class="cm">// FileWriter — write text</span>
-        <span class="kw">try</span> (<span class="type">FileWriter</span> fw = <span class="kw">new</span> <span class="type">FileWriter</span>(<span class="str">"notes.txt"</span>)) {
-            fw.write(<span class="str">"Hello, Java File I/O!\n"</span>);
-            fw.write(<span class="str">"Second line of text.\n"</span>);
-        }
-
-        <span class="cm">// Append mode</span>
-        <span class="kw">try</span> (<span class="type">FileWriter</span> fw = <span class="kw">new</span> <span class="type">FileWriter</span>(<span class="str">"notes.txt"</span>, <span class="kw">true</span>)) {
-            fw.write(<span class="str">"Appended line.\n"</span>);
-        }
-
-        <span class="cm">// FileReader — read text</span>
-        <span class="kw">try</span> (<span class="type">FileReader</span> fr = <span class="kw">new</span> <span class="type">FileReader</span>(<span class="str">"notes.txt"</span>)) {
-            <span class="kw">int</span> ch;
-            <span class="kw">while</span> ((ch = fr.read()) != -<span class="num">1</span>) {
-                <span class="type">System</span>.out.print((<span class="kw">char</span>) ch);
-            }
-        }
-    }
-}</pre>
-</div>
-</div>
-
-<!-- Q66 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q66</span>
-  <span class="q-text">Explain BufferedReader and BufferedWriter with Example.</span>
-  <span class="q-marks">8 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<p>Buffered streams improve I/O performance by reading/writing large chunks at a time, reducing disk access. They wrap other streams (decorator pattern).</p>
-<h3>BufferedReader</h3>
-<p>Buffers character input. Key method: <code>readLine()</code> — reads an entire line at once.</p>
-<h3>BufferedWriter</h3>
-<p>Buffers character output. Key method: <code>newLine()</code> — writes platform-specific line separator.</p>
-<pre>
-<span class="kw">import</span> java.io.*;
-
-<span class="kw">public class</span> <span class="type">BufferedDemo</span> {
-    <span class="kw">public static void</span> main(<span class="type">String</span>[] args) <span class="kw">throws</span> <span class="type">IOException</span> {
-
-        <span class="cm">// Writing with BufferedWriter</span>
-        <span class="kw">try</span> (<span class="type">BufferedWriter</span> bw = <span class="kw">new</span> <span class="type">BufferedWriter</span>(
-                                  <span class="kw">new</span> <span class="type">FileWriter</span>(<span class="str">"students.txt"</span>))) {
-            bw.write(<span class="str">"Alice, 20, Computer Science"</span>);
-            bw.newLine();
-            bw.write(<span class="str">"Bob, 21, Information Technology"</span>);
-            bw.newLine();
-            bw.write(<span class="str">"Carol, 22, Data Science"</span>);
-            bw.flush();  <span class="cm">// force write buffer to file</span>
-        }
-        <span class="type">System</span>.out.println(<span class="str">"File written successfully.\n"</span>);
-
-        <span class="cm">// Reading with BufferedReader</span>
-        <span class="type">System</span>.out.println(<span class="str">"Reading file:"</span>);
-        <span class="kw">try</span> (<span class="type">BufferedReader</span> br = <span class="kw">new</span> <span class="type">BufferedReader</span>(
-                                  <span class="kw">new</span> <span class="type">FileReader</span>(<span class="str">"students.txt"</span>))) {
-            <span class="type">String</span> line;
-            <span class="kw">int</span> lineNo = <span class="num">1</span>;
-            <span class="kw">while</span> ((line = br.readLine()) != <span class="kw">null</span>) {
-                <span class="type">System</span>.out.println(lineNo++ + <span class="str">": "</span> + line);
-            }
-        }
-    }
-}
-<span class="cm">/* Output:
-File written successfully.
-Reading file:
-1: Alice, 20, Computer Science
-2: Bob, 21, Information Technology
-3: Carol, 22, Data Science
-*/</span></pre>
-<table>
-  <tr><th>Feature</th><th>Without Buffer</th><th>With Buffer</th></tr>
-  <tr><td>Disk access per char</td><td>One disk access per character</td><td>One disk access per buffer-full (8KB default)</td></tr>
-  <tr><td>Performance</td><td>Slow</td><td>Much faster</td></tr>
-  <tr><td>Line reading</td><td>Not available</td><td>readLine() available</td></tr>
-</table>
-</div>
-</div>
-
-<!-- Q67 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q67</span>
-  <span class="q-text">Explain the difference between List, Set, and Map interfaces in Java collections.</span>
-  <span class="q-marks">3 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<pre>
-java.util.Collection
-  ├── List  (ordered, duplicates allowed)
-  │     ├── ArrayList
-  │     ├── LinkedList
-  │     └── Vector
-  ├── Set   (unordered, no duplicates)
-  │     ├── HashSet
-  │     ├── LinkedHashSet
-  │     └── TreeSet (sorted)
-  └── Queue
-        ├── LinkedList
-        └── PriorityQueue
-
-java.util.Map  (key-value pairs, unique keys)
-  ├── HashMap
-  ├── LinkedHashMap
-  └── TreeMap (sorted keys)</pre>
-<table>
-  <tr><th>Feature</th><th>List</th><th>Set</th><th>Map</th></tr>
-  <tr><td>Order</td><td>Insertion order maintained</td><td>No guaranteed order (TreeSet: sorted)</td><td>No order (LinkedHashMap: insertion order)</td></tr>
-  <tr><td>Duplicates</td><td>Allowed</td><td>Not allowed</td><td>No duplicate keys; values can duplicate</td></tr>
-  <tr><td>null</td><td>Multiple nulls allowed</td><td>One null (HashSet)</td><td>One null key (HashMap)</td></tr>
-  <tr><td>Access</td><td>By index get(i)</td><td>Iterator only</td><td>By key get(key)</td></tr>
-  <tr><td>Use when</td><td>Order matters, duplicates OK</td><td>Unique elements</td><td>Key-value lookup</td></tr>
-</table>
-</div>
-</div>
-
-<!-- Q68 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q68</span>
-  <span class="q-text">Design a Java program using HashMap to store student grades — add, update, compute average.</span>
-  <span class="q-marks">8 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<pre>
-<span class="kw">import</span> java.util.*;
-
-<span class="kw">public class</span> <span class="type">StudentGrades</span> {
-    <span class="kw">private</span> <span class="type">HashMap</span>&lt;<span class="type">String</span>, <span class="type">Double</span>&gt; grades = <span class="kw">new</span> <span class="type">HashMap</span>&lt;&gt;();
-
-    <span class="cm">// Add new grade</span>
-    <span class="kw">public void</span> addGrade(<span class="type">String</span> student, <span class="kw">double</span> grade) {
-        <span class="kw">if</span> (grades.containsKey(student)) {
-            <span class="type">System</span>.out.println(student + <span class="str">" already exists. Use updateGrade()."</span>);
-        } <span class="kw">else</span> {
-            grades.put(student, grade);
-            <span class="type">System</span>.out.println(<span class="str">"Added: "</span> + student + <span class="str">" → "</span> + grade);
-        }
-    }
-
-    <span class="cm">// Update existing grade</span>
-    <span class="kw">public void</span> updateGrade(<span class="type">String</span> student, <span class="kw">double</span> newGrade) {
-        <span class="kw">if</span> (grades.containsKey(student)) {
-            grades.put(student, newGrade);
-            <span class="type">System</span>.out.println(<span class="str">"Updated: "</span> + student + <span class="str">" → "</span> + newGrade);
-        } <span class="kw">else</span> {
-            <span class="type">System</span>.out.println(<span class="str">"Student not found: "</span> + student);
-        }
-    }
-
-    <span class="cm">// Calculate average grade</span>
-    <span class="kw">public double</span> calculateAverage() {
-        <span class="kw">if</span> (grades.isEmpty()) <span class="kw">return</span> <span class="num">0.0</span>;
-        <span class="kw">double</span> sum = <span class="num">0</span>;
-        <span class="kw">for</span> (<span class="kw">double</span> g : grades.values()) sum += g;
-        <span class="kw">return</span> sum / grades.size();
-    }
-
-    <span class="cm">// Display all grades</span>
-    <span class="kw">public void</span> displayAll() {
-        <span class="type">System</span>.out.println(<span class="str">"\n--- Student Grades ---"</span>);
-        <span class="kw">for</span> (<span class="type">Map</span>.<span class="type">Entry</span>&lt;<span class="type">String</span>, <span class="type">Double</span>&gt; entry : grades.entrySet()) {
-            <span class="type">System</span>.out.printf(<span class="str">"%-15s: %.2f%n"</span>,
-                entry.getKey(), entry.getValue());
-        }
-        <span class="type">System</span>.out.printf(<span class="str">"Average: %.2f%n"</span>, calculateAverage());
-    }
-
-    <span class="kw">public static void</span> main(<span class="type">String</span>[] args) {
-        <span class="type">StudentGrades</span> sg = <span class="kw">new</span> <span class="type">StudentGrades</span>();
-
-        sg.addGrade(<span class="str">"Alice"</span>, <span class="num">88.5</span>);
-        sg.addGrade(<span class="str">"Bob"</span>,   <span class="num">72.0</span>);
-        sg.addGrade(<span class="str">"Carol"</span>, <span class="num">95.0</span>);
-
-        sg.updateGrade(<span class="str">"Bob"</span>, <span class="num">78.5</span>);
-
-        sg.displayAll();
-    }
-}</pre>
-</div>
-</div>
-
-<!-- Q69 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q69</span>
-  <span class="q-text">Compare performance characteristics of ArrayList and LinkedList in Java collections.</span>
-  <span class="q-marks">4 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<pre>
-ArrayList (Dynamic array):
-  [0][1][2][3][4]  ← contiguous memory
-
-LinkedList (Doubly-linked list):
-  [0]↔[1]↔[2]↔[3]↔[4]  ← nodes with prev/next pointers</pre>
-<table>
-  <tr><th>Operation</th><th>ArrayList</th><th>LinkedList</th></tr>
-  <tr><td>Get by index</td><td>O(1) — random access</td><td>O(n) — traverse from head</td></tr>
-  <tr><td>Add at end</td><td>O(1) amortized</td><td>O(1) — just update tail</td></tr>
-  <tr><td>Add at beginning/middle</td><td>O(n) — shift elements</td><td>O(1) — just update pointers</td></tr>
-  <tr><td>Remove from middle</td><td>O(n) — shift elements</td><td>O(n) — find node, then O(1) removal</td></tr>
-  <tr><td>Memory usage</td><td>Less — just data</td><td>More — data + 2 pointers per node</td></tr>
-  <tr><td>Iteration</td><td>Faster — cache-friendly</td><td>Slower — pointer chasing</td></tr>
-  <tr><td>Stack/Queue use</td><td>Not ideal</td><td>Ideal (implements Deque)</td></tr>
-</table>
-<div class="box box-tip">Use <strong>ArrayList</strong> when: frequent access by index, few insertions/deletions in middle.<br>Use <strong>LinkedList</strong> when: frequent insertions/deletions at both ends (queue/deque operations).</div>
-</div>
-</div>
-
-</div><!-- end unit-4 -->
-
-<!-- ════════════════════════════════════════════════════════
-     UNIT 5
-════════════════════════════════════════════════════════ -->
-<div class="unit-panel" id="unit-5" data-unit="5">
-<div class="unit-title">Unit 5 — UML (Unified Modeling Language)</div>
-
-<!-- Q70 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q70</span>
-  <span class="q-text">What does the term object oriented mean? Explain the four aspects of an OO approach.</span>
-  <span class="q-marks">4 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<div class="box box-def"><strong>Object-Oriented (OO)</strong> is a programming paradigm based on organizing software as a collection of interacting objects, each encapsulating data and behavior. It models real-world entities.</div>
-<h3>Four Key OO Concepts</h3>
-<h4>1. Encapsulation</h4>
-<p>Bundling data (fields) and methods that operate on that data within a single unit (class). Hides internal details. Implemented via access modifiers.</p>
-<h4>2. Inheritance</h4>
-<p>A class (subclass) acquires properties and behavior from another class (superclass). Promotes code reuse. Establishes IS-A relationship.</p>
-<h4>3. Polymorphism</h4>
-<p>Ability of an object to take multiple forms. The same method behaves differently based on the object calling it. Supports flexible and extensible code.</p>
-<h4>4. Abstraction</h4>
-<p>Hiding complex implementation details and showing only essential features. Achieved through abstract classes and interfaces.</p>
-<pre>
-<span class="cm">// All four in one example</span>
-<span class="kw">abstract class</span> <span class="type">Shape</span> {           <span class="cm">// Abstraction</span>
-    <span class="kw">private</span> <span class="type">String</span> color;          <span class="cm">// Encapsulation</span>
-    <span class="kw">abstract double</span> area();        <span class="cm">// Must implement</span>
-    <span class="kw">void</span> setColor(<span class="type">String</span> c) { color = c; }
-}
-
-<span class="kw">class</span> <span class="type">Circle</span> <span class="kw">extends</span> <span class="type">Shape</span> {     <span class="cm">// Inheritance</span>
-    <span class="kw">double</span> r;
-    <span class="kw">double</span> area() { <span class="kw">return</span> <span class="type">Math</span>.PI*r*r; } <span class="cm">// Polymorphism</span>
-}</pre>
-</div>
-</div>
-
-<!-- Q71 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q71</span>
-  <span class="q-text">Define and discuss OO characteristics: Identity, Classification, Inheritance, Polymorphism.</span>
-  <span class="q-marks">4 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<h3>1. Identity</h3>
-<p>Every object has a unique identity that distinguishes it from other objects, even if they have the same attribute values. In Java, identity is provided by the object's memory reference (address). The <code>==</code> operator tests identity.</p>
-<pre>
-<span class="type">Dog</span> d1 = <span class="kw">new</span> <span class="type">Dog</span>(); <span class="type">Dog</span> d2 = <span class="kw">new</span> <span class="type">Dog</span>();
-d1 == d2  <span class="cm">// false — different identities, same class</span></pre>
-<h3>2. Classification</h3>
-<p>Objects with the same structure (attributes) and behavior (methods) are grouped into a <em>class</em>. A class defines a type; objects are instances of that type. Classification helps manage complexity through abstraction levels.</p>
-<h3>3. Inheritance</h3>
-<p>A mechanism where a new class (subclass) is derived from an existing class (superclass). The subclass inherits attributes and methods and can add or override them. Enables code reuse and the IS-A relationship.</p>
-<h3>4. Polymorphism</h3>
-<p>An operation can behave differently when applied to different types of objects. Allows writing generic code that works with objects of multiple types through a common interface.</p>
-</div>
-</div>
-
-<!-- Q72 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q72</span>
-  <span class="q-text">Define 3 important models for OO development.</span>
-  <span class="q-marks">3 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<h3>1. Class Model (Static / Structural)</h3>
-<p>Captures the static structure of the system — classes, attributes, operations, and relationships. Shown using <strong>Class Diagrams</strong>. Answers: "What objects exist and how are they related?"</p>
-<h3>2. State Model (Dynamic / Behavioral)</h3>
-<p>Describes the possible states of an object and the transitions between states triggered by events. Shown using <strong>State Diagrams</strong>. Answers: "How does an object's state change over time?"</p>
-<h3>3. Interaction Model (Dynamic)</h3>
-<p>Describes how objects collaborate and communicate through messages. Shown using <strong>Sequence Diagrams</strong> and <strong>Collaboration Diagrams</strong>. Answers: "How do objects interact to realize system behavior?"</p>
-<div class="box box-note">These three models complement each other to provide a complete view of a system. UML supports all three through its various diagram types.</div>
-</div>
-</div>
-
-<!-- Q74 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q74</span>
-  <span class="q-text">What is class and object?</span>
-  <span class="q-marks">3 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<h3>Class</h3>
-<p>A <strong>class</strong> is a blueprint or template that defines the attributes (data) and methods (behavior) common to a group of objects. A class is a logical construct.</p>
-<h3>Object</h3>
-<p>An <strong>object</strong> is a runtime instance of a class — a specific, concrete entity with actual values for all attributes. An object occupies memory.</p>
-<pre>
-<span class="cm">// Class — Blueprint</span>
-<span class="kw">class</span> <span class="type">Car</span> {
-    <span class="type">String</span> brand;    <span class="cm">// attribute</span>
-    <span class="kw">int</span> speed;
-    <span class="kw">void</span> accelerate() { speed += <span class="num">10</span>; }  <span class="cm">// method</span>
-}
-
-<span class="cm">// Objects — Instances</span>
-<span class="type">Car</span> c1 = <span class="kw">new</span> <span class="type">Car</span>(); c1.brand = <span class="str">"Toyota"</span>;
-<span class="type">Car</span> c2 = <span class="kw">new</span> <span class="type">Car</span>(); c2.brand = <span class="str">"Honda"</span>;</pre>
-<table>
-  <tr><th>Class</th><th>Object</th></tr>
-  <tr><td>Template/Blueprint</td><td>Instance/Entity</td></tr>
-  <tr><td>Logical construct</td><td>Physical (occupies memory)</td></tr>
-  <tr><td>Declared once</td><td>Many objects from one class</td></tr>
-  <tr><td>No memory at declaration</td><td>Memory allocated on creation</td></tr>
-</table>
-</div>
-</div>
-
-<!-- Q77 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q77</span>
-  <span class="q-text">Explain aggregation. Is it the same as association?</span>
-  <span class="q-marks">4 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<h3>Association</h3>
-<p>A general relationship between two classes where they are aware of each other and can communicate. No ownership implied. Example: Teacher and Course (a teacher teaches courses).</p>
-<pre>
-Teacher ─────── Course
-  (teaches)   (arbitrary relationship)</pre>
-<h3>Aggregation</h3>
-<p>A special form of association representing a <strong>HAS-A</strong> relationship with <em>weak ownership</em>. The part can exist independently of the whole. Denoted by an open diamond (◇) in UML.</p>
-<pre>
-Department ◇──── Employee
-  (department has employees, but employees can exist
-   without the department)</pre>
-<h3>Aggregation ≠ Association</h3>
-<table>
-  <tr><th>Feature</th><th>Association</th><th>Aggregation</th></tr>
-  <tr><td>Ownership</td><td>No ownership</td><td>Weak ownership (HAS-A)</td></tr>
-  <tr><td>Independence</td><td>Objects are independent</td><td>Part can exist without whole</td></tr>
-  <tr><td>UML notation</td><td>Simple line</td><td>Open diamond on whole side</td></tr>
-  <tr><td>Example</td><td>Student uses Library</td><td>Library has Books</td></tr>
-</table>
-</div>
-</div>
-
-<!-- Q78 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q78</span>
-  <span class="q-text">Explain the terms Generalization and Inheritance.</span>
-  <span class="q-marks">4 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<h3>Generalization</h3>
-<p>A taxonomic relationship between a more general element (superclass/parent) and a more specific element (subclass/child). It represents IS-A relationship. In UML, shown as an arrow from subclass to superclass (filled triangle arrowhead).</p>
-<pre>
-        ┌─────────┐
-        │  Shape  │   ← Generalization (parent)
-        └─────────┘
-           △
-           │
-     ┌─────┴───────┐
-     │             │
-  ┌──────┐    ┌─────────┐
-  │Circle│    │Rectangle│  ← Specific (children)
-  └──────┘    └─────────┘</pre>
-<h3>Inheritance</h3>
-<p>The <em>implementation mechanism</em> of generalization in programming languages. A subclass inherits attributes and operations of the superclass. Inheritance is how generalization is realized in code.</p>
-<ul>
-  <li><strong>Generalization</strong> is the UML/design concept</li>
-  <li><strong>Inheritance</strong> is the programming/implementation concept</li>
-  <li>They represent the same relationship from different viewpoints</li>
-</ul>
-</div>
-</div>
-
-<!-- Q79 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q79</span>
-  <span class="q-text">Explain aggregation and differences: Aggregation vs Association, Aggregation vs Composition.</span>
-  <span class="q-marks">8 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<h3>Aggregation</h3>
-<p>A <strong>HAS-A</strong> relationship with weak ownership. The contained objects (parts) can exist independently of the container (whole). Represented by an open/hollow diamond in UML.</p>
-<pre>
-University ◇──────── Department
-  (University has Departments; Department can exist
-   without the University in some context)</pre>
-<h3>Aggregation vs Association</h3>
-<table>
-  <tr><th>Feature</th><th>Association</th><th>Aggregation</th></tr>
-  <tr><td>Relationship</td><td>General "uses" or "knows"</td><td>Specific "has" (weak)</td></tr>
-  <tr><td>Ownership</td><td>None</td><td>Weak ownership</td></tr>
-  <tr><td>Part lifecycle</td><td>Independent</td><td>Independent of whole</td></tr>
-  <tr><td>UML symbol</td><td>Plain line</td><td>Open diamond ◇</td></tr>
-  <tr><td>Example</td><td>Student knows Professor</td><td>Team has Players</td></tr>
-</table>
-<h3>Aggregation vs Composition</h3>
-<table>
-  <tr><th>Feature</th><th>Aggregation</th><th>Composition</th></tr>
-  <tr><td>Ownership</td><td>Weak (part can exist alone)</td><td>Strong (part cannot exist alone)</td></tr>
-  <tr><td>Lifecycle</td><td>Part independent</td><td>Part destroyed with whole</td></tr>
-  <tr><td>UML symbol</td><td>Open diamond ◇</td><td>Filled diamond ◆</td></tr>
-  <tr><td>Example</td><td>Car has Driver</td><td>Car has Engine (engine is meaningless without car)</td></tr>
-  <tr><td>Relationship strength</td><td>Weaker</td><td>Stronger (exclusive ownership)</td></tr>
-</table>
-<pre>
-<span class="cm">// Composition: Engine inside Car</span>
-<span class="kw">class</span> <span class="type">Car</span> {
-    <span class="kw">private final</span> <span class="type">Engine</span> engine;   <span class="cm">// Created with Car</span>
-    <span class="type">Car</span>() { engine = <span class="kw">new</span> <span class="type">Engine</span>(); }
-}   <span class="cm">// Engine destroyed with Car</span>
-
-<span class="cm">// Aggregation: Team has Players</span>
-<span class="kw">class</span> <span class="type">Team</span> {
-    <span class="type">List</span>&lt;<span class="type">Player</span>&gt; players;           <span class="cm">// Players passed in</span>
-    <span class="type">Team</span>(<span class="type">List</span>&lt;<span class="type">Player</span>&gt; p) { players = p; }
-}   <span class="cm">// Players still exist when Team is disbanded</span></pre>
-</div>
-</div>
-
-<!-- Q85 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q85</span>
-  <span class="q-text">What do you mean by an event in the state diagram? Discuss various types of events.</span>
-  <span class="q-marks">4 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<div class="box box-def">An <strong>event</strong> is an occurrence that triggers a state transition in a state machine diagram. It represents something that happens at a specific point in time that can cause an object to change its state.</div>
-<h3>Types of Events</h3>
-<h4>1. Signal Event</h4>
-<p>An asynchronous notification from one object to another. Example: <code>buttonClicked</code>, <code>messageReceived</code>.</p>
-<h4>2. Call Event</h4>
-<p>A synchronous invocation of an operation. The sender waits for completion. Example: <code>withdraw(amount)</code>.</p>
-<h4>3. Time Event</h4>
-<p>Triggered after a specified time period. Example: <code>after(30 seconds)</code>, <code>at(2025-01-01)</code>. Used with keyword <code>after</code> or <code>when</code>.</p>
-<h4>4. Change Event</h4>
-<p>Triggered when a boolean condition becomes true. Example: <code>when(temperature > 100)</code>.</p>
-<h4>5. Completion Event</h4>
-<p>Automatically triggered when an activity within a state completes. No explicit event name needed.</p>
-<pre>
-           [buttonPressed]              [after 30s]
-  Idle ─────────────────► Active ───────────────► Timeout
-                               │
-                          [cancel]
-                               ▼
-                             Idle</pre>
-</div>
-</div>
-
-<!-- Q87 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q87</span>
-  <span class="q-text">Define: a. state  b. guard condition</span>
-  <span class="q-marks">3 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<h3>a. State</h3>
-<p>A <strong>state</strong> represents a situation during the life of an object that satisfies some condition, performs some activity, or waits for some event. States are represented as rounded rectangles in UML state diagrams.</p>
-<ul>
-  <li><strong>Simple state:</strong> Has no sub-states (e.g., Idle, Active, Terminated)</li>
-  <li><strong>Composite state:</strong> Contains nested sub-states</li>
-  <li><strong>Initial state:</strong> Starting point (filled black circle)</li>
-  <li><strong>Final state:</strong> Ending point (circle with inner filled circle)</li>
-</ul>
-<h3>b. Guard Condition</h3>
-<p>A <strong>guard condition</strong> is a Boolean expression associated with a transition. The transition fires only if the event occurs AND the guard condition is true. Written in square brackets: <code>[condition]</code>.</p>
-<pre>
-          [balance &gt;= amount]
-  Active ──────────────────────► Completed
-       └────────────────────────► Error
-          [balance &lt; amount]</pre>
-<div class="box box-note">Guard conditions allow conditional branching from a single state — the same event can lead to different states depending on the condition.</div>
-</div>
-</div>
-
-<!-- Q88 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q88</span>
-  <span class="q-text">Define Event, State and Transition. Draw a state diagram with examples.</span>
-  <span class="q-marks">8 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<ul>
-  <li><strong>State:</strong> A condition or situation during the life of an object (rounded rectangle)</li>
-  <li><strong>Event:</strong> An occurrence that triggers a state change (label on transition arrow)</li>
-  <li><strong>Transition:</strong> A directed relationship between states triggered by an event (arrow)</li>
-</ul>
-<h3>State Diagram — ATM Machine</h3>
-<pre>
-          ●  (Initial)
-          │
-          ▼
-    ┌───────────┐
-    │   Idle    │◄─────────────────────────────────┐
-    └───────────┘                                  │
-          │ [card inserted]                         │
-          ▼                                        │
-    ┌───────────┐                                  │
-    │  Card     │──[invalid card]──► ┌──────────┐  │
-    │ Inserted  │                   │  Error   │  │
-    └───────────┘                   └──────────┘  │
-          │ [card valid]                           │
-          ▼                                        │
-    ┌───────────┐                                  │
-    │  PIN      │──[wrong PIN × 3]──►┌──────────┐  │
-    │  Entry    │                   │  Card    │  │
-    └───────────┘                   │ Blocked  │  │
-          │ [correct PIN]           └──────────┘  │
-          ▼                                        │
-    ┌───────────┐   [select transaction]           │
-    │  Select   │──────────────────►┌──────────┐  │
-    │ Transaction│                  │  Process │  │
-    └───────────┘                   │  Trans.  │  │
-          ▲                         └──────────┘  │
-          │                               │        │
-          └──────[another transaction]────┘        │
-                                          │        │
-                              [done/cancel]        │
-                                          └────────┘</pre>
-<h3>Transition Notation</h3>
-<pre>
-event [guard] / action
-e.g.: "cardInserted [card != null] / readCard()"</pre>
-</div>
-</div>
-
-<!-- Q91 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q91</span>
-  <span class="q-text">Online airline reservation system: a) Two actors  b) Use case diagram.</span>
-  <span class="q-marks">8 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<h3>a) Two Actors</h3>
-<table>
-  <tr><th>Actor</th><th>Description</th></tr>
-  <tr><td><strong>Passenger</strong></td><td>The customer who searches, books, modifies, and cancels flights. Interacts with the system to complete reservations.</td></tr>
-  <tr><td><strong>Admin/Staff</strong></td><td>Airline employee who manages flight schedules, views bookings, handles cancellations, and generates reports.</td></tr>
-</table>
-<h3>b) Use Case Diagram (Text Representation)</h3>
-<pre>
-  ╔══════════════════════════════════════════════════════╗
-  ║          Online Airline Reservation System           ║
-  ║                                                      ║
-  ║  [Passenger]────(Search Flights)                     ║
-  ║       │    ────(View Flight Details)                 ║
-  ║       │    ────(Register/Login)                      ║
-  ║       │    ────(Book Flight)─────────«include»       ║
-  ║       │              │               (Select Seat)   ║
-  ║       │              └───────────────(Make Payment)  ║
-  ║       │    ────(View Booking)                        ║
-  ║       │    ────(Cancel Booking)──────«include»       ║
-  ║       │                             (Refund Process) ║
-  ║       │    ────(Download e-Ticket)                   ║
-  ║                                                      ║
-  ║  [Admin]───(Manage Flights)                          ║
-  ║       │    ────(Add/Edit/Delete Flights)             ║
-  ║       │    ────(View All Bookings)                   ║
-  ║       │    ────(Generate Reports)                    ║
-  ║       │    ────(Manage Users)                        ║
-  ║                                                      ║
-  ║  [Payment Gateway]←──(Make Payment)                  ║
-  ╚══════════════════════════════════════════════════════╝</pre>
-<h3>Use Case Descriptions</h3>
-<ul>
-  <li><strong>Search Flights:</strong> Passenger enters source, destination, date to find available flights</li>
-  <li><strong>Book Flight:</strong> Passenger selects a flight; includes seat selection and payment</li>
-  <li><strong>Cancel Booking:</strong> Passenger cancels reservation; includes refund processing</li>
-</ul>
-</div>
-</div>
-
-<!-- Q92 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q92</span>
-  <span class="q-text">Draw a sequence diagram for issuing a book and renewing a book in online library management.</span>
-  <span class="q-marks">8 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<h3>Sequence Diagram — Issue a Book</h3>
-<pre>
-Member      LibraryUI    BookCatalog   LoanSystem   Database
-  │              │             │            │            │
-  │──searchBook()►│             │            │            │
-  │              │──search(isbn)►           │            │
-  │              │             │──queryBook()►          │
-  │              │             │            │──findBook()►
-  │              │             │            │◄─bookData──│
-  │              │◄────bookList─│            │            │
-  │◄───display──│             │            │            │
-  │──issueBook()►│             │            │            │
-  │              │──issueRequest()──────────►           │
-  │              │             │            │──checkAvail►
-  │              │             │            │◄─available─│
-  │              │             │            │──createLoan►
-  │              │             │            │──saveLoan()►
-  │              │             │            │◄─loanID────│
-  │              │◄─────────────────────────loanConfirm  │
-  │◄──issueSlip──│             │            │            │</pre>
-
-<h3>Sequence Diagram — Renew a Book</h3>
-<pre>
-Member      LibraryUI    LoanSystem    Database
-  │              │            │            │
-  │──viewLoans()►│            │            │
-  │              │──getLoans()►           │
-  │              │            │──query()───►
-  │              │            │◄─loanList──│
-  │◄───loanList──│            │            │
-  │──renewBook(loanID)►│       │            │
-  │              │──renewReq()►           │
-  │              │            │──checkDueDate►
-  │              │            │──checkReservation►
-  │              │            │──extendDueDate()►
-  │              │            │──updateDB()►
-  │              │            │◄─success───│
-  │              │◄────────────newDueDate   │
-  │◄─renewConfirm│            │            │</pre>
-</div>
-</div>
-
-<!-- Q93 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q93</span>
-  <span class="q-text">What is the use of fork and join in an activity diagram? Explain with suitable examples.</span>
-  <span class="q-marks">4 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<div class="box box-def">In UML Activity Diagrams, <strong>Fork</strong> splits a single flow into multiple concurrent flows. <strong>Join</strong> synchronizes multiple concurrent flows back into a single flow. Both are represented as thick horizontal or vertical bars.</div>
-<h3>Fork</h3>
-<p>A fork node has one incoming edge and multiple outgoing edges. All outgoing activities start concurrently (parallel execution).</p>
-<h3>Join</h3>
-<p>A join node has multiple incoming edges and one outgoing edge. The outgoing activity starts only when ALL incoming activities complete.</p>
-<h3>Example — Online Order Processing</h3>
-<pre>
-          [Place Order]
-               │
-          ══FORK══════════════════════
-          │              │           │
-    [Process Payment]  [Prepare     [Send Order
-          │             Package]     Confirmation]
-          │              │           │
-          ══JOIN══════════════════════
-               │
-         [Update Inventory]
-               │
-           [Ship Order]</pre>
-<p>Payment processing, package preparation, and confirmation email all happen in parallel. Only when all three complete does the system update inventory and ship.</p>
-</div>
-</div>
-
-<!-- Q96 -->
-<div class="qa-card">
-<div class="qa-header" onclick="toggle(this)">
-  <span class="q-num">Q96</span>
-  <span class="q-text">Describe following use case relationship: include, extend, generalization.</span>
-  <span class="q-marks">4 marks</span>
-  <span class="q-arrow">▼</span>
-</div>
-<div class="qa-body">
-<h3>1. &lt;&lt;include&gt;&gt;</h3>
-<p>The base use case <strong>always</strong> invokes the included use case. The included behavior is mandatory and reusable across multiple use cases. Denoted by a dashed arrow from base to included use case.</p>
-<pre>
-(Login)────«include»────►(Authenticate User)
-(Checkout)─«include»────►(Authenticate User)</pre>
-<h3>2. &lt;&lt;extend&gt;&gt;</h3>
-<p>The extending use case adds <strong>optional</strong> behavior to the base use case under certain conditions. The base use case can function without the extension. Denoted by a dashed arrow from extending to base use case.</p>
-<pre>
-(View Cart)◄────«extend»────(Apply Coupon)
-           ◄────«extend»────(Gift Wrap)
-   (base)         (optional extensions)</pre>
-<h3>3. Generalization</h3>
-<p>A child use case inherits the behavior of a parent use case and may override or extend it. Similar to class inheritance — the child IS-A type of the parent. Denoted by a solid arrow with hollow triangle from child to parent.</p>
-<pre>
-         (Make Payment)
-               △
-         ┌─────┴──────┐
-         │             │
-  (Card Payment)  (UPI Payment)</pre>
-<table>
-  <tr><th>Relationship</th><th>Direction</th><th>Mandatory?</th></tr>
-  <tr><td>&lt;&lt;include&gt;&gt;</td><td>Base → Included</td><td>Always</td></tr>
-  <tr><td>&lt;&lt;extend&gt;&gt;</td><td>Extension → Base</td><td>Conditional/Optional</td></tr>
-  <tr><td>Generalization</td><td>Child → Parent</td><td>Child specializes parent</td></tr>
-</table>
-</div>
-</div>
-
-</div><!-- end unit-5 -->
-
-<script>
-function toggle(header) {
-  const card = header.parentElement;
-  card.classList.toggle('open');
-}
-
-function showUnit(n) {
-  document.querySelectorAll('.unit-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('unit-' + n).classList.add('active');
-  document.querySelector('[data-unit="' + n + '"]').classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-</script>
-</body>
-</html>
+<div class="imp">⚠️ IMP: Pull Requests enable code review, discussion, and CI/CD checks before merging.</div>`
+  },
+  {
+    q: "Define: Canvas, Figma, Hierarchy, Components, Prototyping",
+    marks: 5,
+    a: `<table>
+  <tr><th>Term</th><th>Definition</th></tr>
+  <tr>
+    <td><strong>1. Canvas</strong></td>
+    <td>In HTML5, &lt;canvas&gt; is an element used to draw 2D graphics via JavaScript API. In design tools (Figma), canvas is the infinite workspace where designs are created. Supports drawing shapes, paths, images, text, and animations.</td>
+  </tr>
+  <tr>
+    <td><strong>2. Figma</strong></td>
+    <td>A cloud-based UI/UX design tool used for designing, prototyping, and collaborating on digital interfaces. Features: vector editing, real-time collaboration, component libraries, prototyping, design systems. Works in browser — no installation needed.</td>
+  </tr>
+  <tr>
+    <td><strong>3. Hierarchy</strong></td>
+    <td>Visual hierarchy is the arrangement of elements to show their order of importance. Achieved through: size (larger = more important), color contrast, spacing, typography weight, positioning. Guides user's eye through content in a logical order.</td>
+  </tr>
+  <tr>
+    <td><strong>4. Components</strong></td>
+    <td>Reusable design elements in Figma (or code). A component is created once and can be reused many times as instances. Examples: buttons, cards, input fields, navigation bars. Editing the main component updates all instances automatically.</td>
+  </tr>
+  <tr>
+    <td><strong>5. Prototyping</strong></td>
+    <td>Creating an interactive simulation of a design to test user flows and interactions before development. In Figma: connect frames with arrows to simulate navigation. Types: low-fidelity (wireframes) and high-fidelity (pixel-perfect). Allows user testing and stakeholder feedback early.</td>
+  </tr>
+</table>`
+  }
+];
+module.exports = unit1;
