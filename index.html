@@ -638,14 +638,14 @@
         <div class="tip">💡 Called "Holy Grail" because it was the ideal layout that was elusive to achieve — like the mythical Holy Grail!</div>
         <p><strong>Structure Diagram:</strong></p>
         <pre><code>+---------------------------------------+
-|             HEADER                    |
+|              HEADER                   |
 +----------+---------------+-----------+
 |          |               |           |
 |  LEFT    |    MAIN       |   RIGHT   |
 | SIDEBAR  |   CONTENT     |  SIDEBAR  |
 |          |               |           |
 +----------+---------------+-----------+
-|             FOOTER                    |
+|              FOOTER                   |
 +---------------------------------------+</code></pre>
         <p><strong>Implementation using Flexbox:</strong></p>
         <pre><code>&lt;!DOCTYPE html&gt;
@@ -1071,645 +1071,7 @@ git push origin main
 
   </div><!-- end qa-list -->
 </div><!-- end unit u1 -->
-// Unit 1 Q&A Data
-const unit1 = [
-  {
-    q: "What is the purpose of semantic elements in HTML5?",
-    marks: 2,
-    a: `<p>Semantic elements in HTML5 clearly describe their meaning to both the browser and the developer. They define the role and structure of the content on a web page.</p>
-<div class="tip">💡 Semantic = meaningful tags that describe content purpose</div>
-<table>
-  <tr><th>Semantic Element</th><th>Purpose</th></tr>
-  <tr><td>&lt;header&gt;</td><td>Top section / site header</td></tr>
-  <tr><td>&lt;nav&gt;</td><td>Navigation links</td></tr>
-  <tr><td>&lt;main&gt;</td><td>Main content area</td></tr>
-  <tr><td>&lt;article&gt;</td><td>Self-contained content</td></tr>
-  <tr><td>&lt;section&gt;</td><td>Thematic grouping</td></tr>
-  <tr><td>&lt;footer&gt;</td><td>Bottom section</td></tr>
-  <tr><td>&lt;aside&gt;</td><td>Side content / sidebar</td></tr>
-  <tr><td>&lt;figure&gt;</td><td>Image with caption</td></tr>
-</table>
-<div class="note">📌 Benefits: Better SEO, Accessibility (screen readers), Readable code, Browser understanding</div>`
-  },
-  {
-    q: "Name two multimedia elements supported by HTML5.",
-    marks: 2,
-    a: `<p>HTML5 introduced native support for multimedia without requiring plugins like Flash.</p>
-<p><strong>1. &lt;audio&gt;</strong> – Embeds audio content</p>
-<pre><code>&lt;audio controls&gt;
-  &lt;source src="music.mp3" type="audio/mpeg"&gt;
-  Your browser does not support audio.
-&lt;/audio&gt;</code></pre>
-<p><strong>2. &lt;video&gt;</strong> – Embeds video content</p>
-<pre><code>&lt;video controls width="400"&gt;
-  &lt;source src="movie.mp4" type="video/mp4"&gt;
-  Your browser does not support video.
-&lt;/video&gt;</code></pre>
-<div class="tip">💡 Both support: autoplay, controls, loop, muted attributes</div>`
-  },
-  {
-    q: "How do you define a required field in an HTML form with an example?",
-    marks: 4,
-    a: `<p>The <code>required</code> attribute is used to specify that an input field must be filled before submitting the form. It is a boolean attribute.</p>
-<div class="imp">⚠️ IMP: Browser performs automatic validation when <code>required</code> is set.</div>
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;body&gt;
-  &lt;form action="/submit" method="post"&gt;
-    
-    &lt;label for="name"&gt;Full Name:&lt;/label&gt;
-    &lt;input type="text" id="name" name="name" required&gt;
-    
-    &lt;label for="email"&gt;Email:&lt;/label&gt;
-    &lt;input type="email" id="email" name="email" required&gt;
-    
-    &lt;label for="phone"&gt;Phone:&lt;/label&gt;
-    &lt;input type="tel" id="phone" name="phone"&gt;
-    &lt;!-- Phone is optional - no required attribute --&gt;
-    
-    &lt;button type="submit"&gt;Submit&lt;/button&gt;
-  &lt;/form&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-<div class="note">📌 If user tries to submit without required fields, browser shows error message automatically.</div>
-<table>
-  <tr><th>Attribute</th><th>Description</th></tr>
-  <tr><td>required</td><td>Field must be filled</td></tr>
-  <tr><td>minlength</td><td>Minimum characters</td></tr>
-  <tr><td>maxlength</td><td>Maximum characters</td></tr>
-  <tr><td>pattern</td><td>Regex validation</td></tr>
-</table>`
-  },
-  {
-    q: "List all HTML tags which are new and removed in HTML5.",
-    marks: 4,
-    a: `<p><strong>New Tags in HTML5:</strong></p>
-<table>
-  <tr><th>Category</th><th>Tags</th></tr>
-  <tr><td>Structural / Semantic</td><td>&lt;header&gt;, &lt;footer&gt;, &lt;nav&gt;, &lt;main&gt;, &lt;section&gt;, &lt;article&gt;, &lt;aside&gt;, &lt;figure&gt;, &lt;figcaption&gt;, &lt;details&gt;, &lt;summary&gt;</td></tr>
-  <tr><td>Multimedia</td><td>&lt;audio&gt;, &lt;video&gt;, &lt;source&gt;, &lt;track&gt;, &lt;embed&gt;</td></tr>
-  <tr><td>Graphics</td><td>&lt;canvas&gt;, &lt;svg&gt;</td></tr>
-  <tr><td>Form Input</td><td>&lt;datalist&gt;, &lt;output&gt;, &lt;keygen&gt;, &lt;meter&gt;, &lt;progress&gt;</td></tr>
-  <tr><td>Text</td><td>&lt;mark&gt;, &lt;ruby&gt;, &lt;rt&gt;, &lt;rp&gt;, &lt;bdi&gt;, &lt;wbr&gt;, &lt;time&gt;</td></tr>
-</table>
-<p><strong>Removed/Deprecated Tags in HTML5:</strong></p>
-<table>
-  <tr><th>Removed Tag</th><th>Reason / Replacement</th></tr>
-  <tr><td>&lt;font&gt;</td><td>Use CSS font properties instead</td></tr>
-  <tr><td>&lt;center&gt;</td><td>Use CSS text-align: center</td></tr>
-  <tr><td>&lt;big&gt;</td><td>Use CSS font-size</td></tr>
-  <tr><td>&lt;strike&gt;</td><td>Use &lt;del&gt; or CSS text-decoration</td></tr>
-  <tr><td>&lt;tt&gt;</td><td>Use &lt;code&gt; or CSS</td></tr>
-  <tr><td>&lt;frameset&gt;</td><td>Frames deprecated entirely</td></tr>
-  <tr><td>&lt;frame&gt;</td><td>Frames deprecated entirely</td></tr>
-  <tr><td>&lt;noframes&gt;</td><td>Frames deprecated entirely</td></tr>
-  <tr><td>&lt;applet&gt;</td><td>Use &lt;embed&gt; or &lt;object&gt;</td></tr>
-  <tr><td>&lt;acronym&gt;</td><td>Use &lt;abbr&gt;</td></tr>
-</table>`
-  },
-  {
-    q: "What is the significance of using placeholder attributes in form inputs with example?",
-    marks: 3,
-    a: `<p>The <code>placeholder</code> attribute provides a short hint that describes the expected value of an input field. It appears inside the input field when it is empty.</p>
-<div class="tip">💡 Placeholder text disappears when user starts typing.</div>
-<p><strong>Significance / Benefits:</strong></p>
-<ul>
-  <li>Provides contextual hints to users about expected input format</li>
-  <li>Improves user experience and form usability</li>
-  <li>Reduces need for separate instruction text</li>
-  <li>Works with text, email, password, search, tel, url inputs</li>
-</ul>
-<pre><code>&lt;form&gt;
-  &lt;input type="text" 
-         placeholder="Enter your full name"&gt;
-  
-  &lt;input type="email" 
-         placeholder="example@gmail.com"&gt;
-  
-  &lt;input type="tel" 
-         placeholder="+91 9876543210"&gt;
-  
-  &lt;input type="password" 
-         placeholder="Minimum 8 characters"&gt;
-  
-  &lt;textarea 
-    placeholder="Write your message here..."&gt;
-  &lt;/textarea&gt;
-&lt;/form&gt;</code></pre>
-<div class="note">📌 Note: Placeholder should NOT replace &lt;label&gt; for accessibility. Always use both.</div>`
-  },
-  {
-    q: "What is the difference between a canvas and SVG element in HTML5?",
-    marks: 4,
-    a: `<table>
-  <tr><th>Feature</th><th>Canvas</th><th>SVG</th></tr>
-  <tr><td>Type</td><td>Raster (pixel-based)</td><td>Vector (shape-based)</td></tr>
-  <tr><td>Rendering</td><td>JavaScript API</td><td>XML markup</td></tr>
-  <tr><td>Scalability</td><td>Loses quality on zoom</td><td>Scales perfectly (vector)</td></tr>
-  <tr><td>DOM</td><td>No DOM for shapes</td><td>Each shape is a DOM element</td></tr>
-  <tr><td>Events</td><td>Must calculate pixel position</td><td>Events on individual elements</td></tr>
-  <tr><td>Performance</td><td>Better for many objects/animation</td><td>Slower with many objects</td></tr>
-  <tr><td>Best Used For</td><td>Games, image editing, charts</td><td>Logos, icons, diagrams</td></tr>
-  <tr><td>Resolution</td><td>Resolution-dependent</td><td>Resolution-independent</td></tr>
-</table>
-<p><strong>Canvas Example:</strong></p>
-<pre><code>&lt;canvas id="myCanvas" width="200" height="100"&gt;&lt;/canvas&gt;
-&lt;script&gt;
-  var ctx = document.getElementById("myCanvas").getContext("2d");
-  ctx.fillStyle = "blue";
-  ctx.fillRect(10, 10, 150, 80);
-&lt;/script&gt;</code></pre>
-<p><strong>SVG Example:</strong></p>
-<pre><code>&lt;svg width="200" height="100"&gt;
-  &lt;rect x="10" y="10" width="150" height="80" 
-        fill="blue" /&gt;
-&lt;/svg&gt;</code></pre>
-<div class="tip">💡 Canvas = like painting on paper. SVG = like drawing geometric shapes that stay crisp.</div>`
-  },
-  {
-    q: "Discuss the benefits of using semantic elements over traditional HTML elements.",
-    marks: 3,
-    a: `<p><strong>Traditional vs Semantic:</strong></p>
-<pre><code>&lt;!-- Traditional (Non-Semantic) --&gt;
-&lt;div id="header"&gt;...&lt;/div&gt;
-&lt;div id="nav"&gt;...&lt;/div&gt;
-&lt;div id="content"&gt;...&lt;/div&gt;
 
-&lt;!-- Semantic HTML5 --&gt;
-&lt;header&gt;...&lt;/header&gt;
-&lt;nav&gt;...&lt;/nav&gt;
-&lt;main&gt;...&lt;/main&gt;</code></pre>
-<p><strong>Benefits of Semantic Elements:</strong></p>
-<table>
-  <tr><th>Benefit</th><th>Description</th></tr>
-  <tr><td>🔍 Better SEO</td><td>Search engines understand content structure better, improving page ranking</td></tr>
-  <tr><td>♿ Accessibility</td><td>Screen readers use semantic tags to help visually impaired users navigate</td></tr>
-  <tr><td>📖 Readability</td><td>Code is easier to read and maintain for developers</td></tr>
-  <tr><td>🌐 Browser Support</td><td>Browsers render semantic pages more consistently</td></tr>
-  <tr><td>🤝 Team Work</td><td>Clear structure makes collaboration easier</td></tr>
-  <tr><td>📱 Responsive Design</td><td>Easier to apply responsive styles to meaningful sections</td></tr>
-</table>
-<div class="imp">⚠️ IMP: Semantic HTML is a best practice in modern web development and is expected in interviews!</div>`
-  },
-  {
-    q: "List and briefly describe at least five different input types in HTML5.",
-    marks: 5,
-    a: `<p>HTML5 introduced many new <code>type</code> values for the <code>&lt;input&gt;</code> element:</p>
-<table>
-  <tr><th>Input Type</th><th>Description</th><th>Example</th></tr>
-  <tr><td>text</td><td>Single-line text input</td><td>&lt;input type="text"&gt;</td></tr>
-  <tr><td>email</td><td>Email address (validates @ and domain)</td><td>&lt;input type="email"&gt;</td></tr>
-  <tr><td>password</td><td>Masked input for passwords</td><td>&lt;input type="password"&gt;</td></tr>
-  <tr><td>number</td><td>Numeric input with spinner</td><td>&lt;input type="number" min="1" max="100"&gt;</td></tr>
-  <tr><td>date</td><td>Date picker (calendar UI)</td><td>&lt;input type="date"&gt;</td></tr>
-  <tr><td>range</td><td>Slider control for range selection</td><td>&lt;input type="range" min="0" max="100"&gt;</td></tr>
-  <tr><td>color</td><td>Color picker widget</td><td>&lt;input type="color"&gt;</td></tr>
-  <tr><td>checkbox</td><td>Boolean on/off option</td><td>&lt;input type="checkbox"&gt;</td></tr>
-  <tr><td>radio</td><td>Single selection from group</td><td>&lt;input type="radio"&gt;</td></tr>
-  <tr><td>file</td><td>File upload button</td><td>&lt;input type="file"&gt;</td></tr>
-  <tr><td>tel</td><td>Telephone number input</td><td>&lt;input type="tel"&gt;</td></tr>
-  <tr><td>url</td><td>URL input with validation</td><td>&lt;input type="url"&gt;</td></tr>
-  <tr><td>search</td><td>Search box (with clear button)</td><td>&lt;input type="search"&gt;</td></tr>
-  <tr><td>time</td><td>Time picker</td><td>&lt;input type="time"&gt;</td></tr>
-  <tr><td>submit</td><td>Submits the form</td><td>&lt;input type="submit" value="Send"&gt;</td></tr>
-</table>
-<div class="tip">💡 New HTML5 types provide built-in validation and mobile-friendly keyboard layouts.</div>`
-  },
-  {
-    q: "What is Grail layout in HTML?",
-    marks: 8,
-    a: `<p>The <strong>Holy Grail Layout</strong> is a classic web page layout consisting of a header, footer, a main content area, and two sidebars (one on each side). It was historically difficult to implement with pure CSS but is now straightforward with Flexbox or Grid.</p>
-<div class="tip">💡 Called "Holy Grail" because it was the ideal layout that was hard to achieve — like the Holy Grail!</div>
-<p><strong>Structure:</strong></p>
-<pre><code>+---------------------------+
-|         HEADER            |
-+---------------------------+
-| LEFT  |   CONTENT  | RIGHT|
-| SIDE  |            | SIDE |
-| BAR   |            | BAR  |
-+---------------------------+
-|         FOOTER            |
-+---------------------------+</code></pre>
-<p><strong>Implementation using CSS Flexbox:</strong></p>
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-&lt;style&gt;
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    font-family: Arial, sans-serif;
-  }
-  header {
-    background: #333;
-    color: white;
-    padding: 20px;
-    text-align: center;
-  }
-  .middle {
-    display: flex;
-    flex: 1;
-  }
-  nav {
-    background: #555;
-    color: white;
-    width: 180px;
-    padding: 20px;
-    flex-shrink: 0;
-  }
-  main {
-    flex: 1;
-    padding: 20px;
-    background: #f0f0f0;
-  }
-  aside {
-    background: #777;
-    color: white;
-    width: 180px;
-    padding: 20px;
-    flex-shrink: 0;
-  }
-  footer {
-    background: #333;
-    color: white;
-    padding: 15px;
-    text-align: center;
-  }
-&lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;header&gt;Header - Logo &amp; Navigation&lt;/header&gt;
-  &lt;div class="middle"&gt;
-    &lt;nav&gt;Left Sidebar (Nav Links)&lt;/nav&gt;
-    &lt;main&gt;Main Content Area&lt;/main&gt;
-    &lt;aside&gt;Right Sidebar (Ads/Info)&lt;/aside&gt;
-  &lt;/div&gt;
-  &lt;footer&gt;Footer - Copyright Info&lt;/footer&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-<p><strong>Using CSS Grid:</strong></p>
-<pre><code>&lt;style&gt;
-  body {
-    display: grid;
-    grid-template-areas:
-      "header header header"
-      "nav    main   aside"
-      "footer footer footer";
-    grid-template-columns: 180px 1fr 180px;
-    grid-template-rows: auto 1fr auto;
-    min-height: 100vh;
-  }
-  header  { grid-area: header; }
-  nav     { grid-area: nav;    }
-  main    { grid-area: main;   }
-  aside   { grid-area: aside;  }
-  footer  { grid-area: footer; }
-&lt;/style&gt;</code></pre>
-<div class="note">📌 Grid method is cleaner and more powerful for Holy Grail layouts.</div>`
-  },
-  {
-    q: "Explain HTML <FORM> element with all form attributes with example.",
-    marks: 8,
-    a: `<p>The <code>&lt;form&gt;</code> element is used to create an HTML form for user input. It acts as a container for various input controls.</p>
-<p><strong>Syntax:</strong></p>
-<pre><code>&lt;form attribute="value" ...&gt;
-  ... form controls ...
-&lt;/form&gt;</code></pre>
-<p><strong>Form Attributes:</strong></p>
-<table>
-  <tr><th>Attribute</th><th>Values</th><th>Description</th></tr>
-  <tr><td>action</td><td>URL</td><td>URL where form data is submitted</td></tr>
-  <tr><td>method</td><td>get / post</td><td>HTTP method for sending data</td></tr>
-  <tr><td>name</td><td>text</td><td>Name of the form</td></tr>
-  <tr><td>enctype</td><td>multipart/form-data, application/x-www-form-urlencoded, text/plain</td><td>Encoding type (important for file uploads)</td></tr>
-  <tr><td>target</td><td>_blank, _self, _parent, _top</td><td>Where to open response</td></tr>
-  <tr><td>autocomplete</td><td>on / off</td><td>Enable/disable autocomplete</td></tr>
-  <tr><td>novalidate</td><td>boolean</td><td>Skip browser validation</td></tr>
-  <tr><td>accept-charset</td><td>UTF-8, ISO-8859-1</td><td>Character encoding</td></tr>
-</table>
-<p><strong>Complete Example:</strong></p>
-<pre><code>&lt;form 
-  action="process.php"
-  method="post"
-  enctype="multipart/form-data"
-  target="_blank"
-  autocomplete="on"
-  name="registrationForm"&gt;
-
-  &lt;!-- Text Input --&gt;
-  &lt;label&gt;Name: &lt;input type="text" name="username" required&gt;&lt;/label&gt;
-
-  &lt;!-- Email --&gt;
-  &lt;label&gt;Email: &lt;input type="email" name="email"&gt;&lt;/label&gt;
-
-  &lt;!-- Password --&gt;
-  &lt;label&gt;Password: &lt;input type="password" name="pwd" minlength="8"&gt;&lt;/label&gt;
-
-  &lt;!-- Radio Buttons --&gt;
-  &lt;label&gt;Gender:&lt;/label&gt;
-  &lt;input type="radio" name="gender" value="male"&gt; Male
-  &lt;input type="radio" name="gender" value="female"&gt; Female
-
-  &lt;!-- Dropdown --&gt;
-  &lt;label&gt;City:
-    &lt;select name="city"&gt;
-      &lt;option value="ahmedabad"&gt;Ahmedabad&lt;/option&gt;
-      &lt;option value="surat"&gt;Surat&lt;/option&gt;
-    &lt;/select&gt;
-  &lt;/label&gt;
-
-  &lt;!-- File Upload --&gt;
-  &lt;label&gt;Photo: &lt;input type="file" name="photo"&gt;&lt;/label&gt;
-
-  &lt;!-- Textarea --&gt;
-  &lt;label&gt;Message: &lt;textarea name="msg" rows="4"&gt;&lt;/textarea&gt;&lt;/label&gt;
-
-  &lt;!-- Checkbox --&gt;
-  &lt;input type="checkbox" name="agree" required&gt; I agree to Terms
-
-  &lt;!-- Submit & Reset --&gt;
-  &lt;input type="submit" value="Register"&gt;
-  &lt;input type="reset" value="Clear"&gt;
-&lt;/form&gt;</code></pre>
-<div class="imp">⚠️ IMP: Use method="post" for sensitive data and when uploading files, enctype="multipart/form-data" is mandatory.</div>`
-  },
-  {
-    q: "Create a basic student detail form with First Name, Last Name, Gender, Enrollment ID, Designation, and Phone Number.",
-    marks: 8,
-    a: `<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-  &lt;meta charset="UTF-8"&gt;
-  &lt;title&gt;Student Detail Form&lt;/title&gt;
-  &lt;style&gt;
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      display: flex;
-      justify-content: center;
-      padding: 30px;
-    }
-    .form-container {
-      background: white;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      width: 450px;
-    }
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #333;
-    }
-    .form-group {
-      margin-bottom: 15px;
-    }
-    label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 5px;
-      color: #555;
-    }
-    input[type="text"],
-    input[type="tel"],
-    select {
-      width: 100%;
-      padding: 8px 12px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 14px;
-      box-sizing: border-box;
-    }
-    .radio-group { display: flex; gap: 15px; }
-    button {
-      width: 100%;
-      padding: 10px;
-      background: #007bff;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    button:hover { background: #0056b3; }
-  &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;div class="form-container"&gt;
-    &lt;h2&gt;Student Detail Form&lt;/h2&gt;
-    &lt;form action="submit.php" method="post"&gt;
-      
-      &lt;div class="form-group"&gt;
-        &lt;label for="fname"&gt;First Name:&lt;/label&gt;
-        &lt;input type="text" id="fname" name="first_name" 
-               placeholder="Enter first name" required&gt;
-      &lt;/div&gt;
-
-      &lt;div class="form-group"&gt;
-        &lt;label for="lname"&gt;Last Name:&lt;/label&gt;
-        &lt;input type="text" id="lname" name="last_name" 
-               placeholder="Enter last name" required&gt;
-      &lt;/div&gt;
-
-      &lt;div class="form-group"&gt;
-        &lt;label&gt;Gender:&lt;/label&gt;
-        &lt;div class="radio-group"&gt;
-          &lt;label&gt;
-            &lt;input type="radio" name="gender" value="male" required&gt; Male
-          &lt;/label&gt;
-          &lt;label&gt;
-            &lt;input type="radio" name="gender" value="female"&gt; Female
-          &lt;/label&gt;
-          &lt;label&gt;
-            &lt;input type="radio" name="gender" value="other"&gt; Other
-          &lt;/label&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-
-      &lt;div class="form-group"&gt;
-        &lt;label for="enroll"&gt;Enrollment ID:&lt;/label&gt;
-        &lt;input type="text" id="enroll" name="enrollment_id" 
-               placeholder="e.g. 22IT001" required pattern="[0-9A-Za-z]+"&gt;
-      &lt;/div&gt;
-
-      &lt;div class="form-group"&gt;
-        &lt;label for="desig"&gt;Designation:&lt;/label&gt;
-        &lt;select id="desig" name="designation" required&gt;
-          &lt;option value=""&gt;-- Select Designation --&lt;/option&gt;
-          &lt;option value="student"&gt;Student&lt;/option&gt;
-          &lt;option value="monitor"&gt;Class Monitor&lt;/option&gt;
-          &lt;option value="cr"&gt;Class Representative&lt;/option&gt;
-          &lt;option value="leader"&gt;Group Leader&lt;/option&gt;
-        &lt;/select&gt;
-      &lt;/div&gt;
-
-      &lt;div class="form-group"&gt;
-        &lt;label for="phone"&gt;Phone Number:&lt;/label&gt;
-        &lt;input type="tel" id="phone" name="phone" 
-               placeholder="+91 9876543210" 
-               pattern="[0-9]{10}" maxlength="10" required&gt;
-      &lt;/div&gt;
-
-      &lt;button type="submit"&gt;Submit Details&lt;/button&gt;
-    &lt;/form&gt;
-  &lt;/div&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-<div class="note">📌 Form uses POST method, required fields, pattern validation for phone and enrollment ID.</div>`
-  },
-  {
-    q: "Explain any five Git commands with syntax and example.",
-    marks: 5,
-    a: `<p>Git is a distributed version control system. Here are five essential commands:</p>
-<table>
-  <tr><th>Command</th><th>Syntax</th><th>Description</th></tr>
-  <tr><td>git init</td><td>git init [folder]</td><td>Initialize a new Git repository</td></tr>
-  <tr><td>git clone</td><td>git clone &lt;url&gt;</td><td>Copy a remote repository locally</td></tr>
-  <tr><td>git add</td><td>git add &lt;file&gt; or git add .</td><td>Stage files for commit</td></tr>
-  <tr><td>git commit</td><td>git commit -m "message"</td><td>Save staged changes with message</td></tr>
-  <tr><td>git push</td><td>git push origin &lt;branch&gt;</td><td>Upload commits to remote</td></tr>
-</table>
-<p><strong>1. git init</strong> – Create a new repo</p>
-<pre><code>$ git init my-project
-# Creates .git folder in my-project directory</code></pre>
-<p><strong>2. git clone</strong> – Download a repo</p>
-<pre><code>$ git clone https://github.com/user/repo.git
-# Creates a local copy of the remote repo</code></pre>
-<p><strong>3. git add</strong> – Stage changes</p>
-<pre><code>$ git add index.html       # Stage single file
-$ git add .                # Stage all changes</code></pre>
-<p><strong>4. git commit</strong> – Save changes</p>
-<pre><code>$ git commit -m "Add student form page"
-# Saves snapshot with descriptive message</code></pre>
-<p><strong>5. git push</strong> – Upload to GitHub</p>
-<pre><code>$ git push origin main
-# Sends commits to 'main' branch on GitHub</code></pre>
-<div class="tip">💡 Workflow: init → add → commit → push</div>`
-  },
-  {
-    q: "How do you create a new repository on GitHub?",
-    marks: 3,
-    a: `<p>Steps to create a new repository on GitHub:</p>
-<pre><code>STEP 1: Login to github.com
-
-STEP 2: Click the "+" icon (top right) 
-        → Select "New repository"
-
-STEP 3: Fill in details:
-  - Repository name: my-project
-  - Description: (optional)
-  - Public / Private
-  - ✓ Initialize with README (optional)
-  - .gitignore template (optional)
-  - License (optional)
-
-STEP 4: Click "Create repository"
-
-STEP 5: Connect local project to GitHub:
-$ git init
-$ git add .
-$ git commit -m "first commit"
-$ git branch -M main
-$ git remote add origin https://github.com/username/my-project.git
-$ git push -u origin main</code></pre>
-<div class="note">📌 After creation, GitHub shows exact commands to connect your local repo.</div>`
-  },
-  {
-    q: "What are branches in Git and why are they used?",
-    marks: 3,
-    a: `<p>A <strong>branch</strong> in Git is an independent line of development. It allows multiple versions of a project to exist simultaneously.</p>
-<pre><code>         main branch
-           |
-A---B---C---+---F (main: production code)
-             \
-              D---E (feature branch: new feature)</code></pre>
-<p><strong>Why Branches are Used:</strong></p>
-<table>
-  <tr><th>Reason</th><th>Explanation</th></tr>
-  <tr><td>Isolation</td><td>New features/bugs fixed without affecting main code</td></tr>
-  <tr><td>Parallel Work</td><td>Multiple developers work on different features simultaneously</td></tr>
-  <tr><td>Safe Experimentation</td><td>Try new ideas without breaking production</td></tr>
-  <tr><td>Code Review</td><td>Changes reviewed before merging to main</td></tr>
-</table>
-<p><strong>Common Branch Commands:</strong></p>
-<pre><code>git branch                  # List branches
-git branch feature-login    # Create new branch
-git checkout feature-login  # Switch to branch
-git checkout -b hotfix      # Create and switch
-git merge feature-login     # Merge into current
-git branch -d feature-login # Delete branch</code></pre>
-<div class="tip">💡 Common branches: main/master (production), develop (integration), feature/*, hotfix/*</div>`
-  },
-  {
-    q: "Explain the concept of Pull and Push Requests in GitHub.",
-    marks: 4,
-    a: `<p><strong>Push:</strong> Uploading local commits to a remote GitHub repository.</p>
-<pre><code># After committing locally:
-git push origin main
-# Sends your commits to GitHub remote repo</code></pre>
-<p><strong>Pull Request (PR):</strong> A request to merge code from one branch into another on GitHub. It's not a git command but a GitHub feature for code review.</p>
-<pre><code>Developer workflow with Pull Request:
-
-1. Create feature branch
-   git checkout -b feature/login
-
-2. Make changes & commit
-   git add . && git commit -m "Add login page"
-
-3. Push branch to GitHub
-   git push origin feature/login
-
-4. On GitHub: 
-   → "Compare & pull request" button
-   → Add title & description
-   → Request reviewers
-   → Submit Pull Request
-
-5. Reviewer reviews code, adds comments
-
-6. If approved → Merge PR into main branch
-
-7. Delete feature branch (cleanup)</code></pre>
-<table>
-  <tr><th>Push</th><th>Pull Request</th></tr>
-  <tr><td>git command</td><td>GitHub feature</td></tr>
-  <tr><td>Uploads code to remote</td><td>Requests code merge</td></tr>
-  <tr><td>No review process</td><td>Includes review process</td></tr>
-  <tr><td>Done by individual</td><td>Involves team collaboration</td></tr>
-</table>
-<div class="imp">⚠️ IMP: Pull Requests enable code review, discussion, and CI/CD checks before merging.</div>`
-  },
-  {
-    q: "Define: Canvas, Figma, Hierarchy, Components, Prototyping",
-    marks: 5,
-    a: `<table>
-  <tr><th>Term</th><th>Definition</th></tr>
-  <tr>
-    <td><strong>1. Canvas</strong></td>
-    <td>In HTML5, &lt;canvas&gt; is an element used to draw 2D graphics via JavaScript API. In design tools (Figma), canvas is the infinite workspace where designs are created. Supports drawing shapes, paths, images, text, and animations.</td>
-  </tr>
-  <tr>
-    <td><strong>2. Figma</strong></td>
-    <td>A cloud-based UI/UX design tool used for designing, prototyping, and collaborating on digital interfaces. Features: vector editing, real-time collaboration, component libraries, prototyping, design systems. Works in browser — no installation needed.</td>
-  </tr>
-  <tr>
-    <td><strong>3. Hierarchy</strong></td>
-    <td>Visual hierarchy is the arrangement of elements to show their order of importance. Achieved through: size (larger = more important), color contrast, spacing, typography weight, positioning. Guides user's eye through content in a logical order.</td>
-  </tr>
-  <tr>
-    <td><strong>4. Components</strong></td>
-    <td>Reusable design elements in Figma (or code). A component is created once and can be reused many times as instances. Examples: buttons, cards, input fields, navigation bars. Editing the main component updates all instances automatically.</td>
-  </tr>
-  <tr>
-    <td><strong>5. Prototyping</strong></td>
-    <td>Creating an interactive simulation of a design to test user flows and interactions before development. In Figma: connect frames with arrows to simulate navigation. Types: low-fidelity (wireframes) and high-fidelity (pixel-perfect). Allows user testing and stakeholder feedback early.</td>
-  </tr>
-</table>`
-  }
-];
-module.exports = unit1;
 <!-- ═══════════════════════════════════════ UNIT 2 ═══════════════════════════════════════ -->
 <div class="unit u2" id="unit-u2">
   <div class="unit-header">
@@ -1799,7 +1161,7 @@ h1 { font-family: Arial; }</code></pre>
 |   |   +------------------------------+   |   |
 |   |   |           PADDING            |   |   |  ← Space between content & border
 |   |   |   +----------------------+   |   |   |
-|   |   |   |      CONTENT         |   |   |   |  ← Text, images, etc.
+|   |   |   |       CONTENT        |   |   |   |  ← Text, images, etc.
 |   |   |   |  (width × height)    |   |   |   |
 |   |   |   +----------------------+   |   |   |
 |   |   +------------------------------+   |   |
@@ -2124,11 +1486,11 @@ body { font-family: 'Roboto', sans-serif; }</code></pre>
         <p><strong>Flexbox (Flexible Box Layout)</strong> is a CSS layout module that provides a one-dimensional layout system for arranging items in rows or columns.</p>
         <pre><code>Flex Container (Parent)
 +-----------------------------------------------+
-|  Main Axis →  (row) or ↓ (column)            |
+|  Main Axis →  (row) or ↓ (column)             |
 |  +--------+  +--------+  +--------+           |
 |  | Item 1 |  | Item 2 |  | Item 3 |           |
 |  +--------+  +--------+  +--------+           |
-|                               ↕ Cross Axis    |
+|                                ↕ Cross Axis   |
 +-----------------------------------------------+</code></pre>
         <p><strong>Container Properties (applied to parent):</strong></p>
         <pre><code>.container {
@@ -3138,3 +2500,2598 @@ span { display: inline; } /* width/height ignored */
 
   </div>
 </div>
+
+<!-- ═══════════════════════════════════════ UNIT 3 ═══════════════════════════════════════ -->
+<div class="unit u3" id="unit-u3">
+  <div class="unit-header">
+    <div>
+      <div class="num">UNIT 03</div>
+      <h2>Working with JavaScript</h2>
+    </div>
+    <div class="q-count">25 Questions</div>
+  </div>
+  <div class="qa-list">
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q1</div>
+        <div class="qa-q">What is JavaScript? What are the benefits of JavaScript?</div>
+        <div class="qa-meta"><span class="marks-badge marks-3">3 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p><strong>JavaScript</strong> is a lightweight, interpreted, high-level programming language primarily used to make web pages interactive. It is one of the three core technologies of the web (HTML, CSS, JavaScript).</p>
+        <div class="tip">💡 JS runs in the browser (client-side) AND on servers (Node.js — server-side).</div>
+        <table>
+          <tr><th>Benefit</th><th>Description</th></tr>
+          <tr><td>Interactivity</td><td>Makes web pages dynamic — sliders, popups, form validation, animations</td></tr>
+          <tr><td>Client-side Execution</td><td>Runs in browser — reduces server load, faster response</td></tr>
+          <tr><td>Event Handling</td><td>Responds to user actions: clicks, keyboard input, mouse movements</td></tr>
+          <tr><td>DOM Manipulation</td><td>Dynamically modify HTML/CSS without page reload</td></tr>
+          <tr><td>Versatility</td><td>Works on frontend, backend (Node.js), mobile (React Native), desktop (Electron)</td></tr>
+          <tr><td>Large Ecosystem</td><td>npm has 2M+ packages. Frameworks: React, Angular, Vue, etc.</td></tr>
+          <tr><td>AJAX / Fetch</td><td>Load data from server without reloading the page</td></tr>
+          <tr><td>No Compilation</td><td>Interpreted — write and run immediately, no compile step</td></tr>
+        </table>
+        <pre><code>// Simple JavaScript example
+document.getElementById("btn").addEventListener("click", function() {
+    alert("Button clicked! JavaScript is working!");
+    document.body.style.backgroundColor = "lightblue";
+});</code></pre>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q2</div>
+        <div class="qa-q">Differentiate Client-side scripting and Server-side scripting.</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <table>
+          <tr><th>Feature</th><th>Client-Side Scripting</th><th>Server-Side Scripting</th></tr>
+          <tr><td>Execution Location</td><td>Runs in user's browser</td><td>Runs on web server</td></tr>
+          <tr><td>Languages</td><td>JavaScript, VBScript</td><td>PHP, Python, Node.js, ASP.NET, Ruby</td></tr>
+          <tr><td>Speed</td><td>Fast — no server round trip</td><td>Slower — requires server request</td></tr>
+          <tr><td>Security</td><td>Code is visible to user (less secure)</td><td>Code hidden from user (more secure)</td></tr>
+          <tr><td>Database Access</td><td>Cannot directly access database</td><td>Can directly query databases</td></tr>
+          <tr><td>Use Cases</td><td>Validation, animations, DOM changes, UI</td><td>Login, database CRUD, authentication</td></tr>
+          <tr><td>Browser Dependency</td><td>Depends on browser capabilities</td><td>Independent of browser</td></tr>
+          <tr><td>Example</td><td>Form validation before submit</td><td>Checking login credentials in database</td></tr>
+        </table>
+        <pre><code>// CLIENT-SIDE (JavaScript in browser)
+function validateForm() {
+    var name = document.getElementById("name").value;
+    if (name === "") {
+        alert("Name cannot be empty!"); // Runs in browser
+        return false;
+    }
+    return true;
+}
+
+// SERVER-SIDE (PHP on server)
+// File: process.php
+&lt;?php
+  $name = $_POST['name'];
+  $sql = "INSERT INTO users (name) VALUES ('$name')";
+  // Runs on server, user never sees this code
+?&gt;</code></pre>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q3</div>
+        <div class="qa-q">Explain pop-up boxes in JavaScript with example.</div>
+        <div class="qa-meta"><span class="marks-badge marks-3">3 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p>JavaScript provides three types of built-in dialog boxes:</p>
+        <table>
+          <tr><th>Type</th><th>Method</th><th>Returns</th><th>Purpose</th></tr>
+          <tr><td>Alert</td><td>window.alert()</td><td>undefined</td><td>Show information message</td></tr>
+          <tr><td>Confirm</td><td>window.confirm()</td><td>true / false</td><td>Ask yes/no question</td></tr>
+          <tr><td>Prompt</td><td>window.prompt()</td><td>string or null</td><td>Get user input</td></tr>
+        </table>
+        <pre><code>// 1. ALERT - Just shows a message
+alert("Welcome to Silver Oak University!");
+window.alert("Form submitted successfully!"); // same thing
+
+// 2. CONFIRM - Returns true (OK) or false (Cancel)
+var result = confirm("Are you sure you want to delete this record?");
+if (result === true) {
+    console.log("User clicked OK - delete the record");
+} else {
+    console.log("User clicked Cancel - do nothing");
+}
+
+// 3. PROMPT - Gets input from user
+var name = prompt("Enter your name:", "Default Value");
+if (name !== null && name !== "") {
+    alert("Hello, " + name + "!");
+} else {
+    alert("No name entered.");
+}
+
+// PRACTICAL EXAMPLE
+function deleteUser() {
+    var confirmed = confirm("Delete this user permanently?");
+    if (confirmed) {
+        alert("User deleted!");
+        // call delete API here
+    }
+}</code></pre>
+        <div class="note">📌 Modern web development avoids these dialogs (they block JS execution). Custom modal dialogs using HTML/CSS are preferred.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q4</div>
+        <div class="qa-q">Explain DOM in JavaScript.</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p><strong>DOM (Document Object Model)</strong> is a programming interface that represents the HTML document as a tree of objects. JavaScript can use the DOM to read, modify, add or remove HTML elements and attributes dynamically.</p>
+        <pre><code>DOM Tree Structure:
+document
+  └── html
+       ├── head
+       │   └── title
+       └── body
+            ├── h1  ("Hello")
+            ├── p   ("World")
+            └── div
+                 └── a ("Click me")</code></pre>
+        <pre><code>// SELECTING ELEMENTS
+document.getElementById("myId")         // By ID → single element
+document.getElementsByClassName("cls")  // By class → HTMLCollection
+document.getElementsByTagName("p")      // By tag → HTMLCollection
+document.querySelector(".card")         // CSS selector → first match
+document.querySelectorAll("p.intro")    // CSS selector → NodeList
+
+// READING / MODIFYING CONTENT
+var el = document.getElementById("title");
+el.innerHTML = "&lt;em&gt;New Title&lt;/em&gt;"; // Sets HTML content
+el.textContent = "Plain text";          // Sets text only
+el.innerText = "Visible text";          // Respects CSS visibility
+
+// CHANGING STYLES
+el.style.color = "red";
+el.style.fontSize = "24px";
+el.style.backgroundColor = "#fff";
+
+// CSS CLASS MANIPULATION
+el.classList.add("active");
+el.classList.remove("hidden");
+el.classList.toggle("dark-mode");
+el.classList.contains("active");  // → true/false
+
+// ATTRIBUTES
+el.setAttribute("href", "https://google.com");
+el.getAttribute("src");
+el.removeAttribute("disabled");
+
+// CREATE AND ADD ELEMENTS
+var newEl = document.createElement("p");
+newEl.textContent = "Dynamically added!";
+document.body.appendChild(newEl);
+document.body.removeChild(newEl);</code></pre>
+        <div class="imp">⚠️ IMP: DOM manipulation is the core of interactive JavaScript. This is heavily tested in exams!</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q5</div>
+        <div class="qa-q">Explain Callback function in JavaScript with example.</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p>A <strong>callback function</strong> is a function passed as an argument to another function, to be executed later (after some operation completes). JavaScript is asynchronous — callbacks handle operations that take time.</p>
+        <pre><code>// Basic Callback Example
+function greet(name, callback) {
+    console.log("Hello, " + name);
+    callback(); // Call the function passed as argument
+}
+
+function sayGoodbye() {
+    console.log("Goodbye!");
+}
+
+greet("John", sayGoodbye);
+// Output: Hello, John
+//         Goodbye!
+
+// Callback with Arrow Function
+greet("Alice", function() {
+    console.log("Have a nice day!");
+});
+
+greet("Bob", () => console.log("See you!"));
+
+// Real-World: setTimeout (runs after delay)
+console.log("Start");
+setTimeout(function() {
+    console.log("This runs after 2 seconds"); // callback
+}, 2000);
+console.log("End");
+// Output: Start → End → (2 sec later) → This runs after 2 seconds
+
+// Array Callback Methods
+var numbers = [1, 2, 3, 4, 5];
+
+// forEach - callback for each element
+numbers.forEach(function(num) {
+    console.log(num * 2);
+});
+
+// filter - callback returns true/false
+var evens = numbers.filter(n => n % 2 === 0);
+console.log(evens); // [2, 4]
+
+// map - callback transforms each element
+var doubled = numbers.map(n => n * 2);
+console.log(doubled); // [2, 4, 6, 8, 10]
+
+// Event callback
+document.getElementById("btn").addEventListener("click", function() {
+    console.log("Button clicked! — I am a callback");
+});</code></pre>
+        <div class="tip">💡 Callbacks are the foundation of asynchronous JS. Promises and async/await are modern alternatives to avoid "callback hell".</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q6</div>
+        <div class="qa-q">What is JavaScript event handling? List the major events and show use of at least one event.</div>
+        <div class="qa-meta"><span class="marks-badge marks-8">8 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p><strong>Event Handling</strong> is the mechanism that allows JavaScript to respond to user actions or browser occurrences. When an event occurs, a function (event handler) is called.</p>
+        <table>
+          <tr><th>Category</th><th>Event</th><th>Triggered When</th></tr>
+          <tr><td>Mouse</td><td>click, dblclick, mousedown, mouseup, mouseover, mouseout, mousemove</td><td>Mouse actions</td></tr>
+          <tr><td>Keyboard</td><td>keydown, keyup, keypress</td><td>Key pressed/released</td></tr>
+          <tr><td>Form</td><td>submit, change, focus, blur, reset, input</td><td>Form interactions</td></tr>
+          <tr><td>Window</td><td>load, resize, scroll, unload, beforeunload</td><td>Window/page events</td></tr>
+          <tr><td>Touch</td><td>touchstart, touchend, touchmove</td><td>Mobile touch</td></tr>
+          <tr><td>Drag</td><td>drag, dragstart, dragend, drop</td><td>Drag-and-drop</td></tr>
+        </table>
+        <p><strong>Ways to Attach Events:</strong></p>
+        <pre><code>// Method 1: Inline HTML attribute (not recommended)
+&lt;button onclick="alert('Clicked!')"&gt;Click&lt;/button&gt;
+
+// Method 2: DOM property
+document.getElementById("btn").onclick = function() {
+    alert("Clicked!");
+};
+
+// Method 3: addEventListener (RECOMMENDED)
+document.getElementById("btn").addEventListener("click", function(event) {
+    console.log("Button clicked!");
+    console.log("Event type:", event.type);
+    console.log("Target element:", event.target);
+});</code></pre>
+        <p><strong>Complete Click Event Example:</strong></p>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;&lt;style&gt;
+  #box { width:200px; height:100px; background:#3498db; color:white;
+         display:flex; align-items:center; justify-content:center;
+         font-size:18px; cursor:pointer; transition:all 0.3s; }
+  #box:hover { background:#2980b9; }
+&lt;/style&gt;&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id="box"&gt;Click Me!&lt;/div&gt;
+  &lt;p id="counter"&gt;Clicks: 0&lt;/p&gt;
+
+  &lt;script&gt;
+    var count = 0;
+    var box = document.getElementById("box");
+    var counter = document.getElementById("counter");
+
+    box.addEventListener("click", function(e) {
+        count++;
+        counter.textContent = "Clicks: " + count;
+        box.style.backgroundColor = count % 2 === 0 ? "#3498db" : "#e74c3c";
+    });
+
+    box.addEventListener("mouseover", function() {
+        box.textContent = "Release!";
+    });
+
+    box.addEventListener("mouseout", function() {
+        box.textContent = "Click Me!";
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q7</div>
+        <div class="qa-q">Demonstrate the use of onchange, onmouseover, onmouseout, onkeypress, onload, onfocus events.</div>
+        <div class="qa-meta"><span class="marks-badge marks-8">8 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body onload="pageLoaded()"&gt;
+
+&lt;!-- onchange: fires when select value changes --&gt;
+&lt;select onchange="colorChanged(this)"&gt;
+  &lt;option value=""&gt;Select Color&lt;/option&gt;
+  &lt;option value="red"&gt;Red&lt;/option&gt;
+  &lt;option value="blue"&gt;Blue&lt;/option&gt;
+  &lt;option value="green"&gt;Green&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;!-- onmouseover / onmouseout --&gt;
+&lt;img src="pic1.jpg"
+     onmouseover="this.src='pic2.jpg'"
+     onmouseout="this.src='pic1.jpg'"
+     width="100"&gt;
+
+&lt;!-- onkeypress: fires on key press in input --&gt;
+&lt;input type="text" id="nameInput"
+       onkeypress="keyPressed(event)"
+       placeholder="Type here..."&gt;
+&lt;p id="keyInfo"&gt;&lt;/p&gt;
+
+&lt;!-- onfocus / onblur --&gt;
+&lt;input type="email"
+       onfocus="this.style.borderColor='blue'; this.placeholder='Enter valid email'"
+       onblur="this.style.borderColor='gray'"
+       placeholder="Email address"&gt;
+
+&lt;p id="output"&gt;&lt;/p&gt;
+
+&lt;script&gt;
+  // onload - fires when page fully loads
+  function pageLoaded() {
+      document.getElementById("output").textContent =
+          "Page loaded at: " + new Date().toLocaleTimeString();
+  }
+
+  // onchange - color selection
+  function colorChanged(select) {
+      document.body.style.backgroundColor = select.value;
+      alert("Color changed to: " + select.value);
+  }
+
+  // onkeypress - shows key pressed
+  function keyPressed(event) {
+      var key = event.key || String.fromCharCode(event.keyCode);
+      document.getElementById("keyInfo").innerHTML =
+          "Key pressed: &lt;strong&gt;" + key + "&lt;/strong&gt; " +
+          "(Code: " + event.keyCode + ")";
+  }
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        <table>
+          <tr><th>Event</th><th>When Fires</th></tr>
+          <tr><td>onload</td><td>Page (or image) fully loaded</td></tr>
+          <tr><td>onchange</td><td>Value of input/select changes and loses focus</td></tr>
+          <tr><td>onmouseover</td><td>Mouse pointer enters element</td></tr>
+          <tr><td>onmouseout</td><td>Mouse pointer leaves element</td></tr>
+          <tr><td>onkeypress</td><td>Key is pressed (deprecated — use onkeydown)</td></tr>
+          <tr><td>onfocus</td><td>Element receives focus (click/tab)</td></tr>
+          <tr><td>onblur</td><td>Element loses focus</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q8</div>
+        <div class="qa-q">List out JavaScript's inbuilt Objects. Explain any three with proper example.</div>
+        <div class="qa-meta"><span class="marks-badge marks-8">8 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p><strong>Built-in JavaScript Objects:</strong></p>
+        <p>String, Number, Boolean, Array, Object, Date, Math, RegExp, Error, JSON, Promise, Map, Set, Symbol, Function, undefined, null</p>
+        <hr style="border-color:#333;margin:15px 0">
+        <p><strong>1. Math Object</strong> – Provides mathematical constants and functions.</p>
+        <pre><code>// Math Object
+console.log(Math.PI);           // 3.141592653589793
+console.log(Math.E);            // 2.718...
+
+console.log(Math.abs(-15));     // 15 (absolute value)
+console.log(Math.round(4.6));   // 5  (round to nearest)
+console.log(Math.floor(4.9));   // 4  (round down)
+console.log(Math.ceil(4.1));    // 5  (round up)
+console.log(Math.sqrt(16));     // 4  (square root)
+console.log(Math.pow(2, 10));   // 1024 (2^10)
+console.log(Math.max(3, 8, 1)); // 8  (maximum)
+console.log(Math.min(3, 8, 1)); // 1  (minimum)
+console.log(Math.random());     // 0.0 to 0.9999 (random)
+
+// Random integer between min and max
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+console.log(getRandomInt(1, 100)); // e.g. 42</code></pre>
+        <p><strong>2. Date Object</strong> – Works with dates and times.</p>
+        <pre><code>// Date Object
+var now = new Date();           // Current date/time
+var d1  = new Date("2025-01-15");         // Specific date
+var d2  = new Date(2025, 0, 15, 10, 30); // Year,Month(0-11),Day,Hr,Min
+
+// Getting parts
+console.log(now.getFullYear());  // 2025
+console.log(now.getMonth());     // 0-11 (add 1 for display)
+console.log(now.getDate());      // 1-31 (day of month)
+console.log(now.getDay());       // 0=Sunday, 6=Saturday
+console.log(now.getHours());     // 0-23
+console.log(now.getMinutes());   // 0-59
+console.log(now.getSeconds());   // 0-59
+console.log(now.getTime());      // Milliseconds since Jan 1, 1970
+
+// Formatting
+console.log(now.toLocaleDateString());   // "1/15/2025"
+console.log(now.toLocaleTimeString());   // "10:30:00 AM"
+console.log(now.toLocaleString());       // Full date+time
+console.log(now.toISOString());          // "2025-01-15T10:30:00.000Z"</code></pre>
+        <p><strong>3. String Object</strong> – Methods for working with text.</p>
+        <pre><code>// String Object
+var str = "Hello World JavaScript";
+
+console.log(str.length);              // 22
+console.log(str.toUpperCase());       // "HELLO WORLD JAVASCRIPT"
+console.log(str.toLowerCase());       // "hello world javascript"
+console.log(str.indexOf("World"));    // 6 (position found, -1 if not)
+console.log(str.includes("Java"));    // true
+console.log(str.startsWith("Hello")); // true
+console.log(str.endsWith("Script"));  // true
+
+console.log(str.slice(6, 11));        // "World" (start,end)
+console.log(str.substring(6, 11));    // "World"
+console.log(str.replace("World","JS")); // "Hello JS JavaScript"
+console.log(str.split(" "));         // ["Hello","World","JavaScript"]
+console.log("  hello  ".trim());     // "hello" (remove whitespace)
+console.log(str.charAt(0));          // "H"
+console.log(str[0]);                 // "H"</code></pre>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q9</div>
+        <div class="qa-q">How are user-defined Objects created in JavaScript? Explain with proper example.</div>
+        <div class="qa-meta"><span class="marks-badge marks-8">8 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p>There are multiple ways to create user-defined objects in JavaScript:</p>
+        <p><strong>1. Object Literal (simplest)</strong></p>
+        <pre><code>var student = {
+    name: "Raj Patel",
+    enrollment: "22IT001",
+    semester: 4,
+    marks: [85, 90, 78],
+    // Method inside object
+    getAverage: function() {
+        var sum = this.marks.reduce((a,b) => a+b, 0);
+        return sum / this.marks.length;
+    },
+    display: function() {
+        console.log("Name: " + this.name);
+        console.log("Avg: " + this.getAverage());
+    }
+};
+
+student.display();          // Use method
+console.log(student.name);  // Access property
+student.city = "Ahmedabad"; // Add new property
+delete student.semester;    // Remove property</code></pre>
+        <p><strong>2. Constructor Function</strong></p>
+        <pre><code>// Constructor (use capital letter by convention)
+function Student(name, enrollment, semester) {
+    this.name = enrollment;
+    this.name = name;
+    this.enrollment = enrollment;
+    this.semester = semester;
+
+    this.display = function() {
+        console.log(this.name + " | " + this.enrollment);
+    };
+}
+
+// Create objects using 'new'
+var s1 = new Student("Raj", "22IT001", 4);
+var s2 = new Student("Priya", "22IT002", 4);
+
+s1.display(); // Raj | 22IT001
+s2.display(); // Priya | 22IT002
+console.log(s1 instanceof Student); // true</code></pre>
+        <p><strong>3. ES6 Class (Modern OOP Style)</strong></p>
+        <pre><code>class Student {
+    constructor(name, enrollment, semester) {
+        this.name = name;
+        this.enrollment = enrollment;
+        this.semester = semester;
+    }
+
+    display() {
+        console.log(`Student: ${this.name}, Enrollment: ${this.enrollment}`);
+    }
+
+    static create(name, enrollment) {
+        return new Student(name, enrollment, 1); // static factory
+    }
+}
+
+var s1 = new Student("Raj", "22IT001", 4);
+var s2 = Student.create("Priya", "22IT002");
+s1.display();</code></pre>
+        <p><strong>4. Object.create()</strong></p>
+        <pre><code>var personProto = {
+    greet: function() { console.log("Hi, I am " + this.name); }
+};
+var p1 = Object.create(personProto);
+p1.name = "Amit";
+p1.greet(); // Hi, I am Amit</code></pre>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q10</div>
+        <div class="qa-q">Explain concept of Array in JavaScript. Also demonstrate use of any three methods of Array.</div>
+        <div class="qa-meta"><span class="marks-badge marks-8">8 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p>An <strong>Array</strong> is a special variable that can hold multiple values in a single variable. Arrays are zero-indexed in JavaScript.</p>
+        <pre><code>// Creating Arrays
+var arr1 = [10, 20, 30, 40, 50];           // Array literal (preferred)
+var arr2 = new Array(1, 2, 3);             // Constructor
+var mixed = ["hello", 42, true, null, {name:"Raj"}]; // Mixed types
+
+// Accessing elements
+console.log(arr1[0]); // 10 (index 0)
+console.log(arr1[4]); // 50 (last element)
+console.log(arr1.length); // 5</code></pre>
+        <table>
+          <tr><th>Method</th><th>Description</th><th>Returns</th></tr>
+          <tr><td>push()</td><td>Add element to end</td><td>new length</td></tr>
+          <tr><td>pop()</td><td>Remove from end</td><td>removed element</td></tr>
+          <tr><td>shift()</td><td>Remove from front</td><td>removed element</td></tr>
+          <tr><td>unshift()</td><td>Add to front</td><td>new length</td></tr>
+          <tr><td>splice()</td><td>Add/remove at any position</td><td>removed elements</td></tr>
+          <tr><td>slice()</td><td>Copy a portion</td><td>new array</td></tr>
+          <tr><td>concat()</td><td>Merge arrays</td><td>new array</td></tr>
+          <tr><td>indexOf()</td><td>Find element position</td><td>index or -1</td></tr>
+          <tr><td>includes()</td><td>Check if element exists</td><td>true/false</td></tr>
+          <tr><td>reverse()</td><td>Reverse array in place</td><td>array</td></tr>
+          <tr><td>sort()</td><td>Sort elements</td><td>array</td></tr>
+          <tr><td>map()</td><td>Transform each element</td><td>new array</td></tr>
+          <tr><td>filter()</td><td>Filter elements by condition</td><td>new array</td></tr>
+          <tr><td>reduce()</td><td>Accumulate to single value</td><td>value</td></tr>
+          <tr><td>forEach()</td><td>Loop over each element</td><td>undefined</td></tr>
+          <tr><td>join()</td><td>Join to string</td><td>string</td></tr>
+        </table>
+        <p><strong>Method 1: sort()</strong></p>
+        <pre><code>var fruits = ["Banana", "Apple", "Cherry", "Mango"];
+fruits.sort();
+console.log(fruits); // ["Apple", "Banana", "Cherry", "Mango"]
+
+// Sort numbers (need comparator function!)
+var nums = [40, 1, 5, 200, 10];
+nums.sort((a, b) => a - b); // ascending
+console.log(nums); // [1, 5, 10, 40, 200]
+nums.sort((a, b) => b - a); // descending</code></pre>
+        <p><strong>Method 2: splice()</strong></p>
+        <pre><code>var colors = ["Red", "Green", "Blue", "Yellow"];
+// splice(start, deleteCount, ...itemsToAdd)
+var removed = colors.splice(1, 2, "Orange", "Purple");
+console.log(colors);  // ["Red", "Orange", "Purple", "Yellow"]
+console.log(removed); // ["Green", "Blue"]</code></pre>
+        <p><strong>Method 3: reduce()</strong></p>
+        <pre><code>var marks = [85, 90, 78, 92, 88];
+// reduce(callback(accumulator, currentValue), initialValue)
+var total = marks.reduce(function(acc, curr) {
+    return acc + curr;
+}, 0);
+console.log("Total:", total);   // 433
+console.log("Average:", total/marks.length); // 86.6</code></pre>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q11</div>
+        <div class="qa-q">Demonstrate JavaScript Form Validation with proper example.</div>
+        <div class="qa-meta"><span class="marks-badge marks-8">8 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;style&gt;
+  body { font-family: Arial; max-width: 500px; margin: 30px auto; padding: 0 20px; }
+  .form-group { margin-bottom: 15px; }
+  label { display: block; margin-bottom: 5px; font-weight: bold; }
+  input { width: 100%; padding: 10px; border: 2px solid #ccc; border-radius: 4px;
+          font-size: 14px; box-sizing: border-box; }
+  input.error  { border-color: #e74c3c; }
+  input.valid  { border-color: #27ae60; }
+  .error-msg   { color: #e74c3c; font-size: 12px; margin-top: 4px; display: none; }
+  .error-msg.show { display: block; }
+  button { width: 100%; padding: 12px; background: #3498db; color: white;
+           border: none; border-radius: 4px; font-size: 16px; cursor: pointer; }
+  button:hover { background: #2980b9; }
+  #success { color: green; text-align: center; font-size: 18px; display: none; }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h2&gt;Registration Form&lt;/h2&gt;
+  &lt;form id="regForm" onsubmit="return validateForm()"&gt;
+    &lt;div class="form-group"&gt;
+      &lt;label&gt;Full Name:&lt;/label&gt;
+      &lt;input type="text" id="name" placeholder="Enter full name"&gt;
+      &lt;div class="error-msg" id="nameError"&gt;Name is required (min 3 chars)&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="form-group"&gt;
+      &lt;label&gt;Email:&lt;/label&gt;
+      &lt;input type="text" id="email" placeholder="Enter email"&gt;
+      &lt;div class="error-msg" id="emailError"&gt;Enter a valid email address&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="form-group"&gt;
+      &lt;label&gt;Phone:&lt;/label&gt;
+      &lt;input type="text" id="phone" placeholder="10-digit phone number"&gt;
+      &lt;div class="error-msg" id="phoneError"&gt;Enter valid 10-digit phone number&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="form-group"&gt;
+      &lt;label&gt;Password:&lt;/label&gt;
+      &lt;input type="password" id="password" placeholder="Min 8 chars"&gt;
+      &lt;div class="error-msg" id="passError"&gt;Password must be at least 8 characters&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;button type="submit"&gt;Register&lt;/button&gt;
+  &lt;/form&gt;
+  &lt;p id="success"&gt;✅ Form submitted successfully!&lt;/p&gt;
+
+  &lt;script&gt;
+    function showError(id, errorId) {
+        document.getElementById(id).classList.add("error");
+        document.getElementById(id).classList.remove("valid");
+        document.getElementById(errorId).classList.add("show");
+        return false;
+    }
+    function showValid(id, errorId) {
+        document.getElementById(id).classList.remove("error");
+        document.getElementById(id).classList.add("valid");
+        document.getElementById(errorId).classList.remove("show");
+        return true;
+    }
+    function validateForm() {
+        var isValid = true;
+        var name  = document.getElementById("name").value.trim();
+        var email = document.getElementById("email").value.trim();
+        var phone = document.getElementById("phone").value.trim();
+        var pass  = document.getElementById("password").value;
+
+        // Name validation
+        if (name.length < 3)
+            isValid = showError("name", "nameError") || false;
+        else showValid("name", "nameError");
+
+        // Email validation using regex
+        var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailRegex.test(email))
+            isValid = showError("email", "emailError") || false;
+        else showValid("email", "emailError");
+
+        // Phone validation (10 digits)
+        var phoneRegex = /^[0-9]{10}$/;
+        if (!phoneRegex.test(phone))
+            isValid = showError("phone", "phoneError") || false;
+        else showValid("phone", "phoneError");
+
+        // Password validation
+        if (pass.length < 8)
+            isValid = showError("password", "passError") || false;
+        else showValid("password", "passError");
+
+        if (isValid) {
+            document.getElementById("regForm").style.display = "none";
+            document.getElementById("success").style.display = "block";
+        }
+        return false; // Prevent actual form submission
+    }
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q12</div>
+        <div class="qa-q">Write a JavaScript code to display Fibonacci Series of given number entered by user.</div>
+        <div class="qa-meta"><span class="marks-badge marks-8">8 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Fibonacci Series&lt;/title&gt;
+  &lt;style&gt;
+    body { font-family: Arial; max-width: 500px; margin: 30px auto; padding: 20px; }
+    input { padding: 10px; width: 200px; font-size: 16px; border: 2px solid #ccc; border-radius: 4px; }
+    button { padding: 10px 20px; background: #2ecc71; color: white; border: none;
+             font-size: 16px; cursor: pointer; border-radius: 4px; margin-left: 10px; }
+    #result { margin-top: 20px; padding: 15px; background: #f8f9fa;
+              border-left: 4px solid #2ecc71; border-radius: 4px; font-size: 18px;
+              word-wrap: break-word; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h2&gt;Fibonacci Series Generator&lt;/h2&gt;
+  &lt;input type="number" id="numInput" placeholder="Enter count (e.g. 10)" min="1"&gt;
+  &lt;button onclick="generateFibonacci()"&gt;Generate&lt;/button&gt;
+  &lt;div id="result"&gt;&lt;/div&gt;
+
+  &lt;script&gt;
+    function generateFibonacci() {
+        var n = parseInt(document.getElementById("numInput").value);
+
+        if (isNaN(n) || n <= 0) {
+            document.getElementById("result").innerHTML = "⚠️ Please enter a valid positive number!";
+            return;
+        }
+
+        var fib = [];
+        var a = 0, b = 1;
+
+        for (var i = 0; i < n; i++) {
+            fib.push(a);
+            var temp = a + b;
+            a = b;
+            b = temp;
+        }
+
+        document.getElementById("result").innerHTML =
+            "&lt;strong&gt;Fibonacci Series (" + n + " terms):&lt;/strong&gt;&lt;br&gt;" +
+            fib.join(" → ");
+    }
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        <div class="note">📌 Fibonacci: 0, 1, 1, 2, 3, 5, 8, 13, 21... Each number = sum of previous two numbers. F(n) = F(n-1) + F(n-2)</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q13</div>
+        <div class="qa-q">Write a JavaScript code to change the background color of page at specific time interval.</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body style="transition: background-color 0.5s; text-align:center; padding:50px;"&gt;
+  &lt;h1&gt;Auto Color Changer&lt;/h1&gt;
+  &lt;p id="colorName"&gt;Current: white&lt;/p&gt;
+  &lt;button onclick="startChange()"&gt;Start&lt;/button&gt;
+  &lt;button onclick="stopChange()"&gt;Stop&lt;/button&gt;
+
+  &lt;script&gt;
+    var colors = ["#FF6B6B","#4ECDC4","#45B7D1","#FFA07A",
+                  "#98D8C8","#F7DC6F","#BB8FCE","#85C1E9"];
+    var index = 0;
+    var timer = null;
+
+    function changeColor() {
+        document.body.style.backgroundColor = colors[index];
+        document.getElementById("colorName").textContent =
+            "Current: " + colors[index];
+        index = (index + 1) % colors.length; // cycle through colors
+    }
+
+    function startChange() {
+        if (!timer) {  // Prevent multiple intervals
+            timer = setInterval(changeColor, 1500); // every 1.5 seconds
+        }
+    }
+
+    function stopChange() {
+        clearInterval(timer);
+        timer = null;
+    }
+
+    // Start automatically on page load
+    startChange();
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        <div class="tip">💡 setInterval(fn, ms) → repeats every ms milliseconds. clearInterval(timer) → stops it.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q14</div>
+        <div class="qa-q">Write a JavaScript code which takes integer number as input and tells whether the number is prime or not.</div>
+        <div class="qa-meta"><span class="marks-badge marks-8">8 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    body { font-family: Arial; max-width: 400px; margin: 50px auto; text-align: center; }
+    input { padding: 12px; font-size: 18px; width: 200px; border: 2px solid #ccc;
+            border-radius: 8px; text-align: center; }
+    button { padding: 12px 25px; font-size: 16px; background: #3498db;
+             color: white; border: none; border-radius: 8px; cursor: pointer; margin-top: 10px; }
+    #result {
+        margin-top: 20px; padding: 20px; border-radius: 8px; font-size: 20px;
+        font-weight: bold; display: none;
+    }
+    .prime     { background: #d4edda; color: #155724; border: 2px solid #28a745; }
+    .not-prime { background: #f8d7da; color: #721c24; border: 2px solid #dc3545; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h2&gt;Prime Number Checker&lt;/h2&gt;
+  &lt;input type="number" id="numInput" placeholder="Enter a number" min="2"&gt;
+  &lt;br&gt;
+  &lt;button onclick="checkPrime()"&gt;Check&lt;/button&gt;
+  &lt;div id="result"&gt;&lt;/div&gt;
+
+  &lt;script&gt;
+    function isPrime(n) {
+        if (n <= 1) return false;  // 0, 1 not prime
+        if (n === 2) return true;  // 2 is prime
+        if (n % 2 === 0) return false; // even numbers not prime
+
+        // Check divisibility from 3 to √n
+        for (var i = 3; i <= Math.sqrt(n); i += 2) {
+            if (n % i === 0) return false;
+        }
+        return true;
+    }
+
+    function checkPrime() {
+        var n = parseInt(document.getElementById("numInput").value);
+        var resultDiv = document.getElementById("result");
+        resultDiv.style.display = "block";
+
+        if (isNaN(n)) {
+            resultDiv.className = "not-prime";
+            resultDiv.textContent = "⚠️ Please enter a valid number!";
+            return;
+        }
+
+        if (isPrime(n)) {
+            resultDiv.className = "prime";
+            resultDiv.textContent = "✅ " + n + " is a PRIME number!";
+        } else {
+            resultDiv.className = "not-prime";
+            resultDiv.textContent = "❌ " + n + " is NOT a prime number.";
+        }
+    }
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        <div class="note">📌 Prime Number: A number greater than 1 that is divisible only by 1 and itself. e.g. 2,3,5,7,11,13...</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q15</div>
+        <div class="qa-q">Write JavaScript to display "SILVER OAK UNIVERSITY" with increasing font size every 1 second in blue. Stop at 50px.</div>
+        <div class="qa-meta"><span class="marks-badge marks-8">8 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    body { display: flex; justify-content: center; align-items: center;
+           min-height: 100vh; background: #f0f0f0; flex-direction: column; }
+    #text { color: blue; font-family: Arial; font-weight: bold;
+            transition: font-size 0.3s ease; text-align: center; }
+    #sizeInfo { color: #666; margin-top: 10px; font-size: 14px; }
+    #msg { color: green; font-size: 18px; margin-top: 10px; display: none; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id="text"&gt;SILVER OAK UNIVERSITY&lt;/div&gt;
+  &lt;div id="sizeInfo"&gt;Font Size: 10px&lt;/div&gt;
+  &lt;div id="msg"&gt;✅ Maximum font size (50px) reached!&lt;/div&gt;
+
+  &lt;script&gt;
+    var fontSize = 10;  // Start at 10px
+    var maxSize  = 50;  // Stop at 50px
+    var textEl   = document.getElementById("text");
+    var infoEl   = document.getElementById("sizeInfo");
+    var msgEl    = document.getElementById("msg");
+
+    // Set initial size
+    textEl.style.fontSize = fontSize + "px";
+
+    var timer = setInterval(function() {
+        fontSize++;
+        textEl.style.fontSize = fontSize + "px";
+        infoEl.textContent = "Font Size: " + fontSize + "px";
+
+        if (fontSize >= maxSize) {
+            clearInterval(timer);  // Stop the interval
+            msgEl.style.display = "block";
+        }
+    }, 1000); // every 1 second
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        <div class="tip">💡 Key concepts: setInterval() to repeat, clearInterval() to stop, style.fontSize to change font size.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q16</div>
+        <div class="qa-q">Difference between "==" and "===" operators.</div>
+        <div class="qa-meta"><span class="marks-badge marks-3">3 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <table>
+          <tr><th>Feature</th><th>== (Loose Equality)</th><th>=== (Strict Equality)</th></tr>
+          <tr><td>Type Check</td><td>Does NOT check data type</td><td>DOES check data type</td></tr>
+          <tr><td>Type Coercion</td><td>Converts types before comparing</td><td>No type conversion</td></tr>
+          <tr><td>Safer</td><td>Less safe, unexpected results</td><td>Safer, recommended</td></tr>
+        </table>
+        <pre><code>// == (Loose Equality — type coercion happens)
+console.log(5 == "5");     // true  (string "5" converted to number)
+console.log(0 == false);   // true  (false becomes 0)
+console.log(null == undefined); // true
+console.log(1 == true);    // true  (true becomes 1)
+console.log("" == false);  // true
+
+// === (Strict Equality — NO type coercion)
+console.log(5 === "5");    // FALSE (different types: number vs string)
+console.log(0 === false);  // FALSE (different types: number vs boolean)
+console.log(null === undefined); // FALSE (different types)
+console.log(1 === true);   // FALSE
+console.log(5 === 5);      // true  (same type AND value)
+
+// SIMILARLY: != vs !==
+console.log(5 != "5");     // false (== says equal, so != says NOT different)
+console.log(5 !== "5");    // true  (strict: different types)</code></pre>
+        <div class="imp">⚠️ IMP: Always use === in JavaScript to avoid unexpected bugs caused by type coercion!</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q17</div>
+        <div class="qa-q">Difference between var and let keyword in JavaScript.</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <table>
+          <tr><th>Feature</th><th>var</th><th>let</th></tr>
+          <tr><td>Scope</td><td>Function scope (or global)</td><td>Block scope { }</td></tr>
+          <tr><td>Hoisting</td><td>Hoisted and initialized as undefined</td><td>Hoisted but NOT initialized (TDZ error)</td></tr>
+          <tr><td>Re-declaration</td><td>Can be re-declared in same scope</td><td>Cannot be re-declared in same scope</td></tr>
+          <tr><td>Global object</td><td>Becomes property of window (global)</td><td>Does NOT become window property</td></tr>
+          <tr><td>Introduced</td><td>ES5 (original JS)</td><td>ES6 (2015)</td></tr>
+        </table>
+        <pre><code>// SCOPE DIFFERENCE
+function test() {
+    if (true) {
+        var x = 10;   // Function scoped — accessible outside if block
+        let y = 20;   // Block scoped — only inside { }
+    }
+    console.log(x); // 10 ✓
+    console.log(y); // ❌ ReferenceError: y is not defined
+}
+
+// HOISTING DIFFERENCE
+console.log(a); // undefined (var hoisted, initialized as undefined)
+var a = 5;
+
+console.log(b); // ❌ ReferenceError: Cannot access 'b' before init
+let b = 10;
+
+// RE-DECLARATION
+var count = 1;
+var count = 2; // ✓ No error — var allows re-declaration
+
+let score = 1;
+let score = 2; // ❌ SyntaxError: score already declared
+
+// const (mention for completeness)
+const PI = 3.14;
+PI = 3; // ❌ TypeError: Assignment to constant variable</code></pre>
+        <div class="imp">⚠️ IMP: In modern JS, always prefer let and const over var. Use const for values that won't change.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q18</div>
+        <div class="qa-q">What is NaN property in JavaScript?</div>
+        <div class="qa-meta"><span class="marks-badge marks-3">3 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p><strong>NaN (Not a Number)</strong> is a special value in JavaScript representing an invalid or undefined numeric result. It is of type <code>number</code> (paradoxically).</p>
+        <pre><code>// When NaN occurs
+console.log(0 / 0);            // NaN
+console.log("hello" * 2);      // NaN (string * number)
+console.log(parseInt("abc"));  // NaN
+console.log(Math.sqrt(-1));    // NaN
+console.log(undefined + 1);   // NaN
+
+// Checking for NaN
+var x = 0 / 0;
+
+// Method 1: isNaN() - converts argument then checks
+console.log(isNaN(x));         // true
+console.log(isNaN("hello"));   // true (coerces "hello" to NaN)
+console.log(isNaN("123"));     // false (coerces "123" to 123)
+
+// Method 2: Number.isNaN() — strict (no coercion) - preferred
+console.log(Number.isNaN(x));        // true
+console.log(Number.isNaN("hello"));  // false! (no coercion)
+console.log(Number.isNaN(NaN));      // true
+
+// Unique property: NaN !== NaN (NaN is not equal to itself!)
+console.log(NaN === NaN); // false ← very important!
+console.log(NaN == NaN);  // false
+
+// Practical use
+function divide(a, b) {
+    var result = a / b;
+    if (Number.isNaN(result)) {
+        return "Cannot divide!";
+    }
+    return result;
+}
+console.log(divide(10, 0));   // Infinity (not NaN)
+console.log(divide(0, 0));    // "Cannot divide!"</code></pre>
+        <div class="tip">💡 typeof NaN === "number" — confusing but true! Always use Number.isNaN() to check safely.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q19</div>
+        <div class="qa-q">Explain call(), apply() and bind() methods.</div>
+        <div class="qa-meta"><span class="marks-badge marks-8">8 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p>These three methods allow you to explicitly set the value of <code>this</code> inside a function and borrow methods from other objects.</p>
+        <table>
+          <tr><th>Method</th><th>Invocation</th><th>Arguments</th><th>Returns</th></tr>
+          <tr><td>call()</td><td>Immediately invokes function</td><td>Comma-separated list</td><td>Function result</td></tr>
+          <tr><td>apply()</td><td>Immediately invokes function</td><td>Array of arguments</td><td>Function result</td></tr>
+          <tr><td>bind()</td><td>Does NOT invoke — returns new function</td><td>Comma-separated list</td><td>New bound function</td></tr>
+        </table>
+        <pre><code>// Setup objects
+var student1 = { name: "Raj",   marks: 85 };
+var student2 = { name: "Priya", marks: 92 };
+
+function displayInfo(subject, grade) {
+    console.log(this.name + " | Marks: " + this.marks +
+                " | Subject: " + subject + " | Grade: " + grade);
+}
+
+// call() — set 'this' + pass args as comma list
+displayInfo.call(student1, "Math", "A");
+// Output: Raj | Marks: 85 | Subject: Math | Grade: A
+
+displayInfo.call(student2, "Science", "A+");
+// Output: Priya | Marks: 92 | Subject: Science | Grade: A+
+
+// apply() — same but args as ARRAY
+displayInfo.apply(student1, ["Math", "A"]);
+// Output: Raj | Marks: 85 | Subject: Math | Grade: A
+
+// apply() great for Math.max with array
+var scores = [85, 90, 78, 95, 88];
+console.log(Math.max.apply(null, scores)); // 95
+// Modern: Math.max(...scores) does the same
+
+// bind() — returns NEW function, doesn't call immediately
+var displayRaj = displayInfo.bind(student1);
+displayRaj("Physics", "B+"); // Call later when needed!
+// Output: Raj | Marks: 85 | Subject: Physics | Grade: B+
+
+// Partial application with bind
+var displayRajMath = displayInfo.bind(student1, "Math");
+displayRajMath("A"); // Only grade needed now
+// Output: Raj | Marks: 85 | Subject: Math | Grade: A</code></pre>
+        <div class="note">📌 Memory: Call=Comma, Apply=Array, Bind=Bound-for-later</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q20</div>
+        <div class="qa-q">What is DOM? Explain in detail.</div>
+        <div class="qa-meta"><span class="marks-badge marks-8">8 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p><strong>DOM (Document Object Model)</strong> is a W3C standard programming interface that represents an HTML/XML document as a tree structure of objects. JavaScript uses the DOM to dynamically access, modify, add, or delete HTML elements and their content.</p>
+        <pre><code>HTML Document:                 DOM Tree:
+&lt;html&gt;                        Document
+  &lt;head&gt;                         └── html
+    &lt;title&gt;Page&lt;/title&gt;              ├── head
+  &lt;/head&gt;                            │   └── title ("Page")
+  &lt;body&gt;                             └── body
+    &lt;h1&gt;Hello&lt;/h1&gt;                       ├── h1 ("Hello")
+    &lt;p id="intro"&gt;World&lt;/p&gt;               └── p#intro ("World")
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        <p><strong>DOM Node Types:</strong></p>
+        <table>
+          <tr><th>Node Type</th><th>Example</th></tr>
+          <tr><td>Document node</td><td>The root document object</td></tr>
+          <tr><td>Element node</td><td>&lt;h1&gt;, &lt;p&gt;, &lt;div&gt;</td></tr>
+          <tr><td>Text node</td><td>Text inside elements</td></tr>
+          <tr><td>Attribute node</td><td>id="intro", class="card"</td></tr>
+          <tr><td>Comment node</td><td>&lt;!-- comment --&gt;</td></tr>
+        </table>
+        <pre><code>// DOM SELECTION
+var el = document.getElementById("intro");
+var els = document.querySelectorAll(".card");
+
+// DOM READING
+console.log(el.innerHTML);   // HTML content including tags
+console.log(el.textContent); // Plain text only
+console.log(el.id);          // Attribute value
+
+// DOM MODIFICATION
+el.innerHTML = "&lt;strong&gt;Updated!&lt;/strong&gt;";
+el.style.color = "red";
+el.className = "new-class";
+el.setAttribute("data-id", "42");
+
+// DOM CREATION
+var newP = document.createElement("p");     // Create element
+newP.textContent = "New paragraph";          // Add text
+newP.className = "card";                     // Add class
+document.body.appendChild(newP);             // Add to page
+document.body.insertBefore(newP, el);        // Insert before specific element
+el.parentNode.removeChild(el);               // Remove element
+el.remove();                                  // Modern removal
+
+// DOM TRAVERSAL
+el.parentNode        // Parent element
+el.children          // Child elements (HTMLCollection)
+el.firstElementChild // First child element
+el.lastElementChild  // Last child element
+el.nextElementSibling    // Next sibling
+el.previousElementSibling // Previous sibling</code></pre>
+        <div class="imp">⚠️ IMP: When the browser loads HTML, it creates the DOM. JavaScript then uses this DOM to make pages interactive.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q21</div>
+        <div class="qa-q">What are JavaScript Data Types?</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p>JavaScript has two categories of data types: <strong>Primitive</strong> and <strong>Non-Primitive (Reference)</strong>.</p>
+        <table>
+          <tr><th>Type</th><th>Category</th><th>Example</th><th>typeof</th></tr>
+          <tr><td>String</td><td>Primitive</td><td>"Hello", 'World'</td><td>"string"</td></tr>
+          <tr><td>Number</td><td>Primitive</td><td>42, 3.14, -10, NaN, Infinity</td><td>"number"</td></tr>
+          <tr><td>Boolean</td><td>Primitive</td><td>true, false</td><td>"boolean"</td></tr>
+          <tr><td>undefined</td><td>Primitive</td><td>var x; // x is undefined</td><td>"undefined"</td></tr>
+          <tr><td>null</td><td>Primitive</td><td>var x = null; // intentionally empty</td><td>"object" ← bug!</td></tr>
+          <tr><td>BigInt</td><td>Primitive</td><td>9007199254740991n</td><td>"bigint"</td></tr>
+          <tr><td>Symbol</td><td>Primitive</td><td>Symbol("id")</td><td>"symbol"</td></tr>
+          <tr><td>Object</td><td>Reference</td><td>{name:"Raj"}, [1,2,3], Date</td><td>"object"</td></tr>
+          <tr><td>Function</td><td>Reference</td><td>function fn() {}</td><td>"function"</td></tr>
+          <tr><td>Array</td><td>Reference</td><td>[1, 2, 3]</td><td>"object"</td></tr>
+        </table>
+        <pre><code>// JavaScript is DYNAMICALLY TYPED (no explicit type declaration)
+var x = 42;          // number
+x = "hello";        // now string — same variable, different type!
+x = true;           // now boolean
+
+// typeof operator
+typeof 42          // "number"
+typeof "hello"     // "string"
+typeof true        // "boolean"
+typeof undefined   // "undefined"
+typeof null        // "object" ← known JS bug, null is actually no type
+typeof {}          // "object"
+typeof []          // "object"
+typeof function(){} // "function"
+
+// Checking null properly
+var v = null;
+if (v === null) console.log("It's null!");
+
+// Checking array
+Array.isArray([1,2,3]); // true</code></pre>
+        <div class="tip">💡 JS is loosely typed — variables don't have fixed types. This differs from Java, C where types are declared.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q22</div>
+        <div class="qa-q">What would be the result of 3 + 2 + "7"?</div>
+        <div class="qa-meta"><span class="marks-badge marks-3">3 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p><strong>Result: "57"</strong></p>
+        <p>JavaScript evaluates expressions left-to-right:</p>
+        <pre><code>3 + 2 + "7"
+
+Step 1: 3 + 2 = 5         (both numbers → arithmetic addition)
+Step 2: 5 + "7" = "57"    (number + string → string concatenation)
+
+Final Result: "57"  (a STRING, not number 12)</code></pre>
+        <p><strong>Why does this happen? — Type Coercion</strong></p>
+        <p>When the + operator encounters a string, it converts the other operand to a string and concatenates. Left-to-right evaluation means 3+2 happens first (=5), then 5+"7" becomes "57".</p>
+        <pre><code>// More examples of type coercion with +
+console.log(3 + 2 + "7");    // "57"
+console.log("7" + 3 + 2);    // "732" (string first!)
+console.log("7" + (3 + 2));  // "75"  (parentheses force math first)
+console.log(3 + 2 + 7);      // 12   (all numbers)
+console.log("3" + "2" + 7);  // "327"
+
+// To get numeric result from strings:
+console.log(Number("3") + Number("2") + 7);  // 12
+console.log(parseInt("3") + parseInt("2") + 7); // 12
+console.log(+"3" + +"2" + 7); // 12 (unary + converts to number)</code></pre>
+        <div class="imp">⚠️ IMP: This type coercion is a classic JS interview/exam question! + with string = concatenation, not addition.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q23</div>
+        <div class="qa-q">Write a JavaScript code for adding new elements dynamically.</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    body { font-family: Arial; max-width: 500px; margin: 30px auto; padding: 20px; }
+    .item { background: #3498db; color: white; padding: 10px 15px;
+            margin: 8px 0; border-radius: 5px; display: flex;
+            justify-content: space-between; align-items: center; }
+    input { padding: 10px; width: 70%; font-size: 14px; border: 2px solid #ccc;
+            border-radius: 4px; box-sizing: border-box; }
+    button { padding: 10px 15px; background: #2ecc71; color: white; border: none;
+             border-radius: 4px; cursor: pointer; font-size: 14px; }
+    .del-btn { background: rgba(255,255,255,0.3); border: none; color: white;
+               padding: 4px 8px; cursor: pointer; border-radius: 3px; font-size: 12px; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h2&gt;Dynamic List Manager&lt;/h2&gt;
+  &lt;div&gt;
+    &lt;input type="text" id="textInput" placeholder="Enter item text..."&gt;
+    &lt;button onclick="addElement()"&gt;+ Add&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div id="container"&gt;&lt;/div&gt;
+
+  &lt;script&gt;
+    var count = 0;
+
+    function addElement() {
+        var text = document.getElementById("textInput").value.trim();
+        if (text === "") {
+            alert("Please enter some text!");
+            return;
+        }
+
+        count++;
+
+        // 1. Create main div
+        var item = document.createElement("div");
+        item.className = "item";
+        item.id = "item-" + count;
+
+        // 2. Create text span
+        var span = document.createElement("span");
+        span.textContent = count + ". " + text;
+
+        // 3. Create delete button
+        var delBtn = document.createElement("button");
+        delBtn.className = "del-btn";
+        delBtn.textContent = "✕ Remove";
+        delBtn.onclick = function() {
+            item.remove(); // Remove parent div
+        };
+
+        // 4. Assemble and append to DOM
+        item.appendChild(span);
+        item.appendChild(delBtn);
+        document.getElementById("container").appendChild(item);
+
+        // 5. Clear input
+        document.getElementById("textInput").value = "";
+        document.getElementById("textInput").focus();
+    }
+
+    // Allow pressing Enter to add
+    document.getElementById("textInput").addEventListener("keypress", function(e) {
+        if (e.key === "Enter") addElement();
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q24</div>
+        <div class="qa-q">What are all the looping structures in JavaScript? Explain in detail with example.</div>
+        <div class="qa-meta"><span class="marks-badge marks-8">8 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <table>
+          <tr><th>Loop</th><th>Best Used When</th></tr>
+          <tr><td>for</td><td>Known number of iterations</td></tr>
+          <tr><td>while</td><td>Unknown iterations, check condition first</td></tr>
+          <tr><td>do...while</td><td>Execute at least once, then check condition</td></tr>
+          <tr><td>for...in</td><td>Iterate over object properties</td></tr>
+          <tr><td>for...of</td><td>Iterate over iterable values (array, string)</td></tr>
+          <tr><td>forEach()</td><td>Array method for each element (no break)</td></tr>
+        </table>
+        <pre><code>// 1. for loop
+for (var i = 1; i <= 5; i++) {
+    console.log("Count: " + i);
+}
+// Output: Count: 1, Count: 2, ... Count: 5
+
+// 2. while loop
+var i = 1;
+while (i <= 5) {
+    console.log("While: " + i);
+    i++;
+}
+
+// 3. do...while loop (runs at least once!)
+var n = 10;
+do {
+    console.log("Do-While runs once even if n=10");
+    n++;
+} while (n < 5);  // condition false, but ran once!
+
+// 4. for...in loop (object properties)
+var student = { name: "Raj", age: 20, city: "Ahmedabad" };
+for (var key in student) {
+    console.log(key + ": " + student[key]);
+}
+// name: Raj | age: 20 | city: Ahmedabad
+
+// 5. for...of loop (array values)
+var fruits = ["Apple", "Banana", "Cherry"];
+for (var fruit of fruits) {
+    console.log(fruit);
+}
+// Apple | Banana | Cherry
+
+// 6. forEach (array method)
+fruits.forEach(function(item, index) {
+    console.log(index + ": " + item);
+});
+
+// Loop control
+for (var i = 0; i < 10; i++) {
+    if (i === 3) continue; // Skip 3
+    if (i === 7) break;    // Stop at 7
+    console.log(i);
+}
+// Output: 0, 1, 2, 4, 5, 6</code></pre>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q25</div>
+        <div class="qa-q">What are all the control structures in JavaScript? Explain in detail with example.</div>
+        <div class="qa-meta"><span class="marks-badge marks-8">8 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p>Control structures control the flow of program execution.</p>
+        <table>
+          <tr><th>Type</th><th>Structures</th></tr>
+          <tr><td>Conditional</td><td>if, if-else, if-else if, switch, ternary operator</td></tr>
+          <tr><td>Loops</td><td>for, while, do-while, for-in, for-of</td></tr>
+          <tr><td>Jump</td><td>break, continue, return</td></tr>
+        </table>
+        <pre><code>// 1. if statement
+var age = 18;
+if (age >= 18) {
+    console.log("Adult — can vote!");
+}
+
+// 2. if-else
+if (age >= 18) {
+    console.log("Adult");
+} else {
+    console.log("Minor");
+}
+
+// 3. if-else if-else (ladder)
+var marks = 75;
+if (marks >= 90) {
+    console.log("Grade A+");
+} else if (marks >= 80) {
+    console.log("Grade A");
+} else if (marks >= 70) {
+    console.log("Grade B");
+} else if (marks >= 60) {
+    console.log("Grade C");
+} else {
+    console.log("Grade F — Fail");
+}
+
+// 4. switch statement
+var day = 3;
+switch (day) {
+    case 1: console.log("Monday");   break;
+    case 2: console.log("Tuesday");  break;
+    case 3: console.log("Wednesday"); break;
+    case 4: console.log("Thursday"); break;
+    case 5: console.log("Friday");   break;
+    case 6: console.log("Saturday"); break;
+    case 7: console.log("Sunday");   break;
+    default: console.log("Invalid day");
+}
+// Output: Wednesday
+
+// 5. Ternary Operator (shorthand if-else)
+var x = 10;
+var result = (x > 5) ? "Greater" : "Less or Equal";
+console.log(result); // "Greater"
+
+// Nested ternary
+var score = 85;
+var grade = score >= 90 ? "A" : score >= 80 ? "B" : score >= 70 ? "C" : "F";
+
+// 6. break and continue
+for (var i = 0; i < 10; i++) {
+    if (i === 3) continue; // Skip i=3
+    if (i === 8) break;    // Exit loop at i=8
+    console.log(i);        // Prints: 0,1,2,4,5,6,7
+}
+
+// 7. return (exits function)
+function findFirst(arr, target) {
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i] === target) return i; // Exit function early
+    }
+    return -1; // Not found
+}</code></pre>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ UNIT 4 ═══════════════════════════════════════ -->
+<div class="unit u4" id="unit-u4">
+  <div class="unit-header">
+    <div>
+      <div class="num">UNIT 04</div>
+      <h2>Working with jQuery and Bootstrap</h2>
+    </div>
+    <div class="q-count">22 Questions</div>
+  </div>
+  <div class="qa-list">
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q1</div>
+        <div class="qa-q">What is jQuery? What is jQuery used for? List some features of jQuery.</div>
+        <div class="qa-meta"><span class="marks-badge marks-3">3 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p><strong>jQuery</strong> is a fast, lightweight, feature-rich JavaScript library. Its motto: <em>"Write Less, Do More."</em> Released in 2006 by John Resig, it simplifies JavaScript programming.</p>
+        <p><strong>What jQuery is Used For:</strong></p>
+        <ul>
+          <li>HTML/DOM manipulation with simple syntax</li>
+          <li>CSS manipulation at runtime</li>
+          <li>HTML event handling (click, hover, etc.)</li>
+          <li>AJAX calls for data loading without page refresh</li>
+          <li>Animations and effects (show, hide, fade, slide)</li>
+          <li>Cross-browser compatibility</li>
+        </ul>
+        <table>
+          <tr><th>Feature</th><th>Description</th></tr>
+          <tr><td>Simple Selectors</td><td>$("p"), $(".class"), $("#id") — CSS-style selectors</td></tr>
+          <tr><td>DOM Manipulation</td><td>Easily modify HTML, attributes, CSS</td></tr>
+          <tr><td>Event Handling</td><td>.click(), .hover(), .on(), .off()</td></tr>
+          <tr><td>AJAX</td><td>$.ajax(), $.get(), $.post() for server calls</td></tr>
+          <tr><td>Animation</td><td>.hide(), .show(), .fadeIn(), .slideDown(), .animate()</td></tr>
+          <tr><td>Chaining</td><td>$("p").css("color","red").hide().fadeIn() — method chaining</td></tr>
+          <tr><td>Cross-browser</td><td>Works across all major browsers without extra code</td></tr>
+          <tr><td>Plugin Ecosystem</td><td>Thousands of jQuery plugins available</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q2</div>
+        <div class="qa-q">What are the advantages of jQuery?</div>
+        <div class="qa-meta"><span class="marks-badge marks-3">3 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <table>
+          <tr><th>Advantage</th><th>Description</th></tr>
+          <tr><td>Less Code</td><td>Tasks that need 20+ lines in JS take 1-2 lines in jQuery</td></tr>
+          <tr><td>Easy Syntax</td><td>$("#id").hide() vs document.getElementById("id").style.display="none"</td></tr>
+          <tr><td>Cross-Browser</td><td>Handles browser differences automatically (IE, Chrome, Firefox, Safari)</td></tr>
+          <tr><td>AJAX Simplified</td><td>$.get(), $.post() are much simpler than raw XMLHttpRequest</td></tr>
+          <tr><td>Rich Effects</td><td>Built-in fadeIn, slideDown, animate — no manual CSS transitions</td></tr>
+          <tr><td>Chaining</td><td>Multiple operations in one line: $("p").addClass("red").fadeOut()</td></tr>
+          <tr><td>Large Community</td><td>Huge ecosystem, plugins, and documentation</td></tr>
+          <tr><td>Lightweight</td><td>~30KB minified — fast to load</td></tr>
+          <tr><td>DOM Traversal</td><td>.parent(), .children(), .siblings(), .find() are very easy</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q3</div>
+        <div class="qa-q">How is jQuery different from JavaScript?</div>
+        <div class="qa-meta"><span class="marks-badge marks-3">3 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <table>
+          <tr><th>Feature</th><th>JavaScript</th><th>jQuery</th></tr>
+          <tr><td>Type</td><td>Programming Language</td><td>JavaScript Library (built on JS)</td></tr>
+          <tr><td>Syntax</td><td>Verbose, longer code</td><td>Concise, shorter code</td></tr>
+          <tr><td>Browser Support</td><td>Must handle differences manually</td><td>Cross-browser by default</td></tr>
+          <tr><td>DOM Selection</td><td>document.getElementById("id")</td><td>$("#id")</td></tr>
+          <tr><td>Hiding Element</td><td>el.style.display = "none"</td><td>$("#id").hide()</td></tr>
+          <tr><td>AJAX</td><td>Complex XMLHttpRequest</td><td>Simple $.get() / $.post()</td></tr>
+          <tr><td>Animation</td><td>Manual CSS transitions/JS timers</td><td>Built-in methods</td></tr>
+          <tr><td>Learning Curve</td><td>Steeper</td><td>Easier to learn</td></tr>
+          <tr><td>Performance</td><td>Faster (no library overhead)</td><td>Slight overhead (~30KB)</td></tr>
+        </table>
+        <pre><code>// Same task — Different approach
+
+// JavaScript: Hide all paragraphs
+var paras = document.querySelectorAll("p");
+paras.forEach(function(p) { p.style.display = "none"; });
+
+// jQuery: Hide all paragraphs
+$("p").hide();</code></pre>
+        <div class="note">📌 jQuery IS JavaScript — it's a library written in JS. You still need JS knowledge to use jQuery effectively.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q4</div>
+        <div class="qa-q">What is the difference between the methods onload() and document.ready()?</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <table>
+          <tr><th>Feature</th><th>window.onload()</th><th>$(document).ready()</th></tr>
+          <tr><td>Fires when</td><td>EVERYTHING loaded (HTML + CSS + images + JS)</td><td>Only HTML/DOM is parsed and ready</td></tr>
+          <tr><td>Speed</td><td>Slower (waits for all resources)</td><td>Faster (doesn't wait for images)</td></tr>
+          <tr><td>Multiple use</td><td>Only ONE onload per page (overwrites previous)</td><td>Multiple ready() can coexist</td></tr>
+          <tr><td>Belongs to</td><td>Plain JavaScript (window object)</td><td>jQuery library</td></tr>
+          <tr><td>Shorthand</td><td>No shorthand</td><td>$(function() { ... })</td></tr>
+        </table>
+        <pre><code>// window.onload — fires when ALL resources loaded
+window.onload = function() {
+    console.log("Everything loaded including images!");
+    // Safe to use: images are loaded, sizes are known
+};
+
+// jQuery document.ready — fires when DOM is ready
+$(document).ready(function() {
+    console.log("DOM ready — faster than onload!");
+    // Can manipulate DOM elements
+    $("p").css("color", "blue");
+});
+
+// jQuery shorthand (same as above)
+$(function() {
+    console.log("DOM ready shorthand!");
+    $("h1").text("Updated by jQuery");
+});
+
+// Equivalent in Vanilla JS (modern)
+document.addEventListener("DOMContentLoaded", function() {
+    console.log("DOM ready in pure JS");
+});</code></pre>
+        <div class="tip">💡 Prefer $(document).ready() for jQuery code — it runs earlier and allows interaction before images load.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q5</div>
+        <div class="qa-q">How to iterate/loop through all p elements in jQuery.</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <pre><code>&lt;p&gt;Paragraph 1&lt;/p&gt;
+&lt;p&gt;Paragraph 2&lt;/p&gt;
+&lt;p&gt;Paragraph 3&lt;/p&gt;
+
+&lt;script src="jquery.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+// Method 1: .each() — most common jQuery way
+$("p").each(function(index, element) {
+    console.log("Index: " + index + " | Text: " + $(this).text());
+    $(this).css("color", "blue");         // Apply style to each
+    $(this).text("Para " + (index + 1)); // Modify each
+});
+
+// Method 2: .each() shorthand
+$("p").each(function() {
+    console.log($(this).html());
+});
+
+// Method 3: jQuery.each() utility function
+$.each($("p"), function(i, el) {
+    console.log(i + ": " + $(el).text());
+});
+
+// Method 4: Traditional for loop with length
+var paras = $("p");
+for (var i = 0; i < paras.length; i++) {
+    console.log(paras.eq(i).text()); // .eq(i) gets jQuery object at index
+}
+
+// Method 5: .map() — transform and collect results
+var texts = $("p").map(function() {
+    return $(this).text();
+}).get(); // .get() converts jQuery object to plain array
+console.log(texts); // ["Paragraph 1", "Paragraph 2", "Paragraph 3"]
+&lt;/script&gt;</code></pre>
+        <div class="tip">💡 Inside .each(), use $(this) to refer to the current element as a jQuery object. Use this (without $) for the plain DOM element.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q6</div>
+        <div class="qa-q">Explain $(document).ready() function?</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p><code>$(document).ready()</code> is a jQuery function that ensures the code inside it runs only after the HTML DOM has been fully loaded and parsed by the browser.</p>
+        <p><strong>Why It's Needed:</strong></p>
+        <ul>
+          <li>If JavaScript runs before DOM is ready, elements won't be found</li>
+          <li>Ensures HTML elements exist before we try to manipulate them</li>
+        </ul>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;!-- jQuery CDN --&gt;
+  &lt;script src="https://code.jquery.com/jquery-3.6.0.min.js"&gt;&lt;/script&gt;
+  &lt;script&gt;
+    // ❌ Without ready() — may fail (DOM not loaded yet)
+    // $("#title").text("Hello"); // Error! Element doesn't exist yet
+
+    // ✅ With document.ready() — safe and correct
+    $(document).ready(function() {
+        // All DOM elements are available here
+        $("#title").text("Updated with jQuery!");
+        $("p").css("color", "blue");
+        $(".card").addClass("highlight");
+
+        // Attach events safely
+        $("#btn").on("click", function() {
+            alert("Button clicked!");
+        });
+    });
+
+    // Shorthand (same effect)
+    $(function() {
+        console.log("DOM is ready — shorthand version");
+    });
+  &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1 id="title"&gt;Original Title&lt;/h1&gt;
+  &lt;p&gt;Some text&lt;/p&gt;
+  &lt;button id="btn"&gt;Click Me&lt;/button&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        <div class="imp">⚠️ IMP: Always wrap jQuery code inside $(document).ready() or place script tag before closing &lt;/body&gt;!</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q7</div>
+        <div class="qa-q">What are the jQuery functions used to provide effects?</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <table>
+          <tr><th>Category</th><th>Method</th><th>Description</th></tr>
+          <tr><td>Show/Hide</td><td>.show(speed)</td><td>Show hidden element</td></tr>
+          <tr><td>Show/Hide</td><td>.hide(speed)</td><td>Hide visible element</td></tr>
+          <tr><td>Show/Hide</td><td>.toggle(speed)</td><td>Toggle show/hide</td></tr>
+          <tr><td>Fade</td><td>.fadeIn(speed)</td><td>Fade element in</td></tr>
+          <tr><td>Fade</td><td>.fadeOut(speed)</td><td>Fade element out</td></tr>
+          <tr><td>Fade</td><td>.fadeTo(speed, opacity)</td><td>Fade to specific opacity</td></tr>
+          <tr><td>Fade</td><td>.fadeToggle(speed)</td><td>Toggle fade in/out</td></tr>
+          <tr><td>Slide</td><td>.slideDown(speed)</td><td>Slide element down (reveal)</td></tr>
+          <tr><td>Slide</td><td>.slideUp(speed)</td><td>Slide element up (hide)</td></tr>
+          <tr><td>Slide</td><td>.slideToggle(speed)</td><td>Toggle slide</td></tr>
+          <tr><td>Custom</td><td>.animate(props, speed)</td><td>Custom CSS animation</td></tr>
+          <tr><td>Control</td><td>.stop()</td><td>Stop current animation</td></tr>
+          <tr><td>Control</td><td>.delay(ms)</td><td>Delay next effect in queue</td></tr>
+        </table>
+        <pre><code>// speed can be: "slow", "fast", or milliseconds (e.g. 1000)
+
+$("#div").show(1000);          // Show in 1 second
+$("#div").hide("slow");        // Hide slowly
+$("#div").toggle(500);         // Toggle in 500ms
+
+$("#box").fadeIn(2000);        // Fade in over 2 seconds
+$("#box").fadeOut("fast");
+$("#box").fadeTo(1000, 0.5);   // Fade to 50% opacity
+$("#box").fadeToggle();
+
+$(".panel").slideDown(600);    // Reveal sliding down
+$(".panel").slideUp(600);      // Hide sliding up
+$(".panel").slideToggle(400);  // Toggle slide
+
+// animate() — custom animation
+$("#ball").animate({
+    left: "300px",
+    opacity: 0.5,
+    width: "100px"
+}, 1500);  // 1.5 seconds
+
+// Chaining effects
+$("#box").slideUp(500).delay(300).fadeIn(800);</code></pre>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q8</div>
+        <div class="qa-q">What is the use of css() method in jQuery?</div>
+        <div class="qa-meta"><span class="marks-badge marks-3">3 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p>The <code>.css()</code> method in jQuery is used to <strong>get</strong> or <strong>set</strong> CSS properties of selected elements.</p>
+        <pre><code>// GET a CSS property value
+var color = $("p").css("color");
+var size  = $("#title").css("font-size");
+console.log("Color:", color); // e.g. "rgb(0, 0, 0)"
+console.log("Size:",  size);  // e.g. "16px"
+
+// SET a single CSS property
+$("p").css("color", "blue");
+$("h1").css("font-size", "32px");
+$(".card").css("background-color", "#f0f0f0");
+
+// SET multiple CSS properties at once (object)
+$(".box").css({
+    "color"           : "white",
+    "background-color": "#3498db",
+    "padding"         : "20px",
+    "border-radius"   : "8px",
+    "font-size"       : "18px",
+    "margin"          : "10px auto"
+});
+
+// Toggle between styles
+var isBlue = false;
+$("#btn").click(function() {
+    if (isBlue) {
+        $("body").css("background-color", "white");
+    } else {
+        $("body").css("background-color", "#3498db");
+    }
+    isBlue = !isBlue;
+});</code></pre>
+        <div class="tip">💡 .css() reads COMPUTED styles (what browser actually applies). For class-based styling, prefer .addClass()/.removeClass().</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q9</div>
+        <div class="qa-q">Which jQuery method is used to hide selected elements?</div>
+        <div class="qa-meta"><span class="marks-badge marks-3">3 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p>The <code>.hide()</code> method is used to hide selected elements in jQuery. It sets display: none on the element.</p>
+        <pre><code>// Basic hide
+$("p").hide();            // Instantly hide all paragraphs
+$("#myDiv").hide();       // Hide element by ID
+$(".card").hide();        // Hide all elements with class 'card'
+
+// Hide with speed/duration
+$("p").hide("slow");      // Gradually hide (slow)
+$("p").hide("fast");      // Gradually hide (fast)
+$("p").hide(1000);        // Gradually hide in 1000ms
+
+// Hide with callback (runs after hidden)
+$("p").hide(500, function() {
+    console.log("Now fully hidden!");
+    $(this).remove();     // Remove from DOM after hiding
+});
+
+// Related methods:
+$("p").show();            // Show hidden elements
+$("p").toggle();          // Toggle hide/show
+$("p").fadeOut();         // Hide with fade effect
+$("p").slideUp();         // Hide with slide-up effect
+
+// Check if hidden
+if ($("#myDiv").is(":hidden")) {
+    console.log("It is hidden");
+}</code></pre>
+        <div class="note">📌 .hide() uses display:none internally. The element still exists in DOM but is not visible or taking up space.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q10</div>
+        <div class="qa-q">What are events in jQuery? List any five events with example.</div>
+        <div class="qa-meta"><span class="marks-badge marks-8">8 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p><strong>Events</strong> in jQuery are actions/occurrences that happen in the browser (user clicks, key presses, page load). jQuery provides simple methods to handle these events.</p>
+        <table>
+          <tr><th>Category</th><th>jQuery Events</th></tr>
+          <tr><td>Mouse</td><td>click, dblclick, hover, mouseenter, mouseleave, mousedown, mouseup, mousemove</td></tr>
+          <tr><td>Keyboard</td><td>keydown, keyup, keypress</td></tr>
+          <tr><td>Form</td><td>submit, change, focus, blur, select, input</td></tr>
+          <tr><td>Document/Window</td><td>ready, load, resize, scroll, unload</td></tr>
+        </table>
+        <p><strong>Five Events with Examples:</strong></p>
+        <pre><code>$(document).ready(function() {
+
+  // 1. click() — on button click
+  $("#btn").click(function() {
+      $(this).text("Clicked!");
+      $(this).css("background", "#27ae60");
+  });
+
+  // 2. hover() — takes two functions: mouseenter + mouseleave
+  $(".card").hover(
+      function() { // mouseenter
+          $(this).css({ "transform": "scale(1.05)", "box-shadow": "0 5px 15px rgba(0,0,0,0.2)" });
+      },
+      function() { // mouseleave
+          $(this).css({ "transform": "scale(1)", "box-shadow": "none" });
+      }
+  );
+
+  // 3. keyup() — capture keystrokes in input
+  $("#searchInput").keyup(function() {
+      var searchText = $(this).val();
+      $("#result").text("Searching for: " + searchText);
+      // Filter table rows, etc.
+  });
+
+  // 4. submit() — form submission
+  $("form").submit(function(event) {
+      event.preventDefault();  // Prevent actual form submit
+      var name = $("#name").val();
+      if (name === "") {
+          alert("Name is required!");
+          return false;
+      }
+      alert("Form submitted! Name: " + name);
+  });
+
+  // 5. change() — select dropdown change
+  $("#colorSelect").change(function() {
+      var selected = $(this).val();
+      $("body").css("background-color", selected);
+      console.log("Selected: " + selected);
+  });
+
+  // BONUS: on() — recommended universal event attachment
+  // Works on dynamically created elements too
+  $(document).on("click", ".dynamic-btn", function() {
+      console.log("Dynamic element clicked!");
+  });
+
+});</code></pre>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q11</div>
+        <div class="qa-q">Define term: Event, Event handler, Event Object.</div>
+        <div class="qa-meta"><span class="marks-badge marks-3">3 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <table>
+          <tr><th>Term</th><th>Definition</th></tr>
+          <tr>
+            <td><strong>Event</strong></td>
+            <td>An action or occurrence that happens in the browser, typically caused by the user or the browser itself. Examples: click, keypress, mouseover, page load, form submit. Events are signals that something has happened.</td>
+          </tr>
+          <tr>
+            <td><strong>Event Handler</strong></td>
+            <td>A function that is called when a specific event occurs on a specific element. Also called "event listener" or "callback function". It contains the code that should execute in response to the event.</td>
+          </tr>
+          <tr>
+            <td><strong>Event Object</strong></td>
+            <td>An object automatically created by the browser and passed to the event handler function. Contains information about the event: which element triggered it, mouse position, key pressed, etc.</td>
+          </tr>
+        </table>
+        <pre><code>// EVENT — click on button
+// EVENT HANDLER — the function passed to .on()
+// EVENT OBJECT — 'e' parameter containing event details
+
+$("#myButton").on("click", function(e) {
+    // 'e' is the Event Object
+    console.log("Event type:", e.type);          // "click"
+    console.log("Target:", e.target);            // The button element
+    console.log("Target ID:", e.target.id);      // "myButton"
+    console.log("Mouse X:", e.pageX);            // Mouse position
+    console.log("Mouse Y:", e.pageY);
+    console.log("Timestamp:", e.timeStamp);
+
+    e.preventDefault();  // Prevent default action (e.g. form submit)
+    e.stopPropagation(); // Stop event bubbling to parent elements
+});</code></pre>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q12</div>
+        <div class="qa-q">What is CDN?</div>
+        <div class="qa-meta"><span class="marks-badge marks-3">3 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p><strong>CDN (Content Delivery Network)</strong> is a geographically distributed network of servers that delivers web content to users from the server closest to them, improving speed and performance.</p>
+        <pre><code>Without CDN:
+User in India → Server in USA → ~200ms delay
+
+With CDN:
+User in India → CDN Server in Mumbai → ~10ms delay</code></pre>
+        <table>
+          <tr><th>Feature</th><th>Description</th></tr>
+          <tr><td>Speed</td><td>Serves from nearest server — reduces latency</td></tr>
+          <tr><td>Reliability</td><td>Redundant servers — if one fails, another serves</td></tr>
+          <tr><td>Caching</td><td>Browser caches CDN resources — loaded once, reused everywhere</td></tr>
+          <tr><td>Reduced Load</td><td>Less load on your origin server</td></tr>
+        </table>
+        <pre><code>&lt;!-- jQuery from CDN (Google CDN) --&gt;
+&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- jQuery from CDN (jQuery official CDN) --&gt;
+&lt;script src="https://code.jquery.com/jquery-3.6.0.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- Bootstrap CSS from CDN --&gt;
+&lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"&gt;
+
+&lt;!-- Font Awesome icons from CDN --&gt;
+&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"&gt;</code></pre>
+        <div class="tip">💡 Popular CDN providers: Google CDN, jsDelivr, cdnjs (Cloudflare), unpkg, StackPath</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q13</div>
+        <div class="qa-q">What are the selectors in jQuery? How many types of selectors in jQuery?</div>
+        <div class="qa-meta"><span class="marks-badge marks-8">8 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p>jQuery selectors are patterns used to select HTML elements. They are based on CSS selectors but with additional jQuery-specific selectors.</p>
+        <table>
+          <tr><th>Type</th><th>Selector</th><th>Example</th><th>Selects</th></tr>
+          <tr><td>Universal</td><td>*</td><td>$("*")</td><td>All elements</td></tr>
+          <tr><td>Element</td><td>element</td><td>$("p")</td><td>All &lt;p&gt; elements</td></tr>
+          <tr><td>ID</td><td>#id</td><td>$("#header")</td><td>Element with id="header"</td></tr>
+          <tr><td>Class</td><td>.class</td><td>$(".btn")</td><td>All with class="btn"</td></tr>
+          <tr><td>Multiple</td><td>s1,s2,s3</td><td>$("h1,h2,h3")</td><td>All h1, h2, and h3</td></tr>
+          <tr><td>Descendant</td><td>s1 s2</td><td>$("div p")</td><td>p inside div (any depth)</td></tr>
+          <tr><td>Child</td><td>s1 > s2</td><td>$("ul > li")</td><td>Direct children li of ul</td></tr>
+          <tr><td>Attribute</td><td>[attr]</td><td>$("[type='text']")</td><td>Elements with attribute</td></tr>
+          <tr><td>First</td><td>:first</td><td>$("p:first")</td><td>First &lt;p&gt;</td></tr>
+          <tr><td>Last</td><td>:last</td><td>$("p:last")</td><td>Last &lt;p&gt;</td></tr>
+          <tr><td>Even</td><td>:even</td><td>$("tr:even")</td><td>Even-indexed rows (0,2,4...)</td></tr>
+          <tr><td>Odd</td><td>:odd</td><td>$("tr:odd")</td><td>Odd-indexed rows (1,3,5...)</td></tr>
+          <tr><td>nth-child</td><td>:nth-child(n)</td><td>$("li:nth-child(3)")</td><td>3rd li in any list</td></tr>
+          <tr><td>Contains</td><td>:contains</td><td>$("p:contains('Hello')")</td><td>p elements with text 'Hello'</td></tr>
+          <tr><td>Hidden</td><td>:hidden</td><td>$("div:hidden")</td><td>Hidden divs</td></tr>
+          <tr><td>Visible</td><td>:visible</td><td>$("p:visible")</td><td>Visible paragraphs</td></tr>
+          <tr><td>Has</td><td>:has(s)</td><td>$("div:has(p)")</td><td>Divs that contain a p</td></tr>
+          <tr><td>Not</td><td>:not(s)</td><td>$("p:not(.intro)")</td><td>p without class 'intro'</td></tr>
+          <tr><td>Checked</td><td>:checked</td><td>$("input:checked")</td><td>Checked checkboxes/radios</td></tr>
+          <tr><td>Disabled</td><td>:disabled</td><td>$("input:disabled")</td><td>Disabled form elements</td></tr>
+        </table>
+        <pre><code>// Examples in use
+$("*").css("box-sizing","border-box");         // Universal
+$("h1, h2, h3").css("font-family","Arial");   // Multiple
+$("div p").css("color","blue");               // Descendant
+$("[href^='https']").css("color","green");    // Attribute starts with
+$("li:eq(2)").css("font-I seem to be encountering an error. Can I try something else for you?
+          weight","bold");      // Specific index
+$("tr:even").css("background","#f0f0f0");      // Zebra striping</code></pre>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q14</div>
+        <div class="qa-q">Explain how CSS classes can be manipulated in HTML using jQuery.</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p>jQuery provides several methods to add, remove, toggle, and check CSS classes on HTML elements.</p>
+        <table>
+          <tr><th>Method</th><th>Description</th></tr>
+          <tr><td>.addClass("class")</td><td>Adds one or more CSS classes</td></tr>
+          <tr><td>.removeClass("class")</td><td>Removes one or more CSS classes</td></tr>
+          <tr><td>.toggleClass("class")</td><td>Toggles class — adds if absent, removes if present</td></tr>
+          <tr><td>.hasClass("class")</td><td>Returns true/false if element has the class</td></tr>
+          <tr><td>.attr("class")</td><td>Get or set the class attribute directly</td></tr>
+        </table>
+        <pre><code>&lt;style&gt;
+  .active   { background: #27ae60; color: white; }
+  .hidden   { display: none; }
+  .highlight{ background: yellow; font-weight: bold; }
+  .large    { font-size: 24px; }
+&lt;/style&gt;
+
+&lt;div id="box"&gt;Hello Box&lt;/div&gt;
+&lt;button id="addBtn"&gt;Add Active&lt;/button&gt;
+&lt;button id="removeBtn"&gt;Remove Active&lt;/button&gt;
+&lt;button id="toggleBtn"&gt;Toggle Active&lt;/button&gt;
+
+&lt;script&gt;
+  $(document).ready(function() {
+
+    // ADD class
+    $("#addBtn").click(function() {
+        $("#box").addClass("active");
+    });
+
+    // REMOVE class
+    $("#removeBtn").click(function() {
+        $("#box").removeClass("active");
+    });
+
+    // TOGGLE class
+    $("#toggleBtn").click(function() {
+        $("#box").toggleClass("active");
+    });
+
+    // ADD MULTIPLE classes
+    $("#box").addClass("highlight large");
+
+    // CHECK if class exists
+    if ($("#box").hasClass("highlight")) {
+        console.log("Has highlight class");
+    }
+
+    // REMOVE multiple classes
+    $("#box").removeClass("highlight large");
+
+    // Get all classes
+    console.log($("#box").attr("class"));
+  });
+&lt;/script&gt;</code></pre>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q15</div>
+        <div class="qa-q">State some different types of jQuery methods.</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <table>
+          <tr><th>Category</th><th>Methods</th></tr>
+          <tr><td>DOM Manipulation</td><td>.html(), .text(), .val(), .append(), .prepend(), .after(), .before(), .remove(), .empty(), .clone(), .wrap()</td></tr>
+          <tr><td>CSS/Style</td><td>.css(), .addClass(), .removeClass(), .toggleClass(), .hasClass(), .show(), .hide()</td></tr>
+          <tr><td>Traversal</td><td>.find(), .filter(), .parent(), .parents(), .children(), .siblings(), .next(), .prev(), .closest(), .eq(), .first(), .last()</td></tr>
+          <tr><td>Events</td><td>.on(), .off(), .click(), .hover(), .submit(), .keydown(), .keyup(), .focus(), .blur(), .change(), .trigger()</td></tr>
+          <tr><td>Effects</td><td>.show(), .hide(), .toggle(), .fadeIn(), .fadeOut(), .slideDown(), .slideUp(), .animate(), .delay(), .stop()</td></tr>
+          <tr><td>AJAX</td><td>$.ajax(), $.get(), $.post(), $.getJSON(), $.load()</td></tr>
+          <tr><td>Attributes</td><td>.attr(), .removeAttr(), .prop(), .data()</td></tr>
+          <tr><td>Utilities</td><td>$.each(), $.map(), $.grep(), $.extend(), $.isArray(), $.trim(), $.type()</td></tr>
+        </table>
+        <pre><code>// Quick method examples
+$("p").html("&lt;em&gt;New HTML&lt;/em&gt;");    // Set innerHTML
+$("p").text("Plain text only");       // Set text content
+$("input").val("Default value");      // Get/set form value
+
+$("ul").append("&lt;li&gt;New Item&lt;/li&gt;"); // Add at end
+$("ul").prepend("&lt;li&gt;First&lt;/li&gt;");   // Add at start
+$("#el").after("&lt;p&gt;After&lt;/p&gt;");      // Insert after element
+$("p").remove();                       // Remove from DOM
+$("div").empty();                      // Remove all children</code></pre>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q16</div>
+        <div class="qa-q">Explain jQuery Callback Functions.</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p>A <strong>jQuery Callback Function</strong> is a function passed as a parameter to a jQuery method that is executed after the method completes. This is especially important for effects and animations that take time.</p>
+        <p><strong>Why Callbacks Are Needed:</strong></p>
+        <p>JavaScript executes code line by line. Without callbacks, code after an animation would run BEFORE the animation finishes.</p>
+        <pre><code>// WITHOUT callback — runs before hide completes
+$("p").hide(1000);
+console.log("This logs IMMEDIATELY, not after hide!");
+
+// WITH callback — runs AFTER animation completes
+$("p").hide(1000, function() {
+    console.log("Now the hide animation is done!");
+    $(this).remove(); // Remove after hiding
+});
+
+// Practical callback examples:
+// 1. Show then do something
+$("#box").fadeOut(800, function() {
+    $(this).css("background", "red").fadeIn(800);
+});
+
+// 2. Chain with callback
+$("#panel").slideUp(500, function() {
+    $(this).html("&lt;p&gt;New content loaded!&lt;/p&gt;");
+    $(this).slideDown(500);
+});
+
+// 3. Multiple animations in sequence using callbacks
+$("#ball").animate({left: "300px"}, 1000, function() {
+    $(this).animate({top: "200px"}, 1000, function() {
+        $(this).animate({left: "0"}, 1000, function() {
+            alert("Animation sequence complete!");
+        });
+    });
+});</code></pre>
+        <div class="tip">💡 jQuery effect callbacks receive `this` pointing to the animated element — very useful for chaining operations!</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q17</div>
+        <div class="qa-q">Explain in detail jQuery - AJAX get() and post() Methods with example.</div>
+        <div class="qa-meta"><span class="marks-badge marks-8">8 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p><strong>AJAX (Asynchronous JavaScript and XML)</strong> allows web pages to communicate with a server and update content without reloading the entire page.</p>
+        <table>
+          <tr><th>Feature</th><th>$.get()</th><th>$.post()</th></tr>
+          <tr><td>HTTP Method</td><td>GET</td><td>POST</td></tr>
+          <tr><td>Data sent</td><td>In URL as query string</td><td>In request body (hidden)</td></tr>
+          <tr><td>Data visible</td><td>Yes (in browser URL)</td><td>No</td></tr>
+          <tr><td>Use for</td><td>Fetching/reading data</td><td>Submitting/creating data</td></tr>
+          <tr><td>Security</td><td>Less secure</td><td>More secure</td></tr>
+          <tr><td>Data size</td><td>Limited (URL length)</td><td>Larger data possible</td></tr>
+        </table>
+        <p><strong>$.get() Syntax and Example:</strong></p>
+        <pre><code>// Syntax: $.get(URL, data, callback, dataType)
+
+// Basic GET request
+$.get("api/users.php", function(response, status) {
+    if (status === "success") {
+        console.log("Data:", response);
+        $("#output").html(response);
+    }
+});
+
+// GET with parameters
+$.get("api/student.php", { id: 42, semester: 4 }, function(data) {
+    // URL becomes: api/student.php?id=42&semester=4
+    var student = JSON.parse(data);
+    $("#name").text(student.name);
+    $("#marks").text(student.marks);
+});
+
+// GET JSON data
+$.get("api/products.json", function(data) {
+    $.each(data, function(i, product) {
+        $("#list").append("&lt;li&gt;" + product.name + "&lt;/li&gt;");
+    });
+}, "json");</code></pre>
+        <p><strong>$.post() Syntax and Example:</strong></p>
+        <pre><code>// Syntax: $.post(URL, data, callback, dataType)
+
+// Basic POST — submitting form data
+$.post("api/save_student.php",
+    {
+        name:       "Raj Patel",
+        enrollment: "22IT001",
+        marks:      85
+    },
+    function(response, status) {
+        if (status === "success") {
+            alert("Student saved successfully!");
+            console.log("Server response:", response);
+        }
+    }
+);
+
+// POST with form serialization
+$("form").submit(function(e) {
+    e.preventDefault();
+    var formData = $(this).serialize(); // "name=Raj&email=raj@example.com"
+    $.post("process.php", formData, function(res) {
+        if (res.success) {
+            $(".message").text("Saved!").fadeIn();
+        } else {
+            $(".error").text("Error: " + res.message).fadeIn();
+        }
+    }, "json");
+});
+
+// Generic $.ajax() — full control
+$.ajax({
+    url: "api/data.php",
+    type: "POST",
+    data: { action: "getUsers" },
+    dataType: "json",
+    success: function(data) { console.log(data); },
+    error: function(xhr, status, error) { console.log("Error:", error); },
+    complete: function() { console.log("Request finished"); }
+});</code></pre>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q18</div>
+        <div class="qa-q">What is Traversing?</div>
+        <div class="qa-meta"><span class="marks-badge marks-3">3 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p><strong>Traversing</strong> in jQuery means moving through (navigating) the DOM tree to find, filter, or select elements based on their relationship to other elements.</p>
+        <table>
+          <tr><th>Direction</th><th>Methods</th></tr>
+          <tr><td>Go Up (ancestors)</td><td>.parent(), .parents(), .parentsUntil(), .closest()</td></tr>
+          <tr><td>Go Down (descendants)</td><td>.children(), .find()</td></tr>
+          <tr><td>Go Sideways (siblings)</td><td>.siblings(), .next(), .nextAll(), .nextUntil(), .prev(), .prevAll()</td></tr>
+          <tr><td>Filter</td><td>.filter(), .not(), .has(), .is(), .eq(), .first(), .last()</td></tr>
+        </table>
+        <pre><code>&lt;div id="container"&gt;
+  &lt;h2&gt;Title&lt;/h2&gt;
+  &lt;ul id="list"&gt;
+    &lt;li class="item"&gt;Item 1&lt;/li&gt;
+    &lt;li class="item active"&gt;Item 2&lt;/li&gt;
+    &lt;li class="item"&gt;Item 3&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+
+// Traversal examples
+var activeItem = $(".active");
+
+activeItem.parent();      // → &lt;ul id="list"&gt;
+activeItem.parents();     // → ul, div#container, body, html
+activeItem.closest("div"); // → div#container
+
+activeItem.siblings();    // → Item 1, Item 3
+activeItem.next();        // → Item 3 (next sibling)
+activeItem.prev();        // → Item 1 (previous sibling)
+
+$("#list").children();    // → all 3 li items
+$("#container").find("li"); // → all li (any depth)
+$("#container").find(".active"); // → Item 2
+
+$(".item").filter(":odd");     // Items at odd index
+$(".item").not(".active");     // Items without 'active' class
+$(".item").eq(0);              // First item (index 0)</code></pre>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q19</div>
+        <div class="qa-q">What is Bootstrap?</div>
+        <div class="qa-meta"><span class="marks-badge marks-3">3 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p><strong>Bootstrap</strong> is the world's most popular open-source CSS framework for building responsive, mobile-first websites and web applications. Created by Twitter (Mark Otto and Jacob Thornton) in 2011.</p>
+        <table>
+          <tr><th>Feature</th><th>Description</th></tr>
+          <tr><td>Grid System</td><td>12-column responsive grid for layouts</td></tr>
+          <tr><td>Pre-built Components</td><td>Navbars, cards, modals, alerts, forms, buttons</td></tr>
+          <tr><td>Responsive</td><td>Adapts layout for mobile, tablet, desktop</td></tr>
+          <tr><td>CSS Classes</td><td>Utility classes for spacing, color, typography</td></tr>
+          <tr><td>JavaScript</td><td>Interactive components (dropdowns, tooltips, carousels)</td></tr>
+          <tr><td>Customizable</td><td>Override with custom CSS or Sass variables</td></tr>
+        </table>
+        <pre><code>&lt;!-- Bootstrap 5 CDN links --&gt;
+&lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- Simple Bootstrap page --&gt;
+&lt;div class="container"&gt;
+  &lt;h1 class="text-primary text-center my-4"&gt;Hello Bootstrap!&lt;/h1&gt;
+  &lt;button class="btn btn-success btn-lg"&gt;Success Button&lt;/button&gt;
+  &lt;button class="btn btn-danger"&gt;Danger Button&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+        <div class="tip">💡 Bootstrap versions: 3 (legacy), 4 (Flexbox-based), 5 (current — removed jQuery dependency).</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q20</div>
+        <div class="qa-q">What are the advantages of Bootstrap?</div>
+        <div class="qa-meta"><span class="marks-badge marks-3">3 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <table>
+          <tr><th>Advantage</th><th>Description</th></tr>
+          <tr><td>Responsive Out-of-Box</td><td>Mobile-first grid system automatically handles all screen sizes</td></tr>
+          <tr><td>Fast Development</td><td>Pre-built components save hours of development time</td></tr>
+          <tr><td>Consistent Design</td><td>Uniform look across browsers and devices</td></tr>
+          <tr><td>Cross-Browser</td><td>Tested and normalized for Chrome, Firefox, Safari, Edge</td></tr>
+          <tr><td>Large Community</td><td>Huge ecosystem, themes, templates, and support forums</td></tr>
+          <tr><td>Customizable</td><td>Override CSS variables or use Sass to customize</td></tr>
+          <tr><td>Documentation</td><td>Excellent, comprehensive documentation with examples</td></tr>
+          <tr><td>Open Source</td><td>Free to use — MIT license</td></tr>
+          <tr><td>Rich Components</td><td>Navbars, modals, carousels, tooltips, tabs ready to use</td></tr>
+          <tr><td>Accessibility</td><td>Built with ARIA attributes and a11y best practices</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q21</div>
+        <div class="qa-q">What is a Bootstrap Container, and how does it work?</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p>A <strong>Bootstrap Container</strong> is the fundamental layout element that wraps site content. It provides proper padding and centering for the content inside.</p>
+        <table>
+          <tr><th>Class</th><th>Behavior</th><th>Max Width at Breakpoints</th></tr>
+          <tr><td>.container</td><td>Fixed-width (responsive at each breakpoint)</td><td>xs: 100%, sm: 540px, md: 720px, lg: 960px, xl: 1140px, xxl: 1320px</td></tr>
+          <tr><td>.container-fluid</td><td>Always 100% width of viewport</td><td>Always 100%</td></tr>
+          <tr><td>.container-sm</td><td>100% until sm breakpoint, then fixed</td><td>—</td></tr>
+          <tr><td>.container-md</td><td>100% until md breakpoint, then fixed</td><td>—</td></tr>
+          <tr><td>.container-lg</td><td>100% until lg breakpoint, then fixed</td><td>—</td></tr>
+          <tr><td>.container-xl</td><td>100% until xl breakpoint, then fixed</td><td>—</td></tr>
+        </table>
+        <pre><code>&lt;!-- Standard fixed container --&gt;
+&lt;div class="container"&gt;
+  &lt;!-- Content is centered with max-width per breakpoint --&gt;
+  &lt;p&gt;This content is inside a container.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- Fluid container - always full width --&gt;
+&lt;div class="container-fluid"&gt;
+  &lt;!-- Always 100% wide with padding --&gt;
+  &lt;p&gt;Full width content&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- Containers always auto-center and add horizontal padding --&gt;
+&lt;!-- Bootstrap 5 default: padding-right: 12px, padding-left: 12px --&gt;
+
+&lt;!-- GRID inside container --&gt;
+&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col-md-6"&gt;Column 1&lt;/div&gt;
+    &lt;div class="col-md-6"&gt;Column 2&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        <div class="tip">💡 Rule: Always place .row inside .container, and .col inside .row.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q22</div>
+        <div class="qa-q">What do you know about the Bootstrap Grid System?</div>
+        <div class="qa-meta"><span class="marks-badge marks-8">8 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p>The Bootstrap <strong>Grid System</strong> is a responsive, mobile-first layout system that divides the page into 12 equal columns. It uses CSS Flexbox to arrange content.</p>
+        <pre><code>Bootstrap Grid Structure:
++--------------------------------------------------+
+| .container                                       |
+|  +----------------------------------------------+|
+|  | .row                                         ||
+|  |  +----------+----------+----------+----------+||
+|  |  | .col-3   | .col-3   | .col-3   | .col-3  |||
+|  |  +----------+----------+----------+----------+||
+|  +----------------------------------------------+|
++--------------------------------------------------+</code></pre>
+        <table>
+          <tr><th>Breakpoint</th><th>Class Prefix</th><th>Screen Width</th></tr>
+          <tr><td>Extra small</td><td>.col-</td><td>&lt;576px (Mobile)</td></tr>
+          <tr><td>Small</td><td>.col-sm-</td><td>≥576px (Large mobile)</td></tr>
+          <tr><td>Medium</td><td>.col-md-</td><td>≥768px (Tablet)</td></tr>
+          <tr><td>Large</td><td>.col-lg-</td><td>≥992px (Laptop)</td></tr>
+          <tr><td>Extra large</td><td>.col-xl-</td><td>≥1200px (Desktop)</td></tr>
+          <tr><td>XXL</td><td>.col-xxl-</td><td>≥1400px (Wide screen)</td></tr>
+        </table>
+        <pre><code>&lt;!-- Basic Grid --&gt;
+&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col-4"&gt;1/3 width&lt;/div&gt;
+    &lt;div class="col-4"&gt;1/3 width&lt;/div&gt;
+    &lt;div class="col-4"&gt;1/3 width&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Responsive Grid --&gt;
+&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+    &lt;!-- 
+      Mobile:  Full width (col-12 = 12 of 12 columns)
+      Tablet:  Half width (col-md-6 = 6 of 12 = 50%)
+      Desktop: Third width (col-lg-4 = 4 of 12 = 33%)
+    --&gt;
+    &lt;div class="col-12 col-md-6 col-lg-4"&gt;Card 1&lt;/div&gt;
+    &lt;div class="col-12 col-md-6 col-lg-4"&gt;Card 2&lt;/div&gt;
+    &lt;div class="col-12 col-md-12 col-lg-4"&gt;Card 3&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Equal columns (auto width) --&gt;
+&lt;div class="row"&gt;
+  &lt;div class="col"&gt;Equal&lt;/div&gt;
+  &lt;div class="col"&gt;Equal&lt;/div&gt;
+  &lt;div class="col"&gt;Equal&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Offset --&gt;
+&lt;div class="row"&gt;
+  &lt;div class="col-md-6 offset-md-3"&gt;Centered column&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Nesting --&gt;
+&lt;div class="row"&gt;
+  &lt;div class="col-8"&gt;
+    Outer column
+    &lt;div class="row"&gt;
+      &lt;div class="col-6"&gt;Nested 1&lt;/div&gt;
+      &lt;div class="col-6"&gt;Nested 2&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="col-4"&gt;Outer column&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Row alignment utilities --&gt;
+&lt;div class="row justify-content-center"&gt;&lt;!-- center horizontally --&gt;&lt;/div&gt;
+&lt;div class="row align-items-center"&gt;&lt;!-- center vertically --&gt;&lt;/div&gt;
+&lt;div class="row g-3"&gt;&lt;!-- add gap between cols --&gt;&lt;/div&gt;</code></pre>
+        <div class="imp">⚠️ IMP: Column numbers in a row must sum to 12 (or less). Overflow wraps to next line. Always: container → row → col.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ UNIT 5 ═══════════════════════════════════════ -->
+<div class="unit u5" id="unit-u5">
+  <div class="unit-header">
+    <div>
+      <div class="num">UNIT 05</div>
+      <h2>PHP &amp; MySQL</h2>
+    </div>
+    <div class="q-count">Placeholder</div>
+  </div>
+  <div class="qa-list">
+    <!-- PASTE YOUR UNIT 5 <div class="qa-item"> BLOCKS HERE IF YOU HAVE THEM -->
+  </div>
+</div>
+
+</div> <!-- End of .units container -->
+
+<!-- CRITICAL: JAVASCRIPT FOR UI FUNCTIONALITY -->
+<script>
+  // 1. Function to switch between units
+  function showUnit(unitId, btn) {
+    // Hide all units
+    document.querySelectorAll('.unit').forEach(function(unit) {
+      unit.classList.remove('active');
+    });
+    // Remove active state from all buttons
+    document.querySelectorAll('.tab-btn').forEach(function(button) {
+      button.classList.remove('active');
+    });
+    
+    // Show selected unit and set button as active
+    document.getElementById('unit-' + unitId).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // 2. Function to toggle the accordion open/close
+  function toggle(header) {
+    const item = header.parentElement;
+    const body = item.querySelector('.qa-body');
+    
+    // Toggle the classes
+    item.classList.toggle('open');
+    body.classList.toggle('open');
+  }
+
+  // 3. Function to handle Search Filtering
+  function searchQuestions() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    const allItems = document.querySelectorAll('.qa-item');
+    
+    allItems.forEach(function(item) {
+      const questionText = item.querySelector('.qa-q').textContent.toLowerCase();
+      const answerText = item.querySelector('.qa-body').textContent.toLowerCase();
+      
+      // Check if query matches question OR answer
+      if (questionText.includes(query) || answerText.includes(query)) {
+        item.style.display = '';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  }
+</script>
+</body>
+</html>
