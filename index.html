@@ -1071,3 +1071,2070 @@ git push origin main
 
   </div><!-- end qa-list -->
 </div><!-- end unit u1 -->
+// Unit 1 Q&A Data
+const unit1 = [
+  {
+    q: "What is the purpose of semantic elements in HTML5?",
+    marks: 2,
+    a: `<p>Semantic elements in HTML5 clearly describe their meaning to both the browser and the developer. They define the role and structure of the content on a web page.</p>
+<div class="tip">💡 Semantic = meaningful tags that describe content purpose</div>
+<table>
+  <tr><th>Semantic Element</th><th>Purpose</th></tr>
+  <tr><td>&lt;header&gt;</td><td>Top section / site header</td></tr>
+  <tr><td>&lt;nav&gt;</td><td>Navigation links</td></tr>
+  <tr><td>&lt;main&gt;</td><td>Main content area</td></tr>
+  <tr><td>&lt;article&gt;</td><td>Self-contained content</td></tr>
+  <tr><td>&lt;section&gt;</td><td>Thematic grouping</td></tr>
+  <tr><td>&lt;footer&gt;</td><td>Bottom section</td></tr>
+  <tr><td>&lt;aside&gt;</td><td>Side content / sidebar</td></tr>
+  <tr><td>&lt;figure&gt;</td><td>Image with caption</td></tr>
+</table>
+<div class="note">📌 Benefits: Better SEO, Accessibility (screen readers), Readable code, Browser understanding</div>`
+  },
+  {
+    q: "Name two multimedia elements supported by HTML5.",
+    marks: 2,
+    a: `<p>HTML5 introduced native support for multimedia without requiring plugins like Flash.</p>
+<p><strong>1. &lt;audio&gt;</strong> – Embeds audio content</p>
+<pre><code>&lt;audio controls&gt;
+  &lt;source src="music.mp3" type="audio/mpeg"&gt;
+  Your browser does not support audio.
+&lt;/audio&gt;</code></pre>
+<p><strong>2. &lt;video&gt;</strong> – Embeds video content</p>
+<pre><code>&lt;video controls width="400"&gt;
+  &lt;source src="movie.mp4" type="video/mp4"&gt;
+  Your browser does not support video.
+&lt;/video&gt;</code></pre>
+<div class="tip">💡 Both support: autoplay, controls, loop, muted attributes</div>`
+  },
+  {
+    q: "How do you define a required field in an HTML form with an example?",
+    marks: 4,
+    a: `<p>The <code>required</code> attribute is used to specify that an input field must be filled before submitting the form. It is a boolean attribute.</p>
+<div class="imp">⚠️ IMP: Browser performs automatic validation when <code>required</code> is set.</div>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+  &lt;form action="/submit" method="post"&gt;
+    
+    &lt;label for="name"&gt;Full Name:&lt;/label&gt;
+    &lt;input type="text" id="name" name="name" required&gt;
+    
+    &lt;label for="email"&gt;Email:&lt;/label&gt;
+    &lt;input type="email" id="email" name="email" required&gt;
+    
+    &lt;label for="phone"&gt;Phone:&lt;/label&gt;
+    &lt;input type="tel" id="phone" name="phone"&gt;
+    &lt;!-- Phone is optional - no required attribute --&gt;
+    
+    &lt;button type="submit"&gt;Submit&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<div class="note">📌 If user tries to submit without required fields, browser shows error message automatically.</div>
+<table>
+  <tr><th>Attribute</th><th>Description</th></tr>
+  <tr><td>required</td><td>Field must be filled</td></tr>
+  <tr><td>minlength</td><td>Minimum characters</td></tr>
+  <tr><td>maxlength</td><td>Maximum characters</td></tr>
+  <tr><td>pattern</td><td>Regex validation</td></tr>
+</table>`
+  },
+  {
+    q: "List all HTML tags which are new and removed in HTML5.",
+    marks: 4,
+    a: `<p><strong>New Tags in HTML5:</strong></p>
+<table>
+  <tr><th>Category</th><th>Tags</th></tr>
+  <tr><td>Structural / Semantic</td><td>&lt;header&gt;, &lt;footer&gt;, &lt;nav&gt;, &lt;main&gt;, &lt;section&gt;, &lt;article&gt;, &lt;aside&gt;, &lt;figure&gt;, &lt;figcaption&gt;, &lt;details&gt;, &lt;summary&gt;</td></tr>
+  <tr><td>Multimedia</td><td>&lt;audio&gt;, &lt;video&gt;, &lt;source&gt;, &lt;track&gt;, &lt;embed&gt;</td></tr>
+  <tr><td>Graphics</td><td>&lt;canvas&gt;, &lt;svg&gt;</td></tr>
+  <tr><td>Form Input</td><td>&lt;datalist&gt;, &lt;output&gt;, &lt;keygen&gt;, &lt;meter&gt;, &lt;progress&gt;</td></tr>
+  <tr><td>Text</td><td>&lt;mark&gt;, &lt;ruby&gt;, &lt;rt&gt;, &lt;rp&gt;, &lt;bdi&gt;, &lt;wbr&gt;, &lt;time&gt;</td></tr>
+</table>
+<p><strong>Removed/Deprecated Tags in HTML5:</strong></p>
+<table>
+  <tr><th>Removed Tag</th><th>Reason / Replacement</th></tr>
+  <tr><td>&lt;font&gt;</td><td>Use CSS font properties instead</td></tr>
+  <tr><td>&lt;center&gt;</td><td>Use CSS text-align: center</td></tr>
+  <tr><td>&lt;big&gt;</td><td>Use CSS font-size</td></tr>
+  <tr><td>&lt;strike&gt;</td><td>Use &lt;del&gt; or CSS text-decoration</td></tr>
+  <tr><td>&lt;tt&gt;</td><td>Use &lt;code&gt; or CSS</td></tr>
+  <tr><td>&lt;frameset&gt;</td><td>Frames deprecated entirely</td></tr>
+  <tr><td>&lt;frame&gt;</td><td>Frames deprecated entirely</td></tr>
+  <tr><td>&lt;noframes&gt;</td><td>Frames deprecated entirely</td></tr>
+  <tr><td>&lt;applet&gt;</td><td>Use &lt;embed&gt; or &lt;object&gt;</td></tr>
+  <tr><td>&lt;acronym&gt;</td><td>Use &lt;abbr&gt;</td></tr>
+</table>`
+  },
+  {
+    q: "What is the significance of using placeholder attributes in form inputs with example?",
+    marks: 3,
+    a: `<p>The <code>placeholder</code> attribute provides a short hint that describes the expected value of an input field. It appears inside the input field when it is empty.</p>
+<div class="tip">💡 Placeholder text disappears when user starts typing.</div>
+<p><strong>Significance / Benefits:</strong></p>
+<ul>
+  <li>Provides contextual hints to users about expected input format</li>
+  <li>Improves user experience and form usability</li>
+  <li>Reduces need for separate instruction text</li>
+  <li>Works with text, email, password, search, tel, url inputs</li>
+</ul>
+<pre><code>&lt;form&gt;
+  &lt;input type="text" 
+         placeholder="Enter your full name"&gt;
+  
+  &lt;input type="email" 
+         placeholder="example@gmail.com"&gt;
+  
+  &lt;input type="tel" 
+         placeholder="+91 9876543210"&gt;
+  
+  &lt;input type="password" 
+         placeholder="Minimum 8 characters"&gt;
+  
+  &lt;textarea 
+    placeholder="Write your message here..."&gt;
+  &lt;/textarea&gt;
+&lt;/form&gt;</code></pre>
+<div class="note">📌 Note: Placeholder should NOT replace &lt;label&gt; for accessibility. Always use both.</div>`
+  },
+  {
+    q: "What is the difference between a canvas and SVG element in HTML5?",
+    marks: 4,
+    a: `<table>
+  <tr><th>Feature</th><th>Canvas</th><th>SVG</th></tr>
+  <tr><td>Type</td><td>Raster (pixel-based)</td><td>Vector (shape-based)</td></tr>
+  <tr><td>Rendering</td><td>JavaScript API</td><td>XML markup</td></tr>
+  <tr><td>Scalability</td><td>Loses quality on zoom</td><td>Scales perfectly (vector)</td></tr>
+  <tr><td>DOM</td><td>No DOM for shapes</td><td>Each shape is a DOM element</td></tr>
+  <tr><td>Events</td><td>Must calculate pixel position</td><td>Events on individual elements</td></tr>
+  <tr><td>Performance</td><td>Better for many objects/animation</td><td>Slower with many objects</td></tr>
+  <tr><td>Best Used For</td><td>Games, image editing, charts</td><td>Logos, icons, diagrams</td></tr>
+  <tr><td>Resolution</td><td>Resolution-dependent</td><td>Resolution-independent</td></tr>
+</table>
+<p><strong>Canvas Example:</strong></p>
+<pre><code>&lt;canvas id="myCanvas" width="200" height="100"&gt;&lt;/canvas&gt;
+&lt;script&gt;
+  var ctx = document.getElementById("myCanvas").getContext("2d");
+  ctx.fillStyle = "blue";
+  ctx.fillRect(10, 10, 150, 80);
+&lt;/script&gt;</code></pre>
+<p><strong>SVG Example:</strong></p>
+<pre><code>&lt;svg width="200" height="100"&gt;
+  &lt;rect x="10" y="10" width="150" height="80" 
+        fill="blue" /&gt;
+&lt;/svg&gt;</code></pre>
+<div class="tip">💡 Canvas = like painting on paper. SVG = like drawing geometric shapes that stay crisp.</div>`
+  },
+  {
+    q: "Discuss the benefits of using semantic elements over traditional HTML elements.",
+    marks: 3,
+    a: `<p><strong>Traditional vs Semantic:</strong></p>
+<pre><code>&lt;!-- Traditional (Non-Semantic) --&gt;
+&lt;div id="header"&gt;...&lt;/div&gt;
+&lt;div id="nav"&gt;...&lt;/div&gt;
+&lt;div id="content"&gt;...&lt;/div&gt;
+
+&lt;!-- Semantic HTML5 --&gt;
+&lt;header&gt;...&lt;/header&gt;
+&lt;nav&gt;...&lt;/nav&gt;
+&lt;main&gt;...&lt;/main&gt;</code></pre>
+<p><strong>Benefits of Semantic Elements:</strong></p>
+<table>
+  <tr><th>Benefit</th><th>Description</th></tr>
+  <tr><td>🔍 Better SEO</td><td>Search engines understand content structure better, improving page ranking</td></tr>
+  <tr><td>♿ Accessibility</td><td>Screen readers use semantic tags to help visually impaired users navigate</td></tr>
+  <tr><td>📖 Readability</td><td>Code is easier to read and maintain for developers</td></tr>
+  <tr><td>🌐 Browser Support</td><td>Browsers render semantic pages more consistently</td></tr>
+  <tr><td>🤝 Team Work</td><td>Clear structure makes collaboration easier</td></tr>
+  <tr><td>📱 Responsive Design</td><td>Easier to apply responsive styles to meaningful sections</td></tr>
+</table>
+<div class="imp">⚠️ IMP: Semantic HTML is a best practice in modern web development and is expected in interviews!</div>`
+  },
+  {
+    q: "List and briefly describe at least five different input types in HTML5.",
+    marks: 5,
+    a: `<p>HTML5 introduced many new <code>type</code> values for the <code>&lt;input&gt;</code> element:</p>
+<table>
+  <tr><th>Input Type</th><th>Description</th><th>Example</th></tr>
+  <tr><td>text</td><td>Single-line text input</td><td>&lt;input type="text"&gt;</td></tr>
+  <tr><td>email</td><td>Email address (validates @ and domain)</td><td>&lt;input type="email"&gt;</td></tr>
+  <tr><td>password</td><td>Masked input for passwords</td><td>&lt;input type="password"&gt;</td></tr>
+  <tr><td>number</td><td>Numeric input with spinner</td><td>&lt;input type="number" min="1" max="100"&gt;</td></tr>
+  <tr><td>date</td><td>Date picker (calendar UI)</td><td>&lt;input type="date"&gt;</td></tr>
+  <tr><td>range</td><td>Slider control for range selection</td><td>&lt;input type="range" min="0" max="100"&gt;</td></tr>
+  <tr><td>color</td><td>Color picker widget</td><td>&lt;input type="color"&gt;</td></tr>
+  <tr><td>checkbox</td><td>Boolean on/off option</td><td>&lt;input type="checkbox"&gt;</td></tr>
+  <tr><td>radio</td><td>Single selection from group</td><td>&lt;input type="radio"&gt;</td></tr>
+  <tr><td>file</td><td>File upload button</td><td>&lt;input type="file"&gt;</td></tr>
+  <tr><td>tel</td><td>Telephone number input</td><td>&lt;input type="tel"&gt;</td></tr>
+  <tr><td>url</td><td>URL input with validation</td><td>&lt;input type="url"&gt;</td></tr>
+  <tr><td>search</td><td>Search box (with clear button)</td><td>&lt;input type="search"&gt;</td></tr>
+  <tr><td>time</td><td>Time picker</td><td>&lt;input type="time"&gt;</td></tr>
+  <tr><td>submit</td><td>Submits the form</td><td>&lt;input type="submit" value="Send"&gt;</td></tr>
+</table>
+<div class="tip">💡 New HTML5 types provide built-in validation and mobile-friendly keyboard layouts.</div>`
+  },
+  {
+    q: "What is Grail layout in HTML?",
+    marks: 8,
+    a: `<p>The <strong>Holy Grail Layout</strong> is a classic web page layout consisting of a header, footer, a main content area, and two sidebars (one on each side). It was historically difficult to implement with pure CSS but is now straightforward with Flexbox or Grid.</p>
+<div class="tip">💡 Called "Holy Grail" because it was the ideal layout that was hard to achieve — like the Holy Grail!</div>
+<p><strong>Structure:</strong></p>
+<pre><code>+---------------------------+
+|         HEADER            |
++---------------------------+
+| LEFT  |   CONTENT  | RIGHT|
+| SIDE  |            | SIDE |
+| BAR   |            | BAR  |
++---------------------------+
+|         FOOTER            |
++---------------------------+</code></pre>
+<p><strong>Implementation using CSS Flexbox:</strong></p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;style&gt;
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+  }
+  header {
+    background: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+  }
+  .middle {
+    display: flex;
+    flex: 1;
+  }
+  nav {
+    background: #555;
+    color: white;
+    width: 180px;
+    padding: 20px;
+    flex-shrink: 0;
+  }
+  main {
+    flex: 1;
+    padding: 20px;
+    background: #f0f0f0;
+  }
+  aside {
+    background: #777;
+    color: white;
+    width: 180px;
+    padding: 20px;
+    flex-shrink: 0;
+  }
+  footer {
+    background: #333;
+    color: white;
+    padding: 15px;
+    text-align: center;
+  }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;Header - Logo &amp; Navigation&lt;/header&gt;
+  &lt;div class="middle"&gt;
+    &lt;nav&gt;Left Sidebar (Nav Links)&lt;/nav&gt;
+    &lt;main&gt;Main Content Area&lt;/main&gt;
+    &lt;aside&gt;Right Sidebar (Ads/Info)&lt;/aside&gt;
+  &lt;/div&gt;
+  &lt;footer&gt;Footer - Copyright Info&lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p><strong>Using CSS Grid:</strong></p>
+<pre><code>&lt;style&gt;
+  body {
+    display: grid;
+    grid-template-areas:
+      "header header header"
+      "nav    main   aside"
+      "footer footer footer";
+    grid-template-columns: 180px 1fr 180px;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+  }
+  header  { grid-area: header; }
+  nav     { grid-area: nav;    }
+  main    { grid-area: main;   }
+  aside   { grid-area: aside;  }
+  footer  { grid-area: footer; }
+&lt;/style&gt;</code></pre>
+<div class="note">📌 Grid method is cleaner and more powerful for Holy Grail layouts.</div>`
+  },
+  {
+    q: "Explain HTML <FORM> element with all form attributes with example.",
+    marks: 8,
+    a: `<p>The <code>&lt;form&gt;</code> element is used to create an HTML form for user input. It acts as a container for various input controls.</p>
+<p><strong>Syntax:</strong></p>
+<pre><code>&lt;form attribute="value" ...&gt;
+  ... form controls ...
+&lt;/form&gt;</code></pre>
+<p><strong>Form Attributes:</strong></p>
+<table>
+  <tr><th>Attribute</th><th>Values</th><th>Description</th></tr>
+  <tr><td>action</td><td>URL</td><td>URL where form data is submitted</td></tr>
+  <tr><td>method</td><td>get / post</td><td>HTTP method for sending data</td></tr>
+  <tr><td>name</td><td>text</td><td>Name of the form</td></tr>
+  <tr><td>enctype</td><td>multipart/form-data, application/x-www-form-urlencoded, text/plain</td><td>Encoding type (important for file uploads)</td></tr>
+  <tr><td>target</td><td>_blank, _self, _parent, _top</td><td>Where to open response</td></tr>
+  <tr><td>autocomplete</td><td>on / off</td><td>Enable/disable autocomplete</td></tr>
+  <tr><td>novalidate</td><td>boolean</td><td>Skip browser validation</td></tr>
+  <tr><td>accept-charset</td><td>UTF-8, ISO-8859-1</td><td>Character encoding</td></tr>
+</table>
+<p><strong>Complete Example:</strong></p>
+<pre><code>&lt;form 
+  action="process.php"
+  method="post"
+  enctype="multipart/form-data"
+  target="_blank"
+  autocomplete="on"
+  name="registrationForm"&gt;
+
+  &lt;!-- Text Input --&gt;
+  &lt;label&gt;Name: &lt;input type="text" name="username" required&gt;&lt;/label&gt;
+
+  &lt;!-- Email --&gt;
+  &lt;label&gt;Email: &lt;input type="email" name="email"&gt;&lt;/label&gt;
+
+  &lt;!-- Password --&gt;
+  &lt;label&gt;Password: &lt;input type="password" name="pwd" minlength="8"&gt;&lt;/label&gt;
+
+  &lt;!-- Radio Buttons --&gt;
+  &lt;label&gt;Gender:&lt;/label&gt;
+  &lt;input type="radio" name="gender" value="male"&gt; Male
+  &lt;input type="radio" name="gender" value="female"&gt; Female
+
+  &lt;!-- Dropdown --&gt;
+  &lt;label&gt;City:
+    &lt;select name="city"&gt;
+      &lt;option value="ahmedabad"&gt;Ahmedabad&lt;/option&gt;
+      &lt;option value="surat"&gt;Surat&lt;/option&gt;
+    &lt;/select&gt;
+  &lt;/label&gt;
+
+  &lt;!-- File Upload --&gt;
+  &lt;label&gt;Photo: &lt;input type="file" name="photo"&gt;&lt;/label&gt;
+
+  &lt;!-- Textarea --&gt;
+  &lt;label&gt;Message: &lt;textarea name="msg" rows="4"&gt;&lt;/textarea&gt;&lt;/label&gt;
+
+  &lt;!-- Checkbox --&gt;
+  &lt;input type="checkbox" name="agree" required&gt; I agree to Terms
+
+  &lt;!-- Submit & Reset --&gt;
+  &lt;input type="submit" value="Register"&gt;
+  &lt;input type="reset" value="Clear"&gt;
+&lt;/form&gt;</code></pre>
+<div class="imp">⚠️ IMP: Use method="post" for sensitive data and when uploading files, enctype="multipart/form-data" is mandatory.</div>`
+  },
+  {
+    q: "Create a basic student detail form with First Name, Last Name, Gender, Enrollment ID, Designation, and Phone Number.",
+    marks: 8,
+    a: `<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Student Detail Form&lt;/title&gt;
+  &lt;style&gt;
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      padding: 30px;
+    }
+    .form-container {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      width: 450px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #555;
+    }
+    input[type="text"],
+    input[type="tel"],
+    select {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    .radio-group { display: flex; gap: 15px; }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover { background: #0056b3; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class="form-container"&gt;
+    &lt;h2&gt;Student Detail Form&lt;/h2&gt;
+    &lt;form action="submit.php" method="post"&gt;
+      
+      &lt;div class="form-group"&gt;
+        &lt;label for="fname"&gt;First Name:&lt;/label&gt;
+        &lt;input type="text" id="fname" name="first_name" 
+               placeholder="Enter first name" required&gt;
+      &lt;/div&gt;
+
+      &lt;div class="form-group"&gt;
+        &lt;label for="lname"&gt;Last Name:&lt;/label&gt;
+        &lt;input type="text" id="lname" name="last_name" 
+               placeholder="Enter last name" required&gt;
+      &lt;/div&gt;
+
+      &lt;div class="form-group"&gt;
+        &lt;label&gt;Gender:&lt;/label&gt;
+        &lt;div class="radio-group"&gt;
+          &lt;label&gt;
+            &lt;input type="radio" name="gender" value="male" required&gt; Male
+          &lt;/label&gt;
+          &lt;label&gt;
+            &lt;input type="radio" name="gender" value="female"&gt; Female
+          &lt;/label&gt;
+          &lt;label&gt;
+            &lt;input type="radio" name="gender" value="other"&gt; Other
+          &lt;/label&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class="form-group"&gt;
+        &lt;label for="enroll"&gt;Enrollment ID:&lt;/label&gt;
+        &lt;input type="text" id="enroll" name="enrollment_id" 
+               placeholder="e.g. 22IT001" required pattern="[0-9A-Za-z]+"&gt;
+      &lt;/div&gt;
+
+      &lt;div class="form-group"&gt;
+        &lt;label for="desig"&gt;Designation:&lt;/label&gt;
+        &lt;select id="desig" name="designation" required&gt;
+          &lt;option value=""&gt;-- Select Designation --&lt;/option&gt;
+          &lt;option value="student"&gt;Student&lt;/option&gt;
+          &lt;option value="monitor"&gt;Class Monitor&lt;/option&gt;
+          &lt;option value="cr"&gt;Class Representative&lt;/option&gt;
+          &lt;option value="leader"&gt;Group Leader&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/div&gt;
+
+      &lt;div class="form-group"&gt;
+        &lt;label for="phone"&gt;Phone Number:&lt;/label&gt;
+        &lt;input type="tel" id="phone" name="phone" 
+               placeholder="+91 9876543210" 
+               pattern="[0-9]{10}" maxlength="10" required&gt;
+      &lt;/div&gt;
+
+      &lt;button type="submit"&gt;Submit Details&lt;/button&gt;
+    &lt;/form&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<div class="note">📌 Form uses POST method, required fields, pattern validation for phone and enrollment ID.</div>`
+  },
+  {
+    q: "Explain any five Git commands with syntax and example.",
+    marks: 5,
+    a: `<p>Git is a distributed version control system. Here are five essential commands:</p>
+<table>
+  <tr><th>Command</th><th>Syntax</th><th>Description</th></tr>
+  <tr><td>git init</td><td>git init [folder]</td><td>Initialize a new Git repository</td></tr>
+  <tr><td>git clone</td><td>git clone &lt;url&gt;</td><td>Copy a remote repository locally</td></tr>
+  <tr><td>git add</td><td>git add &lt;file&gt; or git add .</td><td>Stage files for commit</td></tr>
+  <tr><td>git commit</td><td>git commit -m "message"</td><td>Save staged changes with message</td></tr>
+  <tr><td>git push</td><td>git push origin &lt;branch&gt;</td><td>Upload commits to remote</td></tr>
+</table>
+<p><strong>1. git init</strong> – Create a new repo</p>
+<pre><code>$ git init my-project
+# Creates .git folder in my-project directory</code></pre>
+<p><strong>2. git clone</strong> – Download a repo</p>
+<pre><code>$ git clone https://github.com/user/repo.git
+# Creates a local copy of the remote repo</code></pre>
+<p><strong>3. git add</strong> – Stage changes</p>
+<pre><code>$ git add index.html       # Stage single file
+$ git add .                # Stage all changes</code></pre>
+<p><strong>4. git commit</strong> – Save changes</p>
+<pre><code>$ git commit -m "Add student form page"
+# Saves snapshot with descriptive message</code></pre>
+<p><strong>5. git push</strong> – Upload to GitHub</p>
+<pre><code>$ git push origin main
+# Sends commits to 'main' branch on GitHub</code></pre>
+<div class="tip">💡 Workflow: init → add → commit → push</div>`
+  },
+  {
+    q: "How do you create a new repository on GitHub?",
+    marks: 3,
+    a: `<p>Steps to create a new repository on GitHub:</p>
+<pre><code>STEP 1: Login to github.com
+
+STEP 2: Click the "+" icon (top right) 
+        → Select "New repository"
+
+STEP 3: Fill in details:
+  - Repository name: my-project
+  - Description: (optional)
+  - Public / Private
+  - ✓ Initialize with README (optional)
+  - .gitignore template (optional)
+  - License (optional)
+
+STEP 4: Click "Create repository"
+
+STEP 5: Connect local project to GitHub:
+$ git init
+$ git add .
+$ git commit -m "first commit"
+$ git branch -M main
+$ git remote add origin https://github.com/username/my-project.git
+$ git push -u origin main</code></pre>
+<div class="note">📌 After creation, GitHub shows exact commands to connect your local repo.</div>`
+  },
+  {
+    q: "What are branches in Git and why are they used?",
+    marks: 3,
+    a: `<p>A <strong>branch</strong> in Git is an independent line of development. It allows multiple versions of a project to exist simultaneously.</p>
+<pre><code>         main branch
+           |
+A---B---C---+---F (main: production code)
+             \
+              D---E (feature branch: new feature)</code></pre>
+<p><strong>Why Branches are Used:</strong></p>
+<table>
+  <tr><th>Reason</th><th>Explanation</th></tr>
+  <tr><td>Isolation</td><td>New features/bugs fixed without affecting main code</td></tr>
+  <tr><td>Parallel Work</td><td>Multiple developers work on different features simultaneously</td></tr>
+  <tr><td>Safe Experimentation</td><td>Try new ideas without breaking production</td></tr>
+  <tr><td>Code Review</td><td>Changes reviewed before merging to main</td></tr>
+</table>
+<p><strong>Common Branch Commands:</strong></p>
+<pre><code>git branch                  # List branches
+git branch feature-login    # Create new branch
+git checkout feature-login  # Switch to branch
+git checkout -b hotfix      # Create and switch
+git merge feature-login     # Merge into current
+git branch -d feature-login # Delete branch</code></pre>
+<div class="tip">💡 Common branches: main/master (production), develop (integration), feature/*, hotfix/*</div>`
+  },
+  {
+    q: "Explain the concept of Pull and Push Requests in GitHub.",
+    marks: 4,
+    a: `<p><strong>Push:</strong> Uploading local commits to a remote GitHub repository.</p>
+<pre><code># After committing locally:
+git push origin main
+# Sends your commits to GitHub remote repo</code></pre>
+<p><strong>Pull Request (PR):</strong> A request to merge code from one branch into another on GitHub. It's not a git command but a GitHub feature for code review.</p>
+<pre><code>Developer workflow with Pull Request:
+
+1. Create feature branch
+   git checkout -b feature/login
+
+2. Make changes & commit
+   git add . && git commit -m "Add login page"
+
+3. Push branch to GitHub
+   git push origin feature/login
+
+4. On GitHub: 
+   → "Compare & pull request" button
+   → Add title & description
+   → Request reviewers
+   → Submit Pull Request
+
+5. Reviewer reviews code, adds comments
+
+6. If approved → Merge PR into main branch
+
+7. Delete feature branch (cleanup)</code></pre>
+<table>
+  <tr><th>Push</th><th>Pull Request</th></tr>
+  <tr><td>git command</td><td>GitHub feature</td></tr>
+  <tr><td>Uploads code to remote</td><td>Requests code merge</td></tr>
+  <tr><td>No review process</td><td>Includes review process</td></tr>
+  <tr><td>Done by individual</td><td>Involves team collaboration</td></tr>
+</table>
+<div class="imp">⚠️ IMP: Pull Requests enable code review, discussion, and CI/CD checks before merging.</div>`
+  },
+  {
+    q: "Define: Canvas, Figma, Hierarchy, Components, Prototyping",
+    marks: 5,
+    a: `<table>
+  <tr><th>Term</th><th>Definition</th></tr>
+  <tr>
+    <td><strong>1. Canvas</strong></td>
+    <td>In HTML5, &lt;canvas&gt; is an element used to draw 2D graphics via JavaScript API. In design tools (Figma), canvas is the infinite workspace where designs are created. Supports drawing shapes, paths, images, text, and animations.</td>
+  </tr>
+  <tr>
+    <td><strong>2. Figma</strong></td>
+    <td>A cloud-based UI/UX design tool used for designing, prototyping, and collaborating on digital interfaces. Features: vector editing, real-time collaboration, component libraries, prototyping, design systems. Works in browser — no installation needed.</td>
+  </tr>
+  <tr>
+    <td><strong>3. Hierarchy</strong></td>
+    <td>Visual hierarchy is the arrangement of elements to show their order of importance. Achieved through: size (larger = more important), color contrast, spacing, typography weight, positioning. Guides user's eye through content in a logical order.</td>
+  </tr>
+  <tr>
+    <td><strong>4. Components</strong></td>
+    <td>Reusable design elements in Figma (or code). A component is created once and can be reused many times as instances. Examples: buttons, cards, input fields, navigation bars. Editing the main component updates all instances automatically.</td>
+  </tr>
+  <tr>
+    <td><strong>5. Prototyping</strong></td>
+    <td>Creating an interactive simulation of a design to test user flows and interactions before development. In Figma: connect frames with arrows to simulate navigation. Types: low-fidelity (wireframes) and high-fidelity (pixel-perfect). Allows user testing and stakeholder feedback early.</td>
+  </tr>
+</table>`
+  }
+];
+module.exports = unit1;
+<!-- ═══════════════════════════════════════ UNIT 2 ═══════════════════════════════════════ -->
+<div class="unit u2" id="unit-u2">
+  <div class="unit-header">
+    <div>
+      <div class="num">UNIT 02</div>
+      <h2>Working with CSS3</h2>
+    </div>
+    <div class="q-count">29 Questions</div>
+  </div>
+  <div class="qa-list">
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q1</div>
+        <div class="qa-q">What is CSS? What are the benefits of CSS? List out the different ways to write CSS.</div>
+        <div class="qa-meta"><span class="marks-badge marks-3">3 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p><strong>CSS (Cascading Style Sheets)</strong> is a stylesheet language used to describe the presentation (look and formatting) of HTML documents. It controls layout, colors, fonts, spacing, and animations.</p>
+        <p><strong>Benefits of CSS:</strong></p>
+        <ul>
+          <li>Separates content (HTML) from presentation (CSS)</li>
+          <li>Reduces code repetition — one stylesheet for entire site</li>
+          <li>Easier maintenance — change one file to update all pages</li>
+          <li>Faster page load — styles are cached by browsers</li>
+          <li>Responsive design — media queries for different screen sizes</li>
+          <li>Accessibility improvements with better structure</li>
+        </ul>
+        <p><strong>Three Ways to Write CSS:</strong></p>
+        <table>
+          <tr><th>Type</th><th>Where Written</th><th>Example</th></tr>
+          <tr><td>Inline</td><td>Inside HTML tag using style attribute</td><td>&lt;p style="color:red;"&gt;</td></tr>
+          <tr><td>Internal</td><td>Inside &lt;style&gt; tag in &lt;head&gt;</td><td>&lt;style&gt; p { color:red; } &lt;/style&gt;</td></tr>
+          <tr><td>External</td><td>Separate .css file linked via &lt;link&gt;</td><td>&lt;link rel="stylesheet" href="style.css"&gt;</td></tr>
+        </table>
+        <div class="tip">💡 Priority order: Inline > Internal > External (Inline has highest specificity)</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q2</div>
+        <div class="qa-q">List and explain types of CSS with example.</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p><strong>1. Inline CSS</strong> – Applied directly to individual HTML element using style attribute.</p>
+        <pre><code>&lt;p style="color: blue; font-size: 18px;"&gt;Hello World&lt;/p&gt;</code></pre>
+        <p>✅ Best for: Quick one-off styles. ❌ Bad for: Maintainability, reuse.</p>
+        <p><strong>2. Internal (Embedded) CSS</strong> – Written inside a &lt;style&gt; block in the &lt;head&gt; of the HTML page.</p>
+        <pre><code>&lt;head&gt;
+  &lt;style&gt;
+    p { color: blue; font-size: 18px; }
+    h1 { font-family: Arial; }
+  &lt;/style&gt;
+&lt;/head&gt;</code></pre>
+        <p>✅ Best for: Single-page styles. ❌ Bad for: Multi-page sites.</p>
+        <p><strong>3. External CSS</strong> – Written in a separate .css file, linked to HTML via &lt;link&gt; tag.</p>
+        <pre><code>&lt;!-- In HTML file --&gt;
+&lt;head&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+
+/* In styles.css */
+p { color: blue; font-size: 18px; }
+h1 { font-family: Arial; }</code></pre>
+        <p>✅ Best for: All professional projects. Reusable, cached, maintainable.</p>
+        <div class="imp">⚠️ IMP: External CSS is the industry standard. Always preferred for real projects.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q3</div>
+        <div class="qa-q">Explain CSS box model (border, margin, padding) with neat diagram.</div>
+        <div class="qa-meta"><span class="marks-badge marks-8">8 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p>The <strong>CSS Box Model</strong> describes how every HTML element is rendered as a rectangular box consisting of four layers.</p>
+        <pre><code>+----------------------------------------------+
+|                  MARGIN                      |  ← Transparent space outside border
+|   +--------------------------------------+   |
+|   |              BORDER                  |   |  ← Visible boundary
+|   |   +------------------------------+   |   |
+|   |   |           PADDING            |   |   |  ← Space between content & border
+|   |   |   +----------------------+   |   |   |
+|   |   |   |      CONTENT         |   |   |   |  ← Text, images, etc.
+|   |   |   |  (width × height)    |   |   |   |
+|   |   |   +----------------------+   |   |   |
+|   |   +------------------------------+   |   |
+|   +--------------------------------------+   |
++----------------------------------------------+</code></pre>
+        <table>
+          <tr><th>Layer</th><th>Property</th><th>Description</th></tr>
+          <tr><td>Content</td><td>width, height</td><td>Actual element content area</td></tr>
+          <tr><td>Padding</td><td>padding-top/right/bottom/left</td><td>Space between content and border (inherits background)</td></tr>
+          <tr><td>Border</td><td>border-width/style/color</td><td>Surrounds padding — can be styled</td></tr>
+          <tr><td>Margin</td><td>margin-top/right/bottom/left</td><td>Space outside border — always transparent</td></tr>
+        </table>
+        <pre><code>/* Full Box Model Example */
+div {
+  width: 200px;        /* Content width */
+  height: 100px;       /* Content height */
+
+  padding: 20px;       /* All 4 sides */
+  padding: 10px 20px;  /* top/bottom | left/right */
+
+  border: 2px solid red;
+  border-radius: 8px;  /* Rounded corners */
+
+  margin: 30px;         /* All 4 sides */
+  margin: 10px auto;    /* top/bottom | center horizontally */
+}
+
+/* Total element size = content + padding + border */
+/* width: 200 + 20+20 (pad) + 2+2 (border) = 244px */</code></pre>
+        <p><strong>box-sizing property:</strong></p>
+        <pre><code>/* Default - padding/border ADD to specified width */
+box-sizing: content-box;   /* width = content only */
+
+/* Width INCLUDES padding and border (recommended) */
+box-sizing: border-box;    /* Easier to manage layouts */
+
+/* Best practice - apply to all elements */
+* { box-sizing: border-box; }</code></pre>
+        <div class="note">📌 Use browser DevTools (F12) to visually inspect the box model of any element.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q4</div>
+        <div class="qa-q">Explain Class and ID Selector in CSS with examples.</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <table>
+          <tr><th>Feature</th><th>Class Selector</th><th>ID Selector</th></tr>
+          <tr><td>Symbol</td><td>. (dot)</td><td># (hash)</td></tr>
+          <tr><td>Uniqueness</td><td>Multiple elements can use same class</td><td>Only ONE element per page can have this ID</td></tr>
+          <tr><td>Reusability</td><td>Highly reusable — apply to many elements</td><td>Not reusable — unique per page</td></tr>
+          <tr><td>Specificity</td><td>Lower (0,1,0)</td><td>Higher (1,0,0)</td></tr>
+          <tr><td>Use Case</td><td>Styling groups of elements</td><td>Unique element (navbar, modal, form)</td></tr>
+        </table>
+        <p><strong>Class Selector Example:</strong></p>
+        <pre><code>/* CSS */
+.highlight {
+  background-color: yellow;
+  font-weight: bold;
+  color: #333;
+}
+.btn {
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+&lt;!-- HTML --&gt;
+&lt;p class="highlight"&gt;Important text&lt;/p&gt;
+&lt;span class="highlight"&gt;Also highlighted&lt;/span&gt;
+&lt;button class="btn highlight"&gt;Multiple classes&lt;/button&gt;</code></pre>
+        <p><strong>ID Selector Example:</strong></p>
+        <pre><code>/* CSS */
+#main-nav {
+  background: #333;
+  padding: 15px;
+  position: fixed;
+  top: 0; width: 100%;
+}
+#submit-btn {
+  background: blue;
+  color: white;
+}
+
+&lt;!-- HTML --&gt;
+&lt;nav id="main-nav"&gt;...Navigation...&lt;/nav&gt;
+&lt;button id="submit-btn"&gt;Submit&lt;/button&gt;</code></pre>
+        <div class="imp">⚠️ IMP: Use class for reusable styles. Use ID for unique elements. Never use the same ID twice on a page!</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q5</div>
+        <div class="qa-q">What is CSS Display? Explain it with example.</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p>The CSS <code>display</code> property controls how an element is rendered in the document flow.</p>
+        <table>
+          <tr><th>Value</th><th>Behavior</th><th>Default Elements</th></tr>
+          <tr><td>block</td><td>Takes full width, starts on new line</td><td>div, p, h1-h6, section</td></tr>
+          <tr><td>inline</td><td>Takes only content width, no new line</td><td>span, a, img, strong</td></tr>
+          <tr><td>inline-block</td><td>Like inline but accepts width/height</td><td>button, input</td></tr>
+          <tr><td>none</td><td>Element is completely hidden (no space)</td><td>—</td></tr>
+          <tr><td>flex</td><td>Flex container for flexible layouts</td><td>—</td></tr>
+          <tr><td>grid</td><td>Grid container for grid layouts</td><td>—</td></tr>
+          <tr><td>table</td><td>Behaves like HTML table</td><td>table</td></tr>
+        </table>
+        <pre><code>/* Block - takes full width */
+div.block { display: block; background: lightblue; }
+
+/* Inline - sits beside other content */
+span.inline { display: inline; color: red; }
+
+/* Inline-block - can have width/height */
+.button {
+  display: inline-block;
+  width: 120px; height: 40px;
+  text-align: center; line-height: 40px;
+}
+
+/* None - hides element completely */
+.hidden { display: none; }
+
+/* Flex - flexible container */
+.nav { display: flex; gap: 20px; }
+
+/* Grid - grid container */
+.gallery { display: grid; grid-template-columns: repeat(3, 1fr); }</code></pre>
+        <div class="tip">💡 display:none removes the element from layout. visibility:hidden hides it but keeps the space.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q6</div>
+        <div class="qa-q">Explain the use of Media Query in CSS with example.</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p><strong>Media Queries</strong> allow CSS to apply different styles based on device characteristics such as screen width, height, orientation, or resolution.</p>
+        <p><strong>Syntax:</strong></p>
+        <pre><code>@media media-type and (condition) {
+  /* CSS rules for this condition */
+}</code></pre>
+        <p><strong>Breakpoints (Common):</strong></p>
+        <table>
+          <tr><th>Device</th><th>Breakpoint</th></tr>
+          <tr><td>Mobile</td><td>max-width: 576px</td></tr>
+          <tr><td>Tablet</td><td>max-width: 768px</td></tr>
+          <tr><td>Laptop</td><td>max-width: 1024px</td></tr>
+          <tr><td>Desktop</td><td>min-width: 1200px</td></tr>
+        </table>
+        <pre><code>/* Base styles (Desktop First) */
+.container { width: 1200px; }
+.sidebar   { display: block; float: left; width: 300px; }
+
+/* Tablet: max-width 768px */
+@media screen and (max-width: 768px) {
+  .container { width: 100%; padding: 0 15px; }
+  .sidebar   { float: none; width: 100%; }
+}
+
+/* Mobile: max-width 480px */
+@media screen and (max-width: 480px) {
+  body { font-size: 14px; }
+  h1   { font-size: 22px; }
+  nav  { display: none; } /* Hide nav on tiny screens */
+}
+
+/* Portrait orientation */
+@media screen and (orientation: portrait) {
+  body { background: lightblue; }
+}
+
+/* Print */
+@media print {
+  nav, footer { display: none; }
+  body { color: black; font-size: 12pt; }
+}</code></pre>
+        <div class="imp">⚠️ IMP: Always include &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt; in HTML for media queries to work on mobile!</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q7</div>
+        <div class="qa-q">Demonstrate the use of CSS for Colors and Background.</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p><strong>CSS Color Properties:</strong></p>
+        <pre><code>/* Color formats */
+p { color: red; }                    /* Named color */
+p { color: #ff0000; }               /* Hex */
+p { color: rgb(255, 0, 0); }        /* RGB */
+p { color: rgba(255, 0, 0, 0.5); } /* RGBA (with opacity) */
+p { color: hsl(0, 100%, 50%); }    /* HSL */
+p { color: hsla(0, 100%, 50%, 0.5); } /* HSLA */</code></pre>
+        <p><strong>CSS Background Properties:</strong></p>
+        <pre><code>div {
+  /* Background color */
+  background-color: #f0f0f0;
+
+  /* Background image */
+  background-image: url('image.jpg');
+
+  /* Repeat behavior */
+  background-repeat: no-repeat;  /* repeat | repeat-x | repeat-y */
+
+  /* Position */
+  background-position: center center;  /* top | bottom | left | right */
+
+  /* Size */
+  background-size: cover;  /* contain | auto | 100px 200px */
+
+  /* Attachment (scroll or fixed) */
+  background-attachment: fixed;  /* scroll */
+
+  /* Shorthand */
+  background: #f0f0f0 url('img.jpg') no-repeat center/cover;
+}
+
+/* Gradient backgrounds */
+.gradient1 {
+  background: linear-gradient(to right, #ff0000, #0000ff);
+}
+.gradient2 {
+  background: radial-gradient(circle, #ff6b6b, #4ecdc4);
+}
+.multi-grad {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}</code></pre>
+        <div class="tip">💡 background-size: cover fills entire container; background-size: contain fits inside without cropping.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q8</div>
+        <div class="qa-q">Define viewport, CSS, CSS selector.</div>
+        <div class="qa-meta"><span class="marks-badge marks-3">3 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <table>
+          <tr><th>Term</th><th>Definition</th></tr>
+          <tr>
+            <td><strong>Viewport</strong></td>
+            <td>The visible area of a web page in the browser window. On desktops it's the browser window size. On mobile it's the screen size. Controlled with: &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;. CSS units: vw (viewport width %), vh (viewport height %).</td>
+          </tr>
+          <tr>
+            <td><strong>CSS</strong></td>
+            <td>Cascading Style Sheets — a stylesheet language that describes how HTML elements should be displayed. Controls layout, colors, fonts, animations. "Cascading" means styles apply from most general to most specific (specificity rules).</td>
+          </tr>
+          <tr>
+            <td><strong>CSS Selector</strong></td>
+            <td>A pattern used to select and target HTML elements to apply styles. Types: Element (p), Class (.class), ID (#id), Universal (*), Attribute ([type="text"]), Pseudo-class (:hover), Pseudo-element (::before), Combinator (div > p).</td>
+          </tr>
+        </table>
+        <pre><code>/* Selector Examples */
+*        { box-sizing: border-box; }  /* Universal */
+h1       { color: red; }              /* Element */
+.card    { padding: 20px; }           /* Class */
+#nav     { position: fixed; }         /* ID */
+a:hover  { color: blue; }            /* Pseudo-class */
+p::first-line { font-weight: bold; } /* Pseudo-element */</code></pre>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q9</div>
+        <div class="qa-q">Enlist the various attributes of font?</div>
+        <div class="qa-meta"><span class="marks-badge marks-3">3 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <table>
+          <tr><th>CSS Font Property</th><th>Values / Description</th></tr>
+          <tr><td>font-family</td><td>Arial, Helvetica, 'Times New Roman', sans-serif, serif, monospace</td></tr>
+          <tr><td>font-size</td><td>px, em, rem, %, vw — e.g. 16px, 1.2em, 1rem</td></tr>
+          <tr><td>font-weight</td><td>normal, bold, 100–900 (100=thin, 700=bold)</td></tr>
+          <tr><td>font-style</td><td>normal, italic, oblique</td></tr>
+          <tr><td>font-variant</td><td>normal, small-caps</td></tr>
+          <tr><td>font-stretch</td><td>condensed, normal, expanded</td></tr>
+          <tr><td>line-height</td><td>normal, 1.5, 24px — space between lines</td></tr>
+          <tr><td>letter-spacing</td><td>normal, 2px — space between characters</td></tr>
+          <tr><td>word-spacing</td><td>normal, 5px — space between words</td></tr>
+          <tr><td>text-decoration</td><td>none, underline, overline, line-through</td></tr>
+          <tr><td>text-transform</td><td>uppercase, lowercase, capitalize, none</td></tr>
+          <tr><td>text-align</td><td>left, right, center, justify</td></tr>
+        </table>
+        <pre><code>/* Font Shorthand */
+/* font: style variant weight size/line-height family */
+p {
+  font: italic small-caps bold 16px/1.5 Arial, sans-serif;
+}
+
+/* Google Fonts import */
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+body { font-family: 'Roboto', sans-serif; }</code></pre>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q10</div>
+        <div class="qa-q">Explain Flex layout in detail with example.</div>
+        <div class="qa-meta"><span class="marks-badge marks-8">8 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p><strong>Flexbox (Flexible Box Layout)</strong> is a CSS layout module that provides a one-dimensional layout system for arranging items in rows or columns.</p>
+        <pre><code>Flex Container (Parent)
++-----------------------------------------------+
+|  Main Axis →  (row) or ↓ (column)            |
+|  +--------+  +--------+  +--------+           |
+|  | Item 1 |  | Item 2 |  | Item 3 |           |
+|  +--------+  +--------+  +--------+           |
+|                               ↕ Cross Axis    |
++-----------------------------------------------+</code></pre>
+        <p><strong>Container Properties (applied to parent):</strong></p>
+        <pre><code>.container {
+  display: flex;                        /* Activate flexbox */
+
+  flex-direction: row;                  /* row | row-reverse | column | column-reverse */
+  flex-wrap: wrap;                      /* nowrap | wrap | wrap-reverse */
+  flex-flow: row wrap;                  /* shorthand for direction + wrap */
+
+  justify-content: center;             /* Main axis alignment */
+  /* flex-start | flex-end | center | space-between | space-around | space-evenly */
+
+  align-items: center;                  /* Cross axis alignment */
+  /* flex-start | flex-end | center | stretch | baseline */
+
+  align-content: space-between;        /* Multiple lines alignment */
+  gap: 20px;                           /* Space between items */
+  gap: 10px 20px;                      /* row-gap column-gap */
+}</code></pre>
+        <p><strong>Item Properties (applied to children):</strong></p>
+        <pre><code>.item {
+  flex-grow: 1;    /* How much item grows to fill space (0 = don't grow) */
+  flex-shrink: 1;  /* How much item shrinks (0 = don't shrink) */
+  flex-basis: auto;/* Initial size before growing/shrinking */
+  flex: 1;         /* Shorthand: grow=1 shrink=1 basis=0 */
+
+  align-self: flex-end;  /* Override parent align-items for this item */
+  order: 2;              /* Display order (default: 0) */
+}</code></pre>
+        <p><strong>Practical Example — Navigation Bar:</strong></p>
+        <pre><code>&lt;style&gt;
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #333;
+    padding: 15px 30px;
+  }
+  .logo { color: white; font-size: 24px; font-weight: bold; }
+  .nav-links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+  }
+  .nav-links a { color: white; text-decoration: none; }
+&lt;/style&gt;
+&lt;nav&gt;
+  &lt;div class="logo"&gt;Brand&lt;/div&gt;
+  &lt;ul class="nav-links"&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;About&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+        <div class="tip">💡 Flexbox is 1D (one direction at a time). For 2D layouts, use CSS Grid.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q11</div>
+        <div class="qa-q">What is grid layout? Explain grid layout in detail with example.</div>
+        <div class="qa-meta"><span class="marks-badge marks-8">8 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p><strong>CSS Grid Layout</strong> is a two-dimensional layout system that allows control over both rows and columns simultaneously. It's the most powerful CSS layout tool.</p>
+        <pre><code>Grid Container
++--------+--------+--------+
+| col 1  | col 2  | col 3  |  ← Row 1
++--------+--------+--------+
+| col 1  | col 2  | col 3  |  ← Row 2
++--------+--------+--------+
+    ↑           ↑
+  Grid Line   Grid Area</code></pre>
+        <p><strong>Container Properties:</strong></p>
+        <pre><code>.container {
+  display: grid;
+
+  /* Define columns */
+  grid-template-columns: 200px 1fr 200px;          /* 3 columns */
+  grid-template-columns: repeat(3, 1fr);           /* Equal 3 cols */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive */
+
+  /* Define rows */
+  grid-template-rows: 80px 1fr 60px;
+
+  /* Named areas */
+  grid-template-areas:
+    "header header header"
+    "sidebar main main"
+    "footer footer footer";
+
+  /* Gaps */
+  gap: 20px;               /* row and column gap */
+  row-gap: 15px;
+  column-gap: 25px;
+
+  /* Alignment */
+  justify-items: center;   /* Horizontal alignment of items */
+  align-items: center;     /* Vertical alignment of items */
+}</code></pre>
+        <p><strong>Item Properties:</strong></p>
+        <pre><code>.item {
+  grid-column: 1 / 3;    /* Start at col line 1, end at 3 */
+  grid-column: span 2;   /* Span 2 columns */
+  grid-row: 1 / 3;       /* Span 2 rows */
+  grid-area: header;     /* Assign to named area */
+  justify-self: end;     /* Override horizontal alignment */
+  align-self: start;     /* Override vertical alignment */
+}</code></pre>
+        <p><strong>Complete Example — Page Layout:</strong></p>
+        <pre><code>&lt;style&gt;
+  .page {
+    display: grid;
+    grid-template-areas:
+      "header header"
+      "sidebar content"
+      "footer footer";
+    grid-template-columns: 250px 1fr;
+    grid-template-rows: 70px 1fr 50px;
+    min-height: 100vh;
+    gap: 10px;
+  }
+  header { grid-area: header; background: #333; color: white; }
+  .sidebar { grid-area: sidebar; background: #555; color: white; }
+  .content { grid-area: content; background: #fff; }
+  footer   { grid-area: footer;  background: #333; color: white; }
+&lt;/style&gt;
+&lt;div class="page"&gt;
+  &lt;header&gt;Header&lt;/header&gt;
+  &lt;div class="sidebar"&gt;Sidebar&lt;/div&gt;
+  &lt;div class="content"&gt;Main Content&lt;/div&gt;
+  &lt;footer&gt;Footer&lt;/footer&gt;
+&lt;/div&gt;</code></pre>
+        <div class="imp">⚠️ IMP: fr unit = fractional unit. 1fr = 1 share of available space. repeat(3,1fr) = 3 equal columns.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q12</div>
+        <div class="qa-q">What is the difference between CSS and CSS3?</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <table>
+          <tr><th>Feature</th><th>CSS (1/2)</th><th>CSS3</th></tr>
+          <tr><td>Version</td><td>CSS 1 (1996), CSS 2 (1998)</td><td>CSS3 (2011+, ongoing)</td></tr>
+          <tr><td>Rounded Corners</td><td>Not supported (images needed)</td><td>border-radius: 10px</td></tr>
+          <tr><td>Shadows</td><td>Not supported</td><td>box-shadow, text-shadow</td></tr>
+          <tr><td>Gradients</td><td>Not supported (images needed)</td><td>linear-gradient(), radial-gradient()</td></tr>
+          <tr><td>Animations</td><td>Not supported</td><td>@keyframes, animation, transition</td></tr>
+          <tr><td>Transforms</td><td>Not supported</td><td>rotate(), scale(), translate(), skew()</td></tr>
+          <tr><td>Flexbox</td><td>Not available</td><td>display: flex ✓</td></tr>
+          <tr><td>Grid</td><td>Not available</td><td>display: grid ✓</td></tr>
+          <tr><td>Media Queries</td><td>Not in CSS2</td><td>@media queries ✓</td></tr>
+          <tr><td>Custom Fonts</td><td>System fonts only</td><td>@font-face ✓</td></tr>
+          <tr><td>Opacity</td><td>opacity filter hack</td><td>opacity: 0.5 ✓</td></tr>
+          <tr><td>Variables</td><td>Not available</td><td>--custom-var: value ✓</td></tr>
+          <tr><td>Selectors</td><td>Basic selectors</td><td>nth-child, :not(), ::placeholder etc.</td></tr>
+        </table>
+        <div class="tip">💡 CSS3 is not one thing — it's divided into modules (Flexbox module, Grid module, Animation module, etc.) each developed independently.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q13</div>
+        <div class="qa-q">Compare Hexadecimal color codes with RGB values. What does 'a' in RGBA mean?</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <table>
+          <tr><th>Feature</th><th>Hex</th><th>RGB</th></tr>
+          <tr><td>Format</td><td>#RRGGBB (6 hex digits)</td><td>rgb(red, green, blue)</td></tr>
+          <tr><td>Range</td><td>00–FF per channel</td><td>0–255 per channel</td></tr>
+          <tr><td>Transparency</td><td>#RRGGBBAA (8-digit hex)</td><td>rgba(r,g,b,alpha)</td></tr>
+          <tr><td>Readability</td><td>Less readable (#a52a2a)</td><td>More readable rgb(165,42,42)</td></tr>
+          <tr><td>Usage</td><td>Most common in design tools</td><td>Common in dynamic CSS (JS)</td></tr>
+        </table>
+        <pre><code>/* Same red color in different formats */
+color: #ff0000;          /* Hex */
+color: #f00;             /* Shorthand Hex (only when pairs repeat) */
+color: rgb(255, 0, 0);   /* RGB */
+color: rgba(255,0,0,0.5);/* RGBA — 50% transparent */
+color: hsl(0, 100%, 50%);/* HSL */
+
+/* Hex to RGB conversion */
+#ff0000 → R=ff(255), G=00(0), B=00(0) → rgb(255,0,0)
+#808080 → R=80(128), G=80(128), B=80(128) → rgb(128,128,128)</code></pre>
+        <p><strong>'a' in RGBA = Alpha Channel (Opacity/Transparency)</strong></p>
+        <pre><code>rgba(255, 0, 0, 0)    /* Fully transparent (invisible) */
+rgba(255, 0, 0, 0.25) /* 25% opaque */
+rgba(255, 0, 0, 0.5)  /* 50% opaque (semi-transparent) */
+rgba(255, 0, 0, 0.75) /* 75% opaque */
+rgba(255, 0, 0, 1)    /* Fully opaque (same as rgb()) */</code></pre>
+        <div class="tip">💡 Use rgba() for overlays, card backgrounds, hover effects where you need transparency!</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q14</div>
+        <div class="qa-q">List some of the CSS frameworks.</div>
+        <div class="qa-meta"><span class="marks-badge marks-3">3 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <table>
+          <tr><th>Framework</th><th>Description</th><th>Notable For</th></tr>
+          <tr><td><strong>Bootstrap</strong></td><td>Most popular CSS framework</td><td>Grid system, components, responsive design</td></tr>
+          <tr><td><strong>Tailwind CSS</strong></td><td>Utility-first framework</td><td>Highly customizable, no predefined components</td></tr>
+          <tr><td><strong>Foundation</strong></td><td>Enterprise-grade framework by Zurb</td><td>Semantic, accessible, flexible grid</td></tr>
+          <tr><td><strong>Bulma</strong></td><td>Modern CSS framework (no JS)</td><td>Flexbox-based, clean design</td></tr>
+          <tr><td><strong>Materialize</strong></td><td>Based on Google's Material Design</td><td>Material UI components</td></tr>
+          <tr><td><strong>Semantic UI</strong></td><td>Human-friendly HTML class names</td><td>Natural language class naming</td></tr>
+          <tr><td><strong>UIKit</strong></td><td>Modular, lightweight framework</td><td>Components, animations, theming</td></tr>
+          <tr><td><strong>Pure.css</strong></td><td>Minimal CSS from Yahoo</td><td>Very lightweight (≈3.7KB)</td></tr>
+        </table>
+        <div class="note">📌 Bootstrap is the most widely used CSS framework. Tailwind CSS is growing rapidly in modern development.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q15</div>
+        <div class="qa-q">What is Z-index?</div>
+        <div class="qa-meta"><span class="marks-badge marks-3">3 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p>The <code>z-index</code> property controls the stacking order of positioned elements (those with position: relative/absolute/fixed/sticky) on the Z-axis (depth).</p>
+        <pre><code>High z-index (front)
+       ↑
+  +--------+   z-index: 3  (topmost - appears in front)
+  | Modal  |
+  +--------+   z-index: 2
+  | Overlay|
+  +--------+   z-index: 1
+  | Content|
+  +--------+   z-index: 0  (default)
+       ↓
+Low z-index (back)</code></pre>
+        <pre><code>.page-content { position: relative; z-index: 1; }
+.overlay { position: fixed; z-index: 2; background: rgba(0,0,0,0.5); }
+.modal   { position: fixed; z-index: 3; } /* Appears on top of overlay */
+.tooltip { position: absolute; z-index: 999; }</code></pre>
+        <div class="imp">⚠️ IMP: z-index only works on positioned elements (not static). Higher number = closer to viewer.</div>
+        <div class="note">📌 Negative z-index places element behind other elements and even behind the background.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q16</div>
+        <div class="qa-q">What does margin: 40px 100px 120px 80px signify?</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p><code>margin: 40px 100px 120px 80px</code> sets margins in clockwise order starting from the <strong>top</strong>:</p>
+        <pre><code>margin: TOP   RIGHT  BOTTOM LEFT
+margin: 40px  100px  120px  80px
+
+         +--------------------------------+
+  TOP    |          40px                  |
+  40px   |  +------------------------+   |
+         |  |                        |   |
+RIGHT    |  |    Element Content     |   |
+100px →  |  |                        |   | ← LEFT 80px
+         |  |                        |   |
+         |  +------------------------+   |
+BOTTOM   |         120px                 |
+120px    +--------------------------------+</code></pre>
+        <p><strong>Memory Trick: TRouBLe → Top Right Bottom Left (clockwise)</strong></p>
+        <table>
+          <tr><th>Shorthand</th><th>Values</th><th>Meaning</th></tr>
+          <tr><td>margin: 20px</td><td>1 value</td><td>All 4 sides = 20px</td></tr>
+          <tr><td>margin: 20px 40px</td><td>2 values</td><td>Top/Bottom=20px, Left/Right=40px</td></tr>
+          <tr><td>margin: 10px 20px 30px</td><td>3 values</td><td>Top=10, Left/Right=20, Bottom=30</td></tr>
+          <tr><td>margin: 40px 100px 120px 80px</td><td>4 values</td><td>Top=40, Right=100, Bottom=120, Left=80</td></tr>
+        </table>
+        <div class="tip">💡 Same shorthand logic applies to: padding, border-width, border-radius!</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q17</div>
+        <div class="qa-q">What is responsive web design?</div>
+        <div class="qa-meta"><span class="marks-badge marks-3">3 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p><strong>Responsive Web Design (RWD)</strong> is an approach to web design that makes websites render well on various devices and screen sizes — from mobile phones to desktop monitors.</p>
+        <p><strong>Key Techniques:</strong></p>
+        <table>
+          <tr><th>Technique</th><th>Description</th></tr>
+          <tr><td>Fluid Grids</td><td>Use percentage widths instead of fixed pixels</td></tr>
+          <tr><td>Flexible Images</td><td>max-width: 100% prevents image overflow</td></tr>
+          <tr><td>Media Queries</td><td>Apply different CSS based on screen size</td></tr>
+          <tr><td>Viewport Meta Tag</td><td>Controls scaling on mobile devices</td></tr>
+          <tr><td>Relative Units</td><td>Use em, rem, %, vw, vh instead of px</td></tr>
+        </table>
+        <pre><code>&lt;!-- Required viewport meta tag --&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+
+/* Fluid grid */
+.container { width: 90%; max-width: 1200px; margin: 0 auto; }
+
+/* Flexible images */
+img { max-width: 100%; height: auto; }
+
+/* Media query for mobile */
+@media (max-width: 768px) {
+  .columns { flex-direction: column; }
+}</code></pre>
+        <div class="note">📌 "Mobile First" approach: write base styles for mobile, then add media queries for larger screens (min-width).</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q18</div>
+        <div class="qa-q">What are the limitations of CSS?</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <table>
+          <tr><th>Limitation</th><th>Description</th></tr>
+          <tr><td>No Logic/Variables (basic)</td><td>Traditional CSS cannot perform calculations or conditional logic (fixed with CSS variables and calc())</td></tr>
+          <tr><td>Browser Compatibility</td><td>CSS3 features may not work in older browsers. Requires vendor prefixes (-webkit-, -moz-)</td></tr>
+          <tr><td>No Parent Selector (historically)</td><td>CSS couldn't traditionally select parent based on children (now :has() exists but limited support)</td></tr>
+          <tr><td>Cross-Browser Inconsistency</td><td>Same CSS renders differently in Chrome, Firefox, Safari, Edge</td></tr>
+          <tr><td>Security</td><td>CSS can be exploited for clickjacking and side-channel attacks</td></tr>
+          <tr><td>No Dynamic Behavior</td><td>CSS alone can't handle complex user interactions (needs JavaScript)</td></tr>
+          <tr><td>Global Scope</td><td>All CSS is global — styles can accidentally affect unintended elements</td></tr>
+          <tr><td>Complex Specificity</td><td>Specificity wars and cascading can be difficult to manage in large projects</td></tr>
+          <tr><td>Vertical Centering</td><td>Historically difficult (now easier with Flexbox/Grid)</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q19</div>
+        <div class="qa-q">How is padding and margin different from one another in CSS with example?</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <table>
+          <tr><th>Feature</th><th>Padding</th><th>Margin</th></tr>
+          <tr><td>Location</td><td>Inside the border (between content and border)</td><td>Outside the border (between border and next element)</td></tr>
+          <tr><td>Background</td><td>Inherits element's background color</td><td>Always transparent</td></tr>
+          <tr><td>Collapsing</td><td>Does not collapse</td><td>Vertical margins can collapse</td></tr>
+          <tr><td>Auto value</td><td>Cannot use auto</td><td>margin: auto centers element horizontally</td></tr>
+          <tr><td>Negative values</td><td>Cannot be negative</td><td>Can be negative (overlapping)</td></tr>
+          <tr><td>Affects click area</td><td>Yes, clickable area expands</td><td>No, outside click area</td></tr>
+        </table>
+        <pre><code>.box {
+  background: lightblue;
+  width: 200px;
+
+  padding: 20px;   /* Space INSIDE — background color shows */
+  margin: 30px;    /* Space OUTSIDE — transparent gap to next element */
+  border: 2px solid navy;
+}
+
+/* Centering with margin auto */
+.centered {
+  width: 600px;
+  margin: 0 auto;  /* Top/bottom=0, Left/Right=auto (centers horizontally) */
+}
+
+/* Negative margin (pull element) */
+.overlap {
+  margin-top: -20px; /* Pulls element 20px upward */
+}</code></pre>
+        <div class="tip">💡 Think: Padding = personal space inside your house walls. Margin = yard outside your house.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q20</div>
+        <div class="qa-q">How are block-level and inline elements different from one another in CSS?</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <table>
+          <tr><th>Feature</th><th>Block-Level</th><th>Inline</th></tr>
+          <tr><td>Width</td><td>Takes full available width</td><td>Takes only content width</td></tr>
+          <tr><td>New Line</td><td>Always starts on new line</td><td>Flows with surrounding text</td></tr>
+          <tr><td>Height/Width</td><td>Can set width and height</td><td>Cannot set width/height</td></tr>
+          <tr><td>Margin/Padding</td><td>All 4 sides work</td><td>Only left/right work (not top/bottom)</td></tr>
+          <tr><td>Nesting</td><td>Can contain block and inline</td><td>Should only contain inline</td></tr>
+          <tr><td>Examples</td><td>div, p, h1-h6, ul, li, section, header, footer, form, table</td><td>span, a, strong, em, img, input, button, label, abbr</td></tr>
+        </table>
+        <pre><code>&lt;!-- Block elements start on new lines --&gt;
+&lt;div&gt;Block 1&lt;/div&gt;
+&lt;div&gt;Block 2&lt;/div&gt;   ← appears below Block 1
+
+&lt;!-- Inline elements flow inline --&gt;
+&lt;span&gt;Hello&lt;/span&gt;
+&lt;span&gt;World&lt;/span&gt;   ← appears NEXT TO Hello
+
+/* Override with display */
+span { display: block; }       /* Make inline into block */
+div  { display: inline; }      /* Make block into inline */
+span { display: inline-block; }/* Inline but accepts width/height */</code></pre>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q21</div>
+        <div class="qa-q">Using HTML, CSS create a hover and focus effect for navigation items, using CSS transformations.</div>
+        <div class="qa-meta"><span class="marks-badge marks-8">8 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;style&gt;
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background: #1a1a2e;
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+  }
+
+  nav {
+    background: #16213e;
+    border-radius: 12px;
+    padding: 15px 30px;
+    display: flex;
+    gap: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+
+  nav a {
+    color: #a8b2d8;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    display: inline-block;
+    position: relative;
+    transition: all 0.3s ease;
+    outline: none;
+  }
+
+  /* Underline effect using ::after */
+  nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #64ffda;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+
+  /* HOVER EFFECTS */
+  nav a:hover {
+    color: #64ffda;
+    background: rgba(100, 255, 218, 0.08);
+    transform: translateY(-3px);      /* Move up */
+    box-shadow: 0 6px 15px rgba(100, 255, 218, 0.15);
+  }
+
+  nav a:hover::after {
+    width: 80%;                       /* Expand underline */
+  }
+
+  /* FOCUS EFFECTS (keyboard navigation) */
+  nav a:focus {
+    color: #f8f8f2;
+    background: rgba(248, 248, 242, 0.1);
+    outline: 2px solid #64ffda;
+    outline-offset: 2px;
+    transform: scale(1.05);          /* Scale up on focus */
+  }
+
+  /* Active/clicked state */
+  nav a:active {
+    transform: translateY(0) scale(0.97);
+    background: rgba(100, 255, 218, 0.15);
+  }
+
+  /* Active page indicator */
+  nav a.active {
+    color: #64ffda;
+    background: rgba(100, 255, 218, 0.1);
+    font-weight: 700;
+  }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;nav&gt;
+    &lt;a href="#" class="active"&gt;Home&lt;/a&gt;
+    &lt;a href="#"&gt;About&lt;/a&gt;
+    &lt;a href="#"&gt;Services&lt;/a&gt;
+    &lt;a href="#"&gt;Portfolio&lt;/a&gt;
+    &lt;a href="#"&gt;Contact&lt;/a&gt;
+  &lt;/nav&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        <table>
+          <tr><th>CSS Transform Used</th><th>Effect</th></tr>
+          <tr><td>translateY(-3px)</td><td>Lift up on hover</td></tr>
+          <tr><td>scale(1.05)</td><td>Grow on focus</td></tr>
+          <tr><td>scale(0.97)</td><td>Press-in on click</td></tr>
+          <tr><td>translateX(-50%)</td><td>Center underline</td></tr>
+        </table>
+        <div class="tip">💡 Always include :focus styles for keyboard accessibility — not just :hover for mouse users!</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q22</div>
+        <div class="qa-q">How would you select all paragraphs within a div with the class "container" using CSS selectors?</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <pre><code>/* Descendant Selector (most common) */
+/* Selects ALL &lt;p&gt; inside .container (any depth) */
+.container p {
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Child Selector */
+/* Selects DIRECT children &lt;p&gt; of .container only */
+.container > p {
+  font-weight: bold;
+}
+
+/* With element tag + class */
+div.container p {
+  margin-bottom: 15px;
+}
+
+/* Multiple contexts */
+.container p, .wrapper p {
+  font-size: 16px;
+}
+
+/* Specific paragraph with attribute */
+.container p[data-type="intro"] {
+  font-size: 18px;
+}
+
+/* First paragraph in container */
+.container p:first-child {
+  font-size: 20px;
+}
+
+/* Last paragraph */
+.container p:last-child {
+  margin-bottom: 0;
+}
+
+/* Nth paragraph */
+.container p:nth-child(2) {
+  color: blue;
+}</code></pre>
+        <div class="tip">💡 Descendant (space): any depth. Child (&gt;): direct children only. Adjacent (+): immediately following sibling.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q23</div>
+        <div class="qa-q">Compare and contrast Flexbox and Grid Layouts in CSS, highlighting their main differences and use cases.</div>
+        <div class="qa-meta"><span class="marks-badge marks-8">8 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <table>
+          <tr><th>Feature</th><th>Flexbox</th><th>CSS Grid</th></tr>
+          <tr><td>Dimensions</td><td>1D — row OR column</td><td>2D — rows AND columns</td></tr>
+          <tr><td>Axis</td><td>Main axis + Cross axis</td><td>Row axis + Column axis</td></tr>
+          <tr><td>Layout Direction</td><td>Either horizontal or vertical</td><td>Both simultaneously</td></tr>
+          <tr><td>Item Placement</td><td>Based on content flow</td><td>Precise cell placement</td></tr>
+          <tr><td>Gaps</td><td>gap property</td><td>gap, row-gap, column-gap</td></tr>
+          <tr><td>Best For</td><td>Navigation bars, component alignment, small-scale</td><td>Page layouts, dashboard grids, 2D structures</td></tr>
+          <tr><td>Browser Support</td><td>Excellent (IE10+ with prefixes)</td><td>Excellent (IE11 partial)</td></tr>
+        </table>
+        <pre><code>/* FLEXBOX — Horizontal navigation */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* GRID — Card grid layout */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}</code></pre>
+        <p><strong>When to Use Which:</strong></p>
+        <ul>
+          <li>🎯 <strong>Flexbox:</strong> Navbar, button groups, centering, form layouts, toolbars</li>
+          <li>🎯 <strong>Grid:</strong> Full page layout, photo galleries, dashboard, admin panels, Holy Grail layout</li>
+          <li>🎯 <strong>Both Together:</strong> Grid for overall page layout, Flexbox for component internals</li>
+        </ul>
+        <div class="note">📌 They complement each other! Use Grid for the macro layout and Flexbox for micro components inside grid cells.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q24</div>
+        <div class="qa-q">Provide an example of how you would create a simple two-column layout using Flexbox.</div>
+        <div class="qa-meta"><span class="marks-badge marks-8">8 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;style&gt;
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body { font-family: Arial, sans-serif; background: #f0f0f0; }
+
+  header {
+    background: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-size: 24px;
+  }
+
+  /* ★ FLEXBOX TWO-COLUMN LAYOUT ★ */
+  .layout {
+    display: flex;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+  }
+
+  /* Left column: fixed width */
+  .sidebar {
+    flex: 0 0 280px;       /* Don't grow, don't shrink, fixed 280px */
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+
+  /* Right column: takes remaining space */
+  .main-content {
+    flex: 1;               /* Grow to fill remaining space */
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+
+  .sidebar h3 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+  .sidebar ul { list-style: none; margin-top: 10px; }
+  .sidebar li { padding: 8px 0; border-bottom: 1px solid #eee; }
+  .sidebar a  { text-decoration: none; color: #3498db; }
+
+  .main-content h2 { color: #2c3e50; margin-bottom: 15px; }
+  .main-content p  { line-height: 1.6; color: #555; margin-bottom: 12px; }
+
+  footer {
+    background: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
+  }
+
+  /* Responsive: stack on mobile */
+  @media (max-width: 768px) {
+    .layout { flex-direction: column; }
+    .sidebar { flex: none; width: 100%; }
+  }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;My Website&lt;/header&gt;
+
+  &lt;div class="layout"&gt;
+    &lt;!-- Left Sidebar Column --&gt;
+    &lt;aside class="sidebar"&gt;
+      &lt;h3&gt;Navigation&lt;/h3&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;About Us&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Services&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Portfolio&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/aside&gt;
+
+    &lt;!-- Right Main Content Column --&gt;
+    &lt;main class="main-content"&gt;
+      &lt;h2&gt;Welcome to Our Website&lt;/h2&gt;
+      &lt;p&gt;This is a two-column layout created using CSS Flexbox.
+         The sidebar has a fixed width of 280px while the main 
+         content area takes up all remaining space.&lt;/p&gt;
+      &lt;p&gt;On mobile screens (below 768px), the layout switches 
+         to a single column using media queries.&lt;/p&gt;
+    &lt;/main&gt;
+  &lt;/div&gt;
+
+  &lt;footer&gt;Copyright 2025 My Website&lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        <div class="tip">💡 flex: 0 0 280px = (flex-grow: 0, flex-shrink: 0, flex-basis: 280px). Fixed-width sidebar!</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q25</div>
+        <div class="qa-q">Explain how CSS Grid Layout differs from traditional layout methods like floats and positioning.</div>
+        <div class="qa-meta"><span class="marks-badge marks-8">8 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <table>
+          <tr><th>Aspect</th><th>Float/Positioning</th><th>CSS Grid</th></tr>
+          <tr><td>Design Intent</td><td>Floats for text wrapping around images; Position for precise control</td><td>Purpose-built 2D layout system</td></tr>
+          <tr><td>Ease of Use</td><td>Complex, hacky, needs clearfix hacks</td><td>Intuitive, clean, declarative</td></tr>
+          <tr><td>2D Layout</td><td>Very difficult</td><td>Built-in, effortless</td></tr>
+          <tr><td>Alignment</td><td>Manual tricks needed</td><td>align-items, justify-items built-in</td></tr>
+          <tr><td>Responsive</td><td>Complicated with media queries</td><td>auto-fit/minmax() makes it simple</td></tr>
+          <tr><td>Source Order</td><td>Must match visual order</td><td>order and placement can differ from source</td></tr>
+          <tr><td>Equal Heights</td><td>Hack-prone (tables, JS)</td><td>Default behavior</td></tr>
+        </table>
+        <pre><code>/* ❌ OLD WAY: Float-based layout */
+.sidebar {
+  float: left;
+  width: 300px;
+}
+.content {
+  margin-left: 320px; /* Manually calculate */
+}
+.clearfix::after {   /* Clearfix hack to contain floats */
+  content: '';
+  display: table;
+  clear: both;
+}
+
+/* ❌ POSITIONING - Taken out of document flow */
+.element {
+  position: absolute;
+  top: 100px;
+  left: 300px;
+  /* Loses connection to document flow */
+}
+
+/* ✅ MODERN WAY: CSS Grid */
+.layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 20px;
+  /* No hacks, equal heights by default, responsive-ready */
+}
+
+/* ✅ Responsive Grid without media queries! */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  /* Automatically adjusts columns based on available space */
+}</code></pre>
+        <div class="imp">⚠️ IMP: Floats were never designed for page layout — they were for wrapping text around images. CSS Grid is the correct modern solution.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q26</div>
+        <div class="qa-q">Explain the display property in CSS and its various values.</div>
+        <div class="qa-meta"><span class="marks-badge marks-8">8 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p>The <code>display</code> property is one of the most important CSS properties, determining how an element is rendered in the document flow.</p>
+        <table>
+          <tr><th>Value</th><th>Description</th><th>Default Elements</th></tr>
+          <tr><td>block</td><td>Full width, starts on new line, can set width/height</td><td>div, p, h1-h6, section, article</td></tr>
+          <tr><td>inline</td><td>Content-width, no new line, ignores width/height</td><td>span, a, strong, em, img</td></tr>
+          <tr><td>inline-block</td><td>Flows inline but accepts width/height, margin/padding on all sides</td><td>button, input, select</td></tr>
+          <tr><td>none</td><td>Completely removes from layout — no space reserved</td><td>—</td></tr>
+          <tr><td>flex</td><td>Creates flex container; children become flex items</td><td>—</td></tr>
+          <tr><td>inline-flex</td><td>Flex container that flows inline</td><td>—</td></tr>
+          <tr><td>grid</td><td>Creates grid container; children become grid items</td><td>—</td></tr>
+          <tr><td>inline-grid</td><td>Grid container that flows inline</td><td>—</td></tr>
+          <tr><td>table</td><td>Behaves like HTML table element</td><td>table</td></tr>
+          <tr><td>table-cell</td><td>Behaves like a td element</td><td>td, th</td></tr>
+          <tr><td>list-item</td><td>Behaves like li element (shows bullet/number)</td><td>li</td></tr>
+          <tr><td>contents</td><td>Container disappears; children treated as if direct children of parent</td><td>—</td></tr>
+        </table>
+        <pre><code>/* Block */
+div { display: block; width: 300px; }
+
+/* Inline */
+span { display: inline; } /* width/height ignored */
+
+/* Inline-block — best of both worlds */
+.pill {
+  display: inline-block;
+  width: 100px;
+  height: 35px;
+  text-align: center;
+  line-height: 35px;
+}
+
+/* None — hide element completely */
+.hidden { display: none; }
+/* vs */
+.invisible { visibility: hidden; } /* Hides but keeps space */
+
+/* Flex container */
+.nav { display: flex; align-items: center; gap: 20px; }
+
+/* Grid container */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}</code></pre>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q27</div>
+        <div class="qa-q">Describe how you would create rounded corners for a box element using CSS.</div>
+        <div class="qa-meta"><span class="marks-badge marks-3">3 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p>The <code>border-radius</code> property is used to create rounded corners on any element.</p>
+        <pre><code>/* All 4 corners equal */
+.card { border-radius: 10px; }
+
+/* Individual corners */
+.card {
+  border-top-left-radius:     10px;
+  border-top-right-radius:    20px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius:  20px;
+}
+
+/* Shorthand: TL TR BR BL */
+.card { border-radius: 10px 20px 10px 20px; }
+
+/* Shorthand: TL+BR  TR+BL */
+.card { border-radius: 10px 20px; }
+
+/* Perfect circle */
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+/* Pill/capsule shape */
+.pill {
+  border-radius: 9999px; /* Large enough for any height */
+  padding: 8px 20px;
+}
+
+/* Stadium shape */
+.stadium {
+  width: 200px; height: 100px;
+  border-radius: 50px;
+}
+
+/* Elliptical corners (x-radius/y-radius) */
+.ellipse { border-radius: 50% / 20%; }</code></pre>
+        <div class="tip">💡 border-radius: 50% on equal width/height = circle. On a wide element = pill/oval shape.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q28</div>
+        <div class="qa-q">Discuss the use of border images in CSS and provide an example.</div>
+        <div class="qa-meta"><span class="marks-badge marks-4">4 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p>The <code>border-image</code> CSS property allows using an image as the border of an element instead of a solid color.</p>
+        <table>
+          <tr><th>Property</th><th>Description</th></tr>
+          <tr><td>border-image-source</td><td>URL of the border image</td></tr>
+          <tr><td>border-image-slice</td><td>How to slice the image into 9 regions</td></tr>
+          <tr><td>border-image-width</td><td>Width of the border image</td></tr>
+          <tr><td>border-image-outset</td><td>Amount border image extends beyond border box</td></tr>
+          <tr><td>border-image-repeat</td><td>How image fills the border (stretch, repeat, round)</td></tr>
+        </table>
+        <pre><code>/* Basic border-image with image file */
+.box {
+  border: 20px solid transparent;
+  border-image: url('border.png') 30 round;
+  /* border-image: source slice repeat */
+}
+
+/* Gradient border (modern technique) */
+.gradient-border {
+  border: 3px solid transparent;
+  border-image: linear-gradient(45deg, #f06, #4af) 1;
+  border-image-slice: 1;
+}
+
+/* Full shorthand */
+.card {
+  border-width: 15px;
+  border-image-source: url('frame.png');
+  border-image-slice: 30;      /* 30px from each edge */
+  border-image-repeat: round;  /* round | repeat | stretch */
+  border-image-outset: 5px;
+  border-image-width: 15px;
+}
+
+/* Shorthand */
+.card {
+  border-image: url('frame.png') 30 round;
+}</code></pre>
+        <div class="note">📌 Most modern "gradient border" effects use border-image: linear-gradient() 1 with border-image-slice: 1. This is a very popular UI trick!</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-header" onclick="toggle(this)">
+        <div class="qa-num">Q29</div>
+        <div class="qa-q">Discuss the role of CSS frameworks like Bootstrap in facilitating responsive web design.</div>
+        <div class="qa-meta"><span class="marks-badge marks-8">8 Marks</span></div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="qa-body">
+        <p><strong>Bootstrap</strong> is the world's most popular front-end CSS framework. It provides pre-built, responsive components and a powerful grid system.</p>
+        <p><strong>Role in Responsive Web Design:</strong></p>
+        <table>
+          <tr><th>Feature</th><th>Description</th></tr>
+          <tr><td>12-Column Grid</td><td>Responsive grid divides page into 12 columns, automatically adjusts for screen size</td></tr>
+          <tr><td>Breakpoints</td><td>xs(&lt;576px), sm(≥576px), md(≥768px), lg(≥992px), xl(≥1200px), xxl(≥1400px)</td></tr>
+          <tr><td>Pre-built Components</td><td>Navbar, cards, modals, carousels, alerts — all responsive</td></tr>
+          <tr><td>Utility Classes</td><td>d-flex, text-center, d-none d-md-block — responsive visibility control</td></tr>
+          <tr><td>Normalized Styles</td><td>Reboot.css ensures consistent rendering across browsers</td></tr>
+          <tr><td>Flexbox-based</td><td>Bootstrap 4+ uses Flexbox for its grid system</td></tr>
+        </table>
+        <pre><code>&lt;!-- Bootstrap CDN --&gt;
+&lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"&gt;
+
+&lt;!-- Responsive Grid Example --&gt;
+&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+    &lt;!-- 
+      Full width on mobile (col-12)
+      Half width on tablet (col-md-6)
+      4/12 width on desktop (col-lg-4)
+    --&gt;
+    &lt;div class="col-12 col-md-6 col-lg-4"&gt;Card 1&lt;/div&gt;
+    &lt;div class="col-12 col-md-6 col-lg-4"&gt;Card 2&lt;/div&gt;
+    &lt;div class="col-12 col-md-12 col-lg-4"&gt;Card 3&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Responsive Navbar --&gt;
+&lt;nav class="navbar navbar-expand-lg navbar-dark bg-dark"&gt;
+  &lt;div class="container"&gt;
+    &lt;a class="navbar-brand" href="#"&gt;Brand&lt;/a&gt;
+    &lt;!-- Hamburger for mobile --&gt;
+    &lt;button class="navbar-toggler" type="button" 
+            data-bs-toggle="collapse" data-bs-target="#navMenu"&gt;
+      &lt;span class="navbar-toggler-icon"&gt;&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div class="collapse navbar-collapse" id="navMenu"&gt;
+      &lt;ul class="navbar-nav ms-auto"&gt;
+        &lt;li class="nav-item"&gt;&lt;a class="nav-link" href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;
+        &lt;li class="nav-item"&gt;&lt;a class="nav-link" href="#"&gt;About&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;</code></pre>
+        <div class="tip">💡 Bootstrap saves weeks of development time by providing production-ready, accessible, responsive components out of the box.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
